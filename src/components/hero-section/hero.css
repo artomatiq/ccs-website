@@ -1,0 +1,10 @@
+.hero-container {
+    text-align: center;
+    height: 80vh;
+
+
+    background: 
+        linear-gradient(to bottom, rgba(255, 255, 255, 0), rgb(0, 0, 0)),
+        url('../../assets/skyline-downtown-charlotte-north-carolina.jpg') center center/cover;
+    background-position: top;
+}

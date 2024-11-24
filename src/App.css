@@ -10,3 +10,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.app-container {
+  /* height: 100vh; */
+  display: flex;
+  flex-direction: column;
+}
+
+.section {
+  /* border: 1px solid gray; */
+}
