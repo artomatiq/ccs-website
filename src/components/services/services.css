@@ -3,4 +3,13 @@
 
     border: none;
     background-color: black;
+
+    text-align: center;
+
+    .title {
+        color: white;
+        font-size: 3rem;
+        align-self: center;
+    }
 }
+

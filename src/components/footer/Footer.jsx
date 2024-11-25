@@ -7,7 +7,7 @@ const Footer = () => {
                 <div className="logo">
                     <div className="one">Carolinas</div>
                     <div className="two">
-                        <i class="fa-solid fa-truck-fast"></i><div>Courier</div>
+                        <i className="fa-solid fa-truck-fast"></i><div>Courier</div>
                     </div>
                     <div className="three">Services</div>
                 </div>

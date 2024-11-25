@@ -14,7 +14,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: top;
+    align-items: center;
 
     z-index: 2;
 }
@@ -25,24 +25,26 @@
 
 .nav-button {
     font-size: 1.2rem;
-    padding: 1rem;
-    margin-right: 1vw;
-    margin-left: 1vw;
+    margin-right: 1.5vw;
+    margin-left: 1.5vw;
     align-content: center;
-    /* position: relative; */
+    height: fit-content;
+
+    transition: all 0.3s ease;
+
+    &:hover {
+        cursor: pointer;
+        color: black;
+    }
 }
 
 .quote-button {
     margin-left: auto;
-    margin-right: 0;
     /* color: #337cb9; */
     color: white;
     /* background: linear-gradient(to left, black 70%, transparent 100%); */
     /* border-radius: 10% 0 0 10%; */
 
-    align-content: center;
-    text-align: right;
-
-    width: 9rem;
-    height: 2rem;
+    /* width: 9rem; */
+    /* height: 2rem; */
 }
