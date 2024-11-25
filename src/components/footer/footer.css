@@ -1,4 +1,91 @@
 .footer-container {
-    height: 20vh;
+    height: 30vh;
     background-color: var(--primary-color);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+
+    .top {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+
+        >div {
+            width: 30%;
+        }
+
+        .logo {
+            font-size: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-self: center;
+            margin-left: 1.5rem;
+
+            .two {
+                display: flex;
+
+                div {
+                    margin-left: 0.5rem;
+                }
+            }
+
+            >div {
+                width: fit-content;
+                transition: all 0.6s ease;
+
+                &:hover {
+                    color: white;
+                    cursor: default;
+                }
+            }
+        }
+
+        .get-quote {
+            text-align: center;
+            align-self: center;
+
+            border: 2px solid black;
+            border-radius: 10px;
+            padding: 0.5rem;
+
+            transition: all 0.3s ease;
+
+            &:hover {
+                cursor: pointer;
+                background-color: #9ac0ee;
+                color: white;
+                border-color: white;
+                transform: scale(1.2);
+            }
+        }
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-right: 1.5rem;
+            
+            >div {
+                padding: 0.2rem;
+                width: fit-content;
+
+                transition: all 0.6s ease;
+                transition-delay: 0s;
+
+                &:hover {
+                    color: white;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .bottom {
+        text-align: center;
+    }
 }
+
+
+

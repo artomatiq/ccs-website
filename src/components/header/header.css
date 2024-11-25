@@ -8,12 +8,15 @@
 
     /* background-color: #337cb9; */
     /* background: linear-gradient(to bottom, #337cb9 65%, rgba(255, 255, 255, 0) 100%); */
+    backdrop-filter: blur(10px);
     height: 4rem;
 
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: top;
+
+    z-index: 2;
 }
 
 .contact {
@@ -25,15 +28,16 @@
     padding: 1rem;
     margin-right: 1vw;
     margin-left: 1vw;
+    align-content: center;
     /* position: relative; */
 }
 
 .quote-button {
     margin-left: auto;
     margin-right: 0;
-    color: #337cb9;
-    background-color: white;
-    background: linear-gradient(to left, white 60%, transparent 100%);
+    /* color: #337cb9; */
+    color: white;
+    /* background: linear-gradient(to left, black 70%, transparent 100%); */
     /* border-radius: 10% 0 0 10%; */
 
     align-content: center;

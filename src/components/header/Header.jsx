@@ -19,7 +19,7 @@ const Header = () => {
                 Contact
             </span>
             <span className='quote-button nav-button'>
-                Get Quote
+                Get Free Quote
             </span>
         </div>
     );
