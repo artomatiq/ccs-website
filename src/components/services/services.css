@@ -1,9 +1,13 @@
 .services-container {
-    height: 75vh;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     border: none;
     background-color: black;
 
+    color: white;
     text-align: center;
 
     .title {
@@ -11,5 +15,26 @@
         font-size: 3rem;
         align-self: center;
     }
-}
 
+    .contents {
+        display: grid;
+        height: 70%;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+
+        .service {
+
+            transition: all 0.3s ease;
+            transition-delay: 0.075s;
+
+            &:hover {
+                transform: translateY(-15px);
+            }
+        }
+
+        .logo {
+            font-size: 3rem;
+        }
+
+    }
+}
