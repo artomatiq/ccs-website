@@ -7,7 +7,7 @@
     height: 100vh;
     color: white;
     font-size: 6vw;
-    background: 
+    background:
         linear-gradient(to bottom, rgba(255, 255, 255, 0), rgb(0, 0, 0)),
         url('../../assets/skyline-downtown-charlotte-north-carolina.jpg') center center/cover;
     background-position: top;
@@ -24,11 +24,11 @@
     width: 100%;
     height: 100%;
 
-    background: 
+    background:
         linear-gradient(to bottom, rgba(255, 255, 255, 0), rgb(0, 0, 0)),
         url('../../assets/skyline-downtown-charlotte-north-carolina.jpg') center center/cover;
     filter: blur(2.75px);
-    z-index: -1; 
+    z-index: -1;
 }
 
 .company-name {
@@ -37,6 +37,7 @@
         flex-direction: row;
         align-items: center;
     }
+
     .fa-truck-fast {
         margin-right: 1rem;
     }
@@ -45,4 +46,13 @@
 .hero-slogan {
     font-size: 5vw;
     font-style: italic;
+
+    
+    padding: 10px;
+    border-radius: 15px;
+
+    &:hover {
+        border: 1px solid white;
+        padding: 9px;
+    }
 }
