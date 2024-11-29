@@ -1,3 +1,15 @@
 .contact-container {
     height: 50vh;
+    color: white;
+    background-color: black;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    .title {
+        color: white;
+        font-size: 3rem;
+        align-self: center;
+    }
 }
