@@ -62,7 +62,7 @@ const Contact = () => {
     return (
         <div className="contact-container section" id="contact">
             <div className="title">
-                Contact Us
+                Contact Us (test 1)
             </div>
 
             <form className="contact__form">
