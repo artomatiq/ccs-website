@@ -12,8 +12,8 @@
 
     background-image: url('../../assets/contactUs.png');
     background-repeat: no-repeat;
-    background-position: top 70px right;
-    background-size: contain;
+    background-position: top 45px right;
+    background-size: cover;
     filter: hue-rotate(155deg);
 }
 
@@ -26,7 +26,7 @@
     height: 100%;
 
     background:
-        url('../../assets/contactUs.png') no-repeat top 70px right/contain;
+        url('../../assets/contactUs.png') no-repeat top 35px right/cover;
     filter: blur(2.5px);
     z-index: -1;
 }
@@ -88,12 +88,14 @@
     color: #494949;
     letter-spacing: 2px;
 
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
 .contact__form input:focus {
     outline: none;
-    background-color: #d6dddd;
+    /* background-color: inherit;
+    filter: hue-rotate(-155deg); */
+
 }
 
 .form-div.message {
@@ -112,7 +114,7 @@
 
 .contact__form textarea:focus {
     outline: none;
-    background-color: #d6dddd;
+    /* background-color: var(--primary-color); */
 }
 
 .contact__form button {
