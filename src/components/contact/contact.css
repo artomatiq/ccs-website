@@ -8,7 +8,7 @@
     justify-content: space-evenly;
 }
 
-.contact-container.title {
+.contact-container .title {
     color: white;
     font-size: 3rem;
     align-self: center;
