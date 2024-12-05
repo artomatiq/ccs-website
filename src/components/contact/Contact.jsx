@@ -60,9 +60,9 @@ const Contact = () => {
     }
 
     return (
-        <div className="contact-container section" id="contact">
+        <div className="contact-container section">
             <div className="title">
-                Contact Us (test 2)
+                Contact Us (test 3)
             </div>
 
             <form className="contact__form">
