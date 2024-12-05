@@ -5,7 +5,30 @@
 
     display: flex;
     flex-direction: column;
-    justify-content:space-evenly;
+    justify-content: space-evenly;
+
+    position: relative;
+    z-index: 1;
+
+    background-image: url('../../assets/contactUs.png');
+    background-repeat: no-repeat;
+    background-position: top 70px right;
+    background-size: contain;
+    filter: hue-rotate(155deg);
+}
+
+.contact-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background:
+        url('../../assets/contactUs.png') no-repeat top 70px right/contain;
+    filter: blur(2.5px);
+    z-index: -1;
 }
 
 .contact-container .title {
@@ -73,7 +96,7 @@
     background-color: #d6dddd;
 }
 
-.form-div.message{
+.form-div.message {
     height: 100%;
 }
 
