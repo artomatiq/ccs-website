@@ -67,68 +67,74 @@ const Contact = () => {
 
             <form className="contact__form">
 
-                <div className="form-div name">
-                    <label htmlFor="contact-name" className="name-label">Name</label>
-                    <input
-                        type="text"
-                        name="name"
-                        className="name-input"
-                        id="contact-name"
-                        value={formData.name}
-                        onChange={handleChange}
-                    />
+                <div className="form-section-top">
+                    <div className="form-section-left">
+                        <div className="form-div name">
+                            <label htmlFor="contact-name" className="name-label">Name</label>
+                            <input
+                                type="text"
+                                name="name"
+                                className="name-input"
+                                id="contact-name"
+                                value={formData.name}
+                                onChange={handleChange}
+                            />
+                        </div>
+
+                        <div className="form-div company">
+                            <label htmlFor="contact-company" className="company-label">Company</label>
+                            <input
+                                type="text"
+                                name="company"
+                                className="company-input"
+                                id="contact-company"
+                                value={formData.company}
+                                onChange={handleChange}
+                            />
+                        </div>
+
+                        <div className="form-div email">
+                            <label htmlFor="contact-email" className="email-label">Email</label>
+                            <input
+                                type="email"
+                                name="email"
+                                className="contact__form-input"
+                                id="contact-email"
+                                value={formData.email}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="form-section-right">
+                        <div className="form-div message">
+                            <label htmlFor="contact-message" className="message-label">Message</label>
+                            <textarea
+                                type="text"
+                                name="message"
+                                cols="30"
+                                rows="10"
+                                className="message-input"
+                                id="contact-message"
+                                value={formData.message}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </div>
                 </div>
 
-                <div className="form-div company">
-                    <label htmlFor="contact-name" className="company-label">Company</label>
-                    <input
-                        type="text"
-                        name="company"
-                        className="company-input"
-                        id="contact-company"
-                        value={formData.name}
-                        onChange={handleChange}
-                    />
+                <div className="form-section-bottom">
+                    <div className="form-div submit">
+                        <button
+                            type="submit"
+                            value="Send"
+                            onClick={handleSubmit}
+                            className="button"
+                        >
+                            Send
+                        </button>
+                    </div>
                 </div>
-
-                <div className="form-div email">
-                    <label htmlFor="contact-email" className="email-label">Email</label>
-                    <input
-                        type="email"
-                        name="email"
-                        className="contact__form-input"
-                        id="contact-email"
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-                </div>
-
-
-                <div className="form-div message">
-                    <label htmlFor="contact-message" className="message-label">Message</label>
-                    <textarea
-                        type="text"
-                        name="message"
-                        cols="30"
-                        rows="10"
-                        className="message-input"
-                        id="contact-message"
-                        value={formData.message}
-                        onChange={handleChange}
-                    />
-                </div>
-
-                <div className="form-div submit">
-                    <button
-                        type="submit"
-                        value="Send"
-                        onClick={handleSubmit}
-                        className="button"
-                    >
-                        Send Message
-                    </button>
-                </div>
-
             </form>
         </div>
     );
