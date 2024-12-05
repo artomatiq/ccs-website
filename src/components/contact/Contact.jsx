@@ -20,8 +20,8 @@ const Contact = () => {
         e.preventDefault();
 
         emailjs
-            .send('TODO', 'TODO', formData, {
-                publicKey: 'TODO',
+            .send('service_crxagxx', 'template_qp97umb', formData, {
+                publicKey: '1LrsqCWwK1-KwUSbt',
             })
             .then(
                 () => {
