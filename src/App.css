@@ -37,6 +37,8 @@ body {
 .section .title .hide {
   position: relative;
 
+  transition: all 0.7s ease;
+
   transform: translateY(100%);
 }
 

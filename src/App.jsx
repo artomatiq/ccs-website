@@ -1,4 +1,5 @@
 import './App.css';
+import { useEffect } from 'react';
 import Header from './components/header/Header';
 import Hero from './components/hero-section/Hero';
 import Services from './components/services/Services';
@@ -9,22 +10,27 @@ import Footer from './components/footer/Footer';
 
 function App() {
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      console.log('printing entries', entries);
-      const title = entry.target;
-      if (entry.isIntersecting) {
-        title.classList.add("show")
-      } else {
-        title.classList.remove("show")
-      }
-    })
-  }, {threshold: 0.4})
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const title = entry.target.querySelector('.title span');
+        if (!title ) console.log('here is the null title', entry);
+        if (entry.isIntersecting) {
+          title.classList.add("show")
+        } else {
+          title.classList.remove("show")
+        }
+      })
+    }, { threshold: 0.4 })
 
-  document.querySelectorAll(".section").forEach((title) => {
-    console.log('printing title:', title);
-    observer.observe(title)
-  })
+    const sections = [...document.querySelectorAll(".section")];
+    sections.pop() //remove the footer
+    sections.forEach((section) => observer.observe(section));
+
+    return () => {
+      sections.forEach((section) => observer.unobserve(section));
+    };
+  }, []);
 
   return (
     <div className='app-container'>
