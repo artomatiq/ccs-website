@@ -4,12 +4,15 @@ const Services = () => {
     return (
         <div className="services-container section">
             <div className="title">
-                Services
+                <span className="hide">
+                    Services
+                </span>
             </div>
+
             <div className="contents">
                 <div className="service one">
                     <div className="logo">
-                        <i class='bx bx-sun'></i>
+                        <i className='bx bx-sun'></i>
                     </div>
                     <div className="subtitle">
                         Same-day
@@ -17,7 +20,7 @@ const Services = () => {
                 </div>
                 <div className="service four">
                     <div className="logo">
-                        <i class='bx bxs-fast-forward-circle' ></i>
+                        <i className='bx bxs-fast-forward-circle' ></i>
                     </div>
                     <div className="subtitle">
                         Next-day
@@ -25,7 +28,7 @@ const Services = () => {
                 </div>
                 <div className="service five">
                     <div className="logo">
-                        <i class='bx bxs-moon'></i>
+                        <i className='bx bxs-moon'></i>
                     </div>
                     <div className="subtitle">
                         Overnight
@@ -33,7 +36,7 @@ const Services = () => {
                 </div>
                 <div className="service two">
                     <div className="logo">
-                        <i class='bx bxs-calendar' ></i>
+                        <i className='bx bxs-calendar' ></i>
                     </div>
                     <div className="subtitle">
                         Scheduled Service
@@ -41,7 +44,7 @@ const Services = () => {
                 </div>
                 <div className="service three">
                     <div className="logo">
-                        <i class='bx bxs-calendar-check' ></i>
+                        <i className='bx bxs-calendar-check' ></i>
                     </div>
                     <div className="subtitle">
                         Dedicated Service
@@ -49,7 +52,7 @@ const Services = () => {
                 </div>
                 <div className="service eight">
                     <div className="logo">
-                        <i class="fa-solid fa-truck"></i>
+                        <i className="fa-solid fa-truck"></i>
                     </div>
                     <div className="subtitle">
                         Freight
@@ -57,7 +60,7 @@ const Services = () => {
                 </div>
                 <div className="service six">
                     <div className="logo">
-                        <i class="fa-solid fa-couch"></i>
+                        <i className="fa-solid fa-couch"></i>
                     </div>
                     <div className="subtitle">
                         Furniture & Large Item
@@ -65,7 +68,7 @@ const Services = () => {
                 </div>
                 <div className="service nine">
                     <div className="logo">
-                        <i class='bx bxs-factory' ></i>
+                        <i className='bx bxs-factory' ></i>
                     </div>
                     <div className="subtitle">
                         B2B
@@ -73,7 +76,7 @@ const Services = () => {
                 </div>
                 <div className="service seven">
                     <div className="logo">
-                        <i class="fa-solid fa-puzzle-piece"></i>
+                        <i className="fa-solid fa-puzzle-piece"></i>
                     </div>
                     <div className="subtitle">
                         Custom Solutions

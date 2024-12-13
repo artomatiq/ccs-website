@@ -34,8 +34,7 @@
 
     &:hover {
         cursor: pointer;
-        
-        color: black;
+        color: rgb(242, 136, 55);
     }
 }
 

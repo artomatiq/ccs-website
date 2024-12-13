@@ -1,3 +1,36 @@
 .gallery-container {
     height: 75vh;
+    background-color: black;
+    color: white;
+
+    .title {
+        color: white;
+        font-size: 3rem;
+        align-self: center;
+        text-align: center;
+    }
+}
+
+.gallery-container .contents{
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.gallery-container .top {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    flex-direction: row;
+    justify-content: left;
+    margin: 3rem;
+    gap: 5rem;
+}
+
+.gallery-container .bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin: 3rem;
+    gap: 5rem;
 }

@@ -1,3 +1,11 @@
 .about-container {
-    height: 50vh;
+    height: 75vh;
+    background-color: black;
+
+    .title {
+        color: white;
+        font-size: 3rem;
+        align-self: center;
+        text-align: center;
+    }
 }
