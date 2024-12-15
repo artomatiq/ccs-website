@@ -131,6 +131,10 @@
     transform: scale(1.2);
 }
 
+.contact__form button:disabled {
+    color: white;
+}
+
 .swal-confirm-button {
     background-color: var(--primary-color);
 }

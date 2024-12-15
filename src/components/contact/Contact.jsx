@@ -11,13 +11,20 @@ const Contact = () => {
         message: ''
     }
     const [formData, setFormData] = useState(initialState)
+    const [valid, setValid] = useState(false)
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
+        const { name, value } = e.target;
+        const updatedFormData = { ...formData, [name]: value };
+        const isValid = updatedFormData.name && updatedFormData.company && updatedFormData.message;
+        setValid(isValid);
+        setFormData(updatedFormData);
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!formData.name || !formData.company || !formData.message) return
 
         emailjs
             .send('service_crxagxx', 'template_qp97umb', formData, {
@@ -132,6 +139,7 @@ const Contact = () => {
                             value="Send"
                             onClick={handleSubmit}
                             className="button"
+                            disabled={!valid}
                         >
                             Send
                         </button>
