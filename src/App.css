@@ -11,39 +11,26 @@ body {
 }
 
 .app-container {
-  /* height: 100vh; */
   display: flex;
   flex-direction: column;
 }
-
-/* .section .title-container {
-
-  display: flex;
-  flex-direction: column;
-  border: 1px solid orange;
-
-} */
 
 .section .title {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid gray;
-
   overflow: hidden;
 }
 
 .section .title .hide {
   position: relative;
-
   transition: all 0.7s ease;
-
   transform: translateY(100%);
 }
 
 .section .title .show {
   transition: all 0.7s ease;
-
+  transition-delay: 0.3s;
   transform: translateY(0%);
 }

@@ -14,19 +14,15 @@ function App() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         const title = entry.target.querySelector('.title span');
-        if (!title ) console.log('here is the null title', entry);
         if (entry.isIntersecting) {
           title.classList.add("show")
         } else {
           title.classList.remove("show")
         }
       })
-    }, { threshold: 0.4 })
-
-    const sections = [...document.querySelectorAll(".section")];
-    sections.pop() //remove the footer
+    }, { threshold: 0.3 })
+    const sections = [...document.querySelectorAll(".section .title")];
     sections.forEach((section) => observer.observe(section));
-
     return () => {
       sections.forEach((section) => observer.unobserve(section));
     };
