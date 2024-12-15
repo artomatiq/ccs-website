@@ -133,6 +133,11 @@
 
 .contact__form button:disabled {
     color: white;
+    transform: none;
+}
+
+.contact__form button:disabled:hover {
+    background-color: var(--secondary-color);
 }
 
 .swal-confirm-button {
