@@ -39,4 +39,8 @@
     .about-container {
         height: 175vh;
     }
+
+    .about-text {
+        font-size: 0.85rem;
+    }
 }
