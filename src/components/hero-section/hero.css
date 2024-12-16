@@ -85,3 +85,46 @@
 .hero-slogan.show {
     transform: translateX(0);
 }
+
+@media screen and (max-width: 550px){
+    .hero-container.show {    
+        flex-direction: column;
+        justify-content: space-evenly;
+    
+        height: 100vh;
+        font-size: 6vw;
+    }
+
+    .company-name {
+
+        font-size: clamp(30px, 50px, 60px);
+        
+        .two {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+    
+        .fa-truck-fast {
+            margin-right: 1rem;
+        }
+    }
+    
+    .hero-slogan {
+        font-size: clamp(20px, 35px, 45px);    
+        
+        border-radius: 15px;
+        
+        transition: transform 2s ease-out 1s;
+    
+        &:hover {
+            border: none;
+            padding: none;
+        }
+
+        &:active {
+            border: 1px solid white;
+            padding: 9px;
+        }
+    }
+}
