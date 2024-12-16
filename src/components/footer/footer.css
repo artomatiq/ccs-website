@@ -86,5 +86,30 @@
     }
 }
 
-
-
+@media screen and (max-width: 550px){
+    .footer-container {
+        height: 220px;
+        justify-content: space-evenly;
+        .top {
+            >div {
+                width: 20%;
+            }
+            .logo {
+                font-size: 1.25rem;
+                margin-left: 0;
+                gap: 2px;
+                .two {    
+                    div {
+                        margin-left: 0.25rem;
+                    }
+                }
+            }
+            .links {
+                margin-right: 0;
+            }
+        }
+        .bottom {
+            text-align: center;
+        }
+    }
+}
