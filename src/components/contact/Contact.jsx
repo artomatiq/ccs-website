@@ -29,6 +29,13 @@ const Contact = () => {
                 title: 'Invalid Name',
                 text: 'Please provide a name with at least 2 characters.',
                 icon: 'warning',
+                customClass: {
+                    container: 'swal-container',
+                    popup: 'swal-popup',
+                    title: 'swal-title',
+                    content: 'swal-content',
+                    confirmButton: 'swal-confirm-button'
+                }
             });
             return;
         }
@@ -38,6 +45,13 @@ const Contact = () => {
                 title: 'Message Too Short',
                 text: 'Please provide a message with at least 20 characters.',
                 icon: 'warning',
+                customClass: {
+                    container: 'swal-container',
+                    popup: 'swal-popup',
+                    title: 'swal-title',
+                    content: 'swal-content',
+                    confirmButton: 'swal-confirm-button'
+                }
             });
             return;
         }
@@ -48,6 +62,13 @@ const Contact = () => {
                 title: 'Invalid Email',
                 text: 'Please provide a valid email address.',
                 icon: 'warning',
+                customClass: {
+                    container: 'swal-container',
+                    popup: 'swal-popup',
+                    title: 'swal-title',
+                    content: 'swal-content',
+                    confirmButton: 'swal-confirm-button'
+                }
             });
             return;
         }
@@ -90,6 +111,7 @@ const Contact = () => {
             );
 
         setFormData(initialState)
+        setValid(false)
     }
 
     return (
