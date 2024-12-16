@@ -21,7 +21,15 @@ function App() {
       document.querySelector('.header-container').classList.add('show')
     }, 4000);
 
-    return () => clearTimeout(timeout)
+    const titleTimeout = setTimeout(() => {
+      document.querySelector('.company-name').classList.add('show')
+      document.querySelector('.hero-slogan').classList.add('show')
+    }, 5500);
+
+    return () => {
+      clearTimeout(timeout)
+      clearTimeout(titleTimeout)
+    }
   }, []);
 
 

@@ -42,6 +42,13 @@
 }
 
 .company-name {
+
+    font-size: clamp(1vw, 5vw, 60px);
+
+    transform: translateX(-200%);
+
+    transition: all 1.5s ease-out;
+
     .two {
         display: flex;
         flex-direction: row;
@@ -53,16 +60,28 @@
     }
 }
 
+.company-name.show {
+    transform: translateX(0);
+}
+
 .hero-slogan {
-    font-size: 5vw;
+    font-size: clamp(1vw, 5vw, 60px);
     font-style: italic;
 
     
     padding: 10px;
     border-radius: 15px;
 
+    transform: translateX(200%);
+
+    transition: transform 2s ease-out 1s;
+
     &:hover {
         border: 1px solid white;
         padding: 9px;
     }
+}
+
+.hero-slogan.show {
+    transform: translateX(0);
 }
