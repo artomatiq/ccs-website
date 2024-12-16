@@ -16,7 +16,7 @@ const Contact = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         const updatedFormData = { ...formData, [name]: value };
-        const isValid = updatedFormData.name && updatedFormData.company && updatedFormData.message;
+        const isValid = updatedFormData.name && updatedFormData.email && updatedFormData.message;
         setValid(isValid);
         setFormData(updatedFormData);
     }
@@ -24,7 +24,33 @@ const Contact = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!formData.name || !formData.company || !formData.message) return
+        if (!formData.name || formData.name.length < 2) {
+            Swal.fire({
+                title: 'Invalid Name',
+                text: 'Please provide a name with at least 2 characters.',
+                icon: 'warning',
+            });
+            return;
+        }
+
+        if (!formData.message || formData.message.length < 20) {
+            Swal.fire({
+                title: 'Message Too Short',
+                text: 'Please provide a message with at least 20 characters.',
+                icon: 'warning',
+            });
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!formData.email || !emailRegex.test(formData.email)) {
+            Swal.fire({
+                title: 'Invalid Email',
+                text: 'Please provide a valid email address.',
+                icon: 'warning',
+            });
+            return;
+        }
 
         emailjs
             .send('service_crxagxx', 'template_qp97umb', formData, {

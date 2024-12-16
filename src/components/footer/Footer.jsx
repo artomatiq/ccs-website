@@ -20,11 +20,31 @@ const Footer = () => {
                     Get Free Quote
                 </div>
                 <div className="links">
-                    <div className="home">Home</div>
-                    <div className="services">Services</div>
-                    <div className="gallery">Gallery</div>
-                    <div className="about">About Us</div>
-                    <div className="contact">Contact</div>
+                    <div className="home">
+                        <a href='#home-id'>
+                            Home
+                        </a>
+                    </div>
+                    <div className="services">
+                        <a href='#services-id'>
+                            Services
+                        </a>
+                    </div>
+                    {/* <div className="gallery">
+                        <a href='#gallery-id'>
+                            Gallery
+                        </a>
+                    </div> */}
+                    <div className="about">
+                        <a href='#about-id'>
+                            About Us
+                        </a>
+                    </div>
+                    <div className="contact">
+                        <a href='#contact-id'>
+                            Contact
+                        </a>
+                    </div>
                 </div>
             </div>
             <div className="bottom">

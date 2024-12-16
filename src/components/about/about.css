@@ -18,9 +18,19 @@
     font-size: 1rem;
     color: white;
     text-align: center;
-    line-height: 1.75rem;
+    line-height: 2rem;
 
     width: 85%;
 
     align-self: center;
+}
+
+.about-text em {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    transition: all 1s ease;
+}
+
+.about-text em:hover {
+    filter: hue-rotate(90deg);
 }

@@ -16,15 +16,15 @@ const Header = () => {
                 </a>
             </span>
 
-            <span className="gallery nav-button">
+            {/* <span className="gallery nav-button">
                 <a href='#gallery-id'>
                     Gallery
                 </a>
-            </span>
+            </span> */}
 
             <span className="about nav-button">
                 <a href='#about-id'>
-                    About
+                    About Us
                 </a>
             </span>
 

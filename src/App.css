@@ -32,7 +32,7 @@ body {
 }
 
 .section .title .show {
-  transition: all 0.7s ease;
+  transition: all 0.85s ease;
   transition-delay: 0.3s;
   transform: translateY(0%);
 }

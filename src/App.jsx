@@ -33,7 +33,7 @@ function App() {
       <Header />
       <Hero />
       <Services />
-      <Gallery />
+      {/* <Gallery /> */}
       <About />
       <Contact />
       <Footer />
