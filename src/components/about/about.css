@@ -34,3 +34,9 @@
 .about-text em:hover {
     filter: hue-rotate(90deg);
 }
+
+@media screen and (max-width: 550px){
+    .about-container {
+        height: 175vh;
+    }
+}

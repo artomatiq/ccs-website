@@ -98,6 +98,7 @@
     .company-name {
 
         font-size: clamp(30px, 50px, 60px);
+        text-align: center;
         
         .two {
             display: flex;
@@ -111,11 +112,7 @@
     }
     
     .hero-slogan {
-        font-size: clamp(20px, 35px, 45px);    
-        
-        border-radius: 15px;
-        
-        transition: transform 2s ease-out 1s;
+        font-size: clamp(20px, 35px, 45px);            
     
         &:hover {
             border: none;
