@@ -26,7 +26,7 @@
     color: var(--primary-color);
     position: relative;
 
-    transition: all 4s ease;
+    transition: all 3s ease;
     filter: blur(5px);
 }
 

@@ -19,7 +19,7 @@ function App() {
       document.querySelector('.preloader-container').classList.add('hide')
       document.querySelector('.hero-container').classList.add('show')
       document.querySelector('.header-container').classList.add('show')
-    }, 5000);
+    }, 4000);
 
     return () => clearTimeout(timeout)
   }, []);
