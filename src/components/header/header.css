@@ -1,4 +1,14 @@
 .header-container {
+    opacity: 0;
+    filter: blur(10px);
+
+    transition: all 1.75s ease;
+}
+
+.header-container.show {
+    opacity: 1;
+    filter: none;
+
     text-align: center;
     color: white;
 

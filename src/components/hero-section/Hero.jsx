@@ -2,7 +2,7 @@ import './hero.css'
 
 const Hero = () => {
     return (
-        <div className="hero-container" id='home-id'>
+        <div className="hero-container hide" id='home-id'>
             <div className="company-name">
                 <div className="one">Carolinas</div>
                 <div className="two">
