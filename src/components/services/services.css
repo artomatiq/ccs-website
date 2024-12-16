@@ -1,8 +1,8 @@
 .services-container {
-    height: 90vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
 
     border: none;
     background-color: black;
@@ -14,11 +14,13 @@
         color: white;
         font-size: 3rem;
         align-self: center;
+
+        margin: 5rem;
     }
 
     .contents {
         display: grid;
-        height: 70%;
+        height: 60%;
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(3, 1fr);
 

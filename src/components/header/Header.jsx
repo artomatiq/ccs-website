@@ -3,24 +3,43 @@ import './header.css'
 const Header = () => {
     return (
         <div className="header-container">
+
             <span className="home nav-button">
-                Home
+                <a href='#home-id'>
+                    Home
+                </a>
             </span>
+
             <span className="services nav-button">
-                Services
+                <a href='#services-id'>
+                    Services
+                </a>
             </span>
+
             <span className="gallery nav-button">
-                Gallery
+                <a href='#gallery-id'>
+                    Gallery
+                </a>
             </span>
+
             <span className="about nav-button">
-                About
+                <a href='#about-id'>
+                    About
+                </a>
             </span>
-            <span className="contact nav-button"> 
-                Contact
+
+            <span className="contact nav-button">
+                <a href='#contact-id'>
+                    Contact
+                </a>
             </span>
+
             <span className='quote-button nav-button'>
-                Get Free Quote
+                <a href='#contact-id'>
+                    Get Free Quote
+                </a>
             </span>
+
         </div>
     );
 }

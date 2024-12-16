@@ -2,7 +2,7 @@ import './gallery.css'
 
 const Gallery = () => {
     return (
-        <div className="gallery-container section">
+        <div className="gallery-container section" id='gallery-id'>
             <div className="title">
                 <span className="hide">
                     Vehicles

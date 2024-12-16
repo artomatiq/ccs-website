@@ -1,6 +1,11 @@
 import './footer.css'
 
 const Footer = () => {
+
+    const handleScroll = () => {
+        document.querySelector('#contact-id').scrollIntoView()
+    }
+
     return (
         <div className="footer-container section">
             <div className="top">
@@ -11,7 +16,7 @@ const Footer = () => {
                     </div>
                     <div className="three">Services</div>
                 </div>
-                <div className="get-quote">
+                <div className="get-quote" onClick={handleScroll}>
                     Get Free Quote
                 </div>
                 <div className="links">

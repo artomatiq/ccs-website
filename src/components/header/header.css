@@ -38,13 +38,16 @@
     }
 }
 
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
 .quote-button {
     margin-left: auto;
-    /* color: #337cb9; */
     color: white;
     /* background: linear-gradient(to left, black 70%, transparent 100%); */
     /* border-radius: 10% 0 0 10%; */
-
     /* width: 9rem; */
     /* height: 2rem; */
 }
