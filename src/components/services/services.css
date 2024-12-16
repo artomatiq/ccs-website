@@ -43,7 +43,9 @@
 }
 
 @media screen and (max-width: 550px){
-    .services-container {
-        /* height: 100vh; */
+    .contents {
+        width: 90%;
+        align-self: center;
+        font-size: 0.7rem;
     }
 }
