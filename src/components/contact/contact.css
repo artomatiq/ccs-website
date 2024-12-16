@@ -143,3 +143,15 @@
 .swal-confirm-button {
     background-color: var(--primary-color);
 }
+
+@media screen and (max-width: 550px){
+    label {
+        font-size: 0.75rem;
+    }
+
+    .contact__form button:disabled {
+        color: black;
+        background-color: var(--primary-color);
+        transform: none;
+    }
+}
