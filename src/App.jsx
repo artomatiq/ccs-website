@@ -32,16 +32,19 @@ function App() {
     }
   }, []);
 
-
-
   useEffect(() => {
+    const disableScroll = (event) => event.preventDefault();
+
     if (isLoading) {
-      document.body.style.overflow = 'hidden';
+      window.addEventListener('wheel', disableScroll, { passive: false });
+      window.addEventListener('touchmove', disableScroll, { passive: false });
     } else {
-      document.body.style.overflow = 'auto';
+      window.removeEventListener('wheel', disableScroll);
+      window.removeEventListener('touchmove', disableScroll);
     }
     return () => {
-      document.body.style.overflow = 'auto';
+      window.removeEventListener('wheel', disableScroll);
+      window.removeEventListener('touchmove', disableScroll);
     };
   }, [isLoading]);
 

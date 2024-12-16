@@ -3,6 +3,7 @@
     filter: blur(10px);
 
     transition: all 2s ease;
+    overflow: hidden;
 }
 
 .hero-container.show {
