@@ -22,7 +22,9 @@
 }
 
 .preloader-container div {
-    font-size: 2rem;
+
+
+    font-size: clamp(20px, 3vw, 40px);
     color: var(--primary-color);
     position: relative;
 
