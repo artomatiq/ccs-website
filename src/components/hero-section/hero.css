@@ -78,7 +78,7 @@
     transition: transform 2s ease-out 1s;
 
     &:hover {
-        border: 1px solid white;
+        border: 1px solid rgb(242, 136, 55);
         padding: 9px;
     }
 }
@@ -121,7 +121,7 @@
         }
 
         &:active {
-            border: 1px solid white;
+            border: 1px solid rgb(242, 136, 55);
             padding: 9px;
         }
     }
