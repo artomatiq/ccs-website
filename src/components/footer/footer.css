@@ -89,10 +89,13 @@
 @media screen and (max-width: 550px){
     .footer-container {
         height: 220px;
-        justify-content: space-evenly;
+        justify-content: space-between;
         .top {
+            margin-top: 10px;
             >div {
+                font-size: 0.75rem;
                 width: 20%;
+                padding: 0;
             }
             .logo {
                 font-size: 1.25rem;
@@ -110,6 +113,9 @@
         }
         .bottom {
             text-align: center;
+            width: 60%;
+            align-self: center;
+            margin-bottom: 20px;
         }
     }
 }
