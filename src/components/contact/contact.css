@@ -33,9 +33,6 @@
     align-self: center;
 }
 
-.our-email-container {
-}
-
 .our-email-button {
     /* background-color: var(--primary-color); */
     position: relative;
@@ -52,6 +49,7 @@
     border-left: none;
     border-radius: 0 5px 5px 0;
     box-shadow: 0 0 5px rgba(0, 255, 255, 0.8), 0 0 5px rgba(0, 255, 255, 0.6), 0 0 10px rgba(0, 255, 255, 0.4);
+    cursor: pointer;
 
     transition: all 1s ease 0.2s;
 }
@@ -205,7 +203,7 @@
 @media screen and (max-width: 550px){
 
     .contact-container {
-        height: 80vh;
+        padding-top: 3rem;
     }
 
     label {
