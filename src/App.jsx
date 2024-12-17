@@ -11,6 +11,15 @@ import Footer from './components/footer/Footer';
 
 function App() {
 
+  window.onload = () => {
+    if (window.location.pathname !== "/") {
+      window.location.href = "/";
+    }
+    if (window.location.hash) {
+      window.location.href = window.location.origin + window.location.pathname;
+  }
+  };
+
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {

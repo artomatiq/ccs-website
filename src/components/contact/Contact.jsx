@@ -4,6 +4,17 @@ import Swal from 'sweetalert2';
 import './contact.css'
 
 const Contact = () => {
+
+    const handleEmailClick = () => {
+        if (!showEmail) setShowEmail(true)
+        document.querySelector('.our-email-button').classList.add('show')
+
+        setTimeout(() => {
+            document.querySelector('.our-email-button').classList.remove('show')
+            setShowEmail(false)
+        }, 8000);
+    }
+
     const initialState = {
         name: '',
         company: '',
@@ -12,6 +23,7 @@ const Contact = () => {
     }
     const [formData, setFormData] = useState(initialState)
     const [valid, setValid] = useState(false)
+    const [showEmail, setShowEmail] = useState(false)
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -120,6 +132,13 @@ const Contact = () => {
                 <span className="hide">
                     Contact Us
                 </span>
+            </div>
+
+            <div className="our-email-container">
+                <div className="our-email-button" onClick={handleEmailClick}>
+                    <div className="off">Our Email Address</div>
+                    <span className="on">vardan@ccsexpedited.com</span>
+                </div>
             </div>
 
             <form className="contact__form">

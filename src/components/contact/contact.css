@@ -33,6 +33,64 @@
     align-self: center;
 }
 
+.our-email-container {
+}
+
+.our-email-button {
+    /* background-color: var(--primary-color); */
+    position: relative;
+    filter: hue-rotate(195deg);
+    height: auto;
+    width: 150px;
+    padding: 5px;
+    line-height:20px;
+    text-align: center;
+    align-content: center;
+    background-color: black;
+    overflow: hidden;
+    border: 1px solid rgb(255, 255, 255, 0.432);
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.8), 0 0 5px rgba(0, 255, 255, 0.6), 0 0 10px rgba(0, 255, 255, 0.4);
+
+    transition: all 1s ease 0.2s;
+}
+
+.our-email-button.show {
+    width: 100vw;
+}
+
+.our-email-button span {
+    background-color: black;
+}
+
+.our-email-button div {
+    transition: opacity 0.7s ease 1s;
+}
+
+.our-email-button span {
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    text-align: center;
+
+    transition: opacity 0.7s ease;
+}
+
+.our-email-button.show div {
+    transition: opacity 0.7s ease;
+    opacity: 0;
+}
+
+.our-email-button.show span {
+    transition: opacity 0.7s ease 1s;
+    opacity: 1;
+}
+
+
+
 .contact__form {
     height: 60%;
     display: flex;
@@ -145,6 +203,11 @@
 }
 
 @media screen and (max-width: 550px){
+
+    .contact-container {
+        height: 80vh;
+    }
+
     label {
         font-size: 0.75rem;
     }
