@@ -7,17 +7,35 @@ import Services from './components/services/Services';
 // import Gallery from './components/gallery/Gallery';
 import About from './components/about/About';
 import Contact from './components/contact/Contact';
+import Quote from './components/quote/Quote';
 import Footer from './components/footer/Footer';
+
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
+
+const Home = () => {
+  return (
+    <>
+      <Services />
+      <About />
+      <Contact />
+    </>
+  )
+}
 
 function App() {
 
+  const location = useLocation();
+
   window.onload = () => {
+    if (window.location.pathname === "/quote") {
+      return
+    }
     if (window.location.pathname !== "/") {
       window.location.href = "/";
     }
     if (window.location.hash) {
       window.location.href = window.location.origin + window.location.pathname;
-  }
+    }
   };
 
   const [isLoading, setIsLoading] = useState(true)
@@ -73,17 +91,17 @@ function App() {
     return () => {
       sections.forEach((section) => observer.unobserve(section));
     };
-  }, []);
+  }, [location.pathname]);
 
   return (
     <div className='app-container'>
       <PreLoader />
       <Header />
       <Hero />
-      <Services />
-      {/* <Gallery /> */}
-      <About />
-      <Contact />
+      <Routes>
+        <Route path='/quote' element={<Quote />} />
+        <Route path='*' element={<Home />} />
+      </Routes>
       <Footer />
     </div>
   );
