@@ -1,7 +1,10 @@
 import './quote.css'
-import { useState } from "react";
+import { useState, useRef } from "react";
 import emailjs from '@emailjs/browser';
 import Swal from 'sweetalert2';
+import { Autocomplete, LoadScript } from '@react-google-maps/api';
+
+const googleLibraries = ["places"]
 
 const Quote = () => {
 
@@ -22,6 +25,8 @@ const Quote = () => {
 
     const [formData, setFormData] = useState(initialState)
     const [valid, setValid] = useState(false)
+    const autocompleteOrigin = useRef(null);
+    const autocompleteDestination = useRef(null);
 
     const validate = (data) => {
         if (
@@ -46,6 +51,14 @@ const Quote = () => {
         const isValid = validate(updatedFormData);
         setValid(isValid);
         setFormData(updatedFormData);
+    }
+
+    const handlePlaceChanged = () => {
+        const place = autocompleteOrigin.current.getPlace()
+        setFormData((prevData) => ({
+            ...prevData,
+            origin: place?.formatted_address || '',
+        }))
     }
 
     const handleSubmit = async (e) => {
@@ -136,124 +149,155 @@ const Quote = () => {
 
             <form className="quote__form">
 
-                <div className="origin-container segment">
-                    <div className="subtitle">
-                        Origin
-                    </div>
-                    <div className="origin-content">
-                        <div className="form-div location">
-                            <label htmlFor="origin-location" className="location-label">Location</label>
-                            <input
-                                type="text"
-                                name="origin"
-                                className="location-input"
-                                id="origin-location"
-                                value={formData.origin}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div className="form-div appointment">
-                            <div className="form-div date">
-                                <label htmlFor="origin-date" className="date-label">Date</label>
-                                <input
-                                    type="text"
-                                    name="pickupDate"
-                                    className="date-input"
-                                    id="origin-date"
-                                    value={formData.pickupDate}
-                                    onChange={handleChange}
-                                />
+
+                <div className="origin-dest">
+                    <LoadScript googleMapsApiKey="AIzaSyA_qFc3Kpi_iiqzHCvWuURX3ElEab5-EKw" libraries={googleLibraries}>
+
+                        <div className="origin-container segment">
+                            <div className="subtitle">
+                                Origin
                             </div>
-                            <div className="form-div time">
-                                <label htmlFor="origin-time" className="time-label">Time</label>
-                                <input
-                                    type="text"
-                                    name="pickupTime"
-                                    className="time-input"
-                                    id="origin-time"
-                                    value={formData.pickupTime}
-                                    onChange={handleChange}
-                                />
+                            <div className="origin-content">
+                                <div className="form-div location">
+                                    <label htmlFor="origin-location" className="location-label">Location</label>
+                                    <Autocomplete
+                                        onLoad={(autocompleteInstance) => (autocompleteOrigin.current = autocompleteInstance)}
+                                        onPlaceChanged={handlePlaceChanged}
+                                    >
+                                        <input
+                                            type="text"
+                                            name="origin"
+                                            className="location-input"
+                                            id="origin-location"
+                                            placeholder='Enter an address'
+                                            value={formData.origin}
+                                            onChange={handleChange}
+                                        />
+                                    </Autocomplete>
+                                </div>
+                                <div className="form-div appointment">
+                                    <div className="form-div date">
+                                        <label htmlFor="origin-date" className="date-label">Date</label>
+                                        <input
+                                            type="text"
+                                            name="pickupDate"
+                                            className="date-input"
+                                            id="origin-date"
+                                            value={formData.pickupDate}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                    <div className="form-div time">
+                                        <label htmlFor="origin-time" className="time-label">Time</label>
+                                        <input
+                                            type="text"
+                                            name="pickupTime"
+                                            className="time-input"
+                                            id="origin-time"
+                                            value={formData.pickupTime}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+
+                        <div className="dest-container segment">
+                            <div className="subtitle">
+                                Destination
+                            </div>
+                            <div className="dest-content">
+                                <div className="form-div location">
+                                    <label htmlFor="dest-location" className="location-label">Location</label>
+                                    <Autocomplete
+                                        onLoad={(autocompleteInstance) => (autocompleteDestination.current = autocompleteInstance)}
+                                        onPlaceChanged={handlePlaceChanged}
+                                    >
+                                        <input
+                                            type="text"
+                                            name="destination"
+                                            className="location-input"
+                                            id="dest-location"
+                                            value={formData.destination}
+                                            placeholder='Enter an address'
+                                            onChange={handleChange}
+                                        />
+                                    </Autocomplete>
+                                </div>
+                                <div className="form-div appointment">
+                                    <div className="form-div date">
+                                        <label htmlFor="dest-date" className="date-label">Date</label>
+                                        <input
+                                            type="text"
+                                            name="dropoffDate"
+                                            className="date-input"
+                                            id="dest-date"
+                                            value={formData.dropoffDate}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                    <div className="form-div time">
+                                        <label htmlFor="dest-time" className="time-label">Time</label>
+                                        <input
+                                            type="text"
+                                            name="dropoffTime"
+                                            className="time-input"
+                                            id="dest-time"
+                                            value={formData.dropoffTime}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </LoadScript>
                 </div>
 
 
+                <div className="middle-section">
 
-                <div className="dest-container segment">
-                    <div className="subtitle">
-                        Destination
-                    </div>
-                    <div className="dest-content">
-                        <div className="form-div location">
-                            <label htmlFor="dest-location" className="location-label">Location</label>
+                    <div className="load-content segment">
+                        <div className="form-div vehicle">
+                            <label htmlFor="load-vehicle" className="vehicle-label">Vehicle</label>
                             <input
                                 type="text"
-                                name="destination"
-                                className="location-input"
-                                id="dest-location"
-                                value={formData.destination}
+                                name="vehicle"
+                                className="vehicle-input"
+                                id="load-vehicle"
+                                value={formData.vehicle}
                                 onChange={handleChange}
                             />
                         </div>
-                        <div className="form-div appointment">
-                            <div className="form-div date">
-                                <label htmlFor="dest-date" className="date-label">Date</label>
-                                <input
-                                    type="text"
-                                    name="dropoffDate"
-                                    className="date-input"
-                                    id="dest-date"
-                                    value={formData.dropoffDate}
-                                    onChange={handleChange}
-                                />
-                            </div>
-                            <div className="form-div time">
-                                <label htmlFor="dest-time" className="time-label">Time</label>
-                                <input
-                                    type="text"
-                                    name="dropoffTime"
-                                    className="time-input"
-                                    id="dest-time"
-                                    value={formData.dropoffTime}
-                                    onChange={handleChange}
-                                />
-                            </div>
+                        <div className="form-div rush">
+                            <label htmlFor="load-rush" className="rush-label">Rush Order</label>
+                            <input
+                                type="text"
+                                name="rush"
+                                className="rush-input"
+                                id="load-rush"
+                                value={formData.rush}
+                                onChange={handleChange}
+                            />
                         </div>
                     </div>
-                </div>
 
-                <div className="load-container segment">
-                    {/* <div className="title">
-                        Load
-                    </div> */}
-                    <div className="load-content">
-                        <div className="form-div appointment">
-                            <div className="form-div load">
-                                <label htmlFor="load-vehicle" className="vehicle-label">Vehicle</label>
-                                <input
-                                    type="text"
-                                    name="vehicle"
-                                    className="vehicle-input"
-                                    id="load-vehicle"
-                                    value={formData.vehicle}
-                                    onChange={handleChange}
-                                />
-                            </div>
-                            <div className="form-div rush">
-                                <label htmlFor="load-rush" className="rush-label">Rush Order</label>
-                                <input
-                                    type="text"
-                                    name="rush"
-                                    className="rush-input"
-                                    id="load-rush"
-                                    value={formData.rush}
-                                    onChange={handleChange}
-                                />
-                            </div>
+                    <div className="personal-bottom segment">
+                        <div className="form-div message">
+                            <label htmlFor="dest-message" className="message-label">Notes</label>
+                            <textarea
+                                type="text"
+                                name="notes"
+                                cols="30"
+                                rows="10"
+                                className="message-input"
+                                id="dest-message"
+                                value={formData.notes}
+                                onChange={handleChange}
+                            />
                         </div>
                     </div>
+
                 </div>
 
 
@@ -295,26 +339,6 @@ const Quote = () => {
                         />
                     </div>
                 </div>
-
-
-
-                <div className="personal-bottom segment">
-                    <div className="form-div message">
-                        <label htmlFor="dest-message" className="message-label">Notes</label>
-                        <textarea
-                            type="text"
-                            name="notes"
-                            cols="30"
-                            rows="10"
-                            className="message-input"
-                            id="dest-message"
-                            value={formData.message}
-                            onChange={handleChange}
-                        />
-                    </div>
-                </div>
-
-
 
                 <div className="form-section-bottom segment">
                     <div className="form-div submit">
