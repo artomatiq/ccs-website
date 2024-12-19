@@ -137,7 +137,7 @@ const Quote = () => {
             <form className="quote__form">
 
                 <div className="origin-container segment">
-                    <div className="title">
+                    <div className="subtitle">
                         Origin
                     </div>
                     <div className="origin-content">
@@ -182,7 +182,7 @@ const Quote = () => {
 
 
                 <div className="dest-container segment">
-                    <div className="title">
+                    <div className="subtitle">
                         Destination
                     </div>
                     <div className="dest-content">
@@ -258,7 +258,7 @@ const Quote = () => {
 
 
                 <div className="personal-top segment">
-                    <div className="title">
+                    <div className="subtitle">
                         Contact Info
                     </div>
                     <div className="form-div name">

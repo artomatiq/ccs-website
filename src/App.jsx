@@ -10,7 +10,7 @@ import Contact from './components/contact/Contact';
 import Quote from './components/quote/Quote';
 import Footer from './components/footer/Footer';
 
-import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 const Home = () => {
   return (
@@ -27,12 +27,11 @@ function App() {
   const location = useLocation();
 
   window.onload = () => {
-    if (window.location.pathname === "/quote") {
-      return
-    }
-    if (window.location.pathname !== "/") {
-      window.location.href = "/";
-    }
+    setTimeout(() => {
+      if (window.location.pathname === "/quote") {
+        window.scrollTo(0, 0)
+      }
+    }, 200);
     if (window.location.hash) {
       window.location.href = window.location.origin + window.location.pathname;
     }
@@ -87,7 +86,7 @@ function App() {
       })
     }, { threshold: 0.3 })
     const sections = [...document.querySelectorAll(".section .title")];
-    sections.forEach((section) => observer.observe(section));
+    sections.forEach((section) => { if (section === null) console.log(section); observer.observe(section) });
     return () => {
       sections.forEach((section) => observer.unobserve(section));
     };
