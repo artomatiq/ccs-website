@@ -1,5 +1,183 @@
 .quote-container {
     background-color: black;
-    height: 100vh;
+    height: auto;
     width: 100%;
+    color: white;
+
+    .segment.title {
+        color: white;
+        font-size: 3rem;
+        align-self: center;
+        margin: 5rem;
+    }
+
+    .quote__form {
+        /* height: 60%; */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    
+        letter-spacing: 2px;
+
+        margin: 4rem;
+
+
+        .segment {
+            padding: 3rem;
+            /* border-bottom: 20px solid rgba(128, 128, 128, 0.416); */
+        }
+
+        .title {
+            align-self: flex-start;
+            font-size: 2rem;
+            border-bottom: 2px dotted white;
+            width: 100%;
+            text-align: left;
+            display: block;
+            /* text-decoration: underline 1px;
+            text-underline-offset: 6px; */
+        }
+
+        .origin-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            gap: 3rem;
+        }
+
+        .origin-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            gap: 2rem;
+        }
+
+        .dest-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            gap: 3rem;
+        }
+
+        .dest-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            gap: 2rem;
+        }
+
+        .load-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            gap: 3rem;
+        }
+
+        .load-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            gap: 2rem;
+        }
+
+        .appointment {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .personal-top {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            gap: 2rem;
+
+            input {
+                width: 50%;
+            }
+        }
+    }
+
+    input {
+        border-radius: 5px;
+        border: none;
+        height: 25px;
+        padding: 0.5rem;
+        color: black;
+        background-color: var(--primary-color);
+        letter-spacing: 2px;
+    
+        transition: background-color 0.3s ease;
+    }
+    
+    input:focus {
+        outline: none;
+    }
+
+    .form-div.message {
+        height: 100%;
+    }
+
+    textarea {
+        border-radius: 5px;
+        padding: 0.5rem;
+        height: 100%;
+        border: none;
+        color: #494949;
+        background-color: var(--primary-color);
+    
+        transition: all 0.3s ease;
+    }
+    
+    textarea:focus {
+        outline: none;
+    }
+    
+    button {
+        border-radius: 5px;
+        border: none;
+        height: 40px;
+        width: 8rem;
+        align-self: center;
+        letter-spacing: 2px;
+    
+        transition: all 0.3s ease;
+    }
+    
+    button:hover {
+        cursor: pointer;
+        background-color: var(--primary-color);
+        transition-delay: 0.1s;
+        transform: scale(1.2);
+    }
+    
+    button:disabled {
+        color: white;
+        transform: none;
+    }
+    
+    button:disabled:hover {
+        background-color: var(--secondary-color);
+    }
+    
+    .swal-confirm-button {
+        background-color: var(--primary-color);
+    }
+    
+    @media screen and (max-width: 550px){
+    
+        .quote-container {
+            padding-top: 3rem;
+        }
+    
+        label {
+            font-size: 0.75rem;
+        }
+    
+        .quote__form button:disabled {
+            color: black;
+            background-color: var(--primary-color);
+            transform: none;
+        }
+    }
+
 }
