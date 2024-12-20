@@ -27,8 +27,8 @@ const Quote = () => {
     const [valid, setValid] = useState(false)
     const autocompleteOrigin = useRef(null);
     const autocompleteDestination = useRef(null);
-    const [originSelected, setOriginSelected] = useState(false);
-    const [destSelected, setDestSelected] = useState(false);
+    const [selectedOrigin, setSelectedOrigin] = useState('');
+    const [selectedDest, setSelectedDest] = useState(false);
 
     const validate = (data) => {
         if (
@@ -59,15 +59,14 @@ const Quote = () => {
 
         const place = autocompleteRef.current.getPlace()
 
-        if(!place || !place.geometry) {
-            autocompleteRef.current.value = '';
-            autocompleteRef.current.placeholder = 'Enter an address'
-        } else {
-            setFormData((prevData) => ({
-                ...prevData,
-                [fieldName]: place?.formatted_address || '',
-            }))
-        }
+        if (fieldName === 'origin') setSelectedOrigin(place)
+        else setSelectedDest(place)
+
+        setFormData((prevData) => ({
+            ...prevData,
+            [fieldName]: place?.formatted_address || '',
+        }))
+
     }
 
     const handleSubmit = async (e) => {
@@ -181,11 +180,12 @@ const Quote = () => {
                                             placeholder='Enter an address'
                                             value={formData.origin}
                                             onChange={handleChange}
-                                            onBlur={() => {
-                                                if (!formData.origin) {
+                                            onBlur={(e) => {
+                                                if (!selectedOrigin || e.target.value !== selectedOrigin.formatted_address) {
+                                                    setSelectedOrigin('')
                                                     setFormData((prevData) => ({
                                                         ...prevData,
-                                                        origin: '',  // Reset value if no address is selected
+                                                        origin: '',
                                                     }));
                                                 }
                                             }}
@@ -238,6 +238,15 @@ const Quote = () => {
                                             value={formData.destination}
                                             placeholder='Enter an address'
                                             onChange={handleChange}
+                                            onBlur={(e) => {
+                                                if (!selectedDest || e.target.value !== selectedDest.formatted_address) {
+                                                    setSelectedDest('')
+                                                    setFormData((prevData) => ({
+                                                        ...prevData,
+                                                        destination: '',
+                                                    }));
+                                                }
+                                            }}
                                         />
                                     </Autocomplete>
                                 </div>
