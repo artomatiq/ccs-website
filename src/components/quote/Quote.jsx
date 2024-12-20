@@ -27,6 +27,8 @@ const Quote = () => {
     const [valid, setValid] = useState(false)
     const autocompleteOrigin = useRef(null);
     const autocompleteDestination = useRef(null);
+    const [originSelected, setOriginSelected] = useState(false);
+    const [destSelected, setDestSelected] = useState(false);
 
     const validate = (data) => {
         if (
@@ -53,12 +55,19 @@ const Quote = () => {
         setFormData(updatedFormData);
     }
 
-    const handlePlaceChanged = () => {
-        const place = autocompleteOrigin.current.getPlace()
-        setFormData((prevData) => ({
-            ...prevData,
-            origin: place?.formatted_address || '',
-        }))
+    const handlePlaceChanged = (autocompleteRef, fieldName) => {
+
+        const place = autocompleteRef.current.getPlace()
+
+        if(!place || !place.geometry) {
+            autocompleteRef.current.value = '';
+            autocompleteRef.current.placeholder = 'Enter an address'
+        } else {
+            setFormData((prevData) => ({
+                ...prevData,
+                [fieldName]: place?.formatted_address || '',
+            }))
+        }
     }
 
     const handleSubmit = async (e) => {
@@ -162,7 +171,7 @@ const Quote = () => {
                                     <label htmlFor="origin-location" className="location-label">Location</label>
                                     <Autocomplete
                                         onLoad={(autocompleteInstance) => (autocompleteOrigin.current = autocompleteInstance)}
-                                        onPlaceChanged={handlePlaceChanged}
+                                        onPlaceChanged={() => handlePlaceChanged(autocompleteOrigin, 'origin')}
                                     >
                                         <input
                                             type="text"
@@ -172,6 +181,14 @@ const Quote = () => {
                                             placeholder='Enter an address'
                                             value={formData.origin}
                                             onChange={handleChange}
+                                            onBlur={() => {
+                                                if (!formData.origin) {
+                                                    setFormData((prevData) => ({
+                                                        ...prevData,
+                                                        origin: '',  // Reset value if no address is selected
+                                                    }));
+                                                }
+                                            }}
                                         />
                                     </Autocomplete>
                                 </div>
@@ -211,7 +228,7 @@ const Quote = () => {
                                     <label htmlFor="dest-location" className="location-label">Location</label>
                                     <Autocomplete
                                         onLoad={(autocompleteInstance) => (autocompleteDestination.current = autocompleteInstance)}
-                                        onPlaceChanged={handlePlaceChanged}
+                                        onPlaceChanged={() => handlePlaceChanged(autocompleteDestination, 'destination')}
                                     >
                                         <input
                                             type="text"
@@ -260,29 +277,39 @@ const Quote = () => {
                     <div className="load-content segment">
                         <div className="form-div vehicle">
                             <label htmlFor="load-vehicle" className="vehicle-label">Vehicle</label>
-                            <input
-                                type="text"
+                            <select
                                 name="vehicle"
                                 className="vehicle-input"
                                 id="load-vehicle"
                                 value={formData.vehicle}
                                 onChange={handleChange}
-                            />
+                            >
+                                <option value="Car">Car</option>
+                                <option value="Sprinter Van">Sprinter Van</option>
+                                <option value="Box Truck">Box Truck</option>
+                            </select>
                         </div>
                         <div className="form-div rush">
-                            <label htmlFor="load-rush" className="rush-label">Rush Order</label>
+                            <label htmlFor="load-rush" className="rush-label">
+                                Rush
+                            </label>
                             <input
-                                type="text"
+                                type="checkbox"
                                 name="rush"
                                 className="rush-input"
                                 id="load-rush"
-                                value={formData.rush}
-                                onChange={handleChange}
+                                checked={formData.rush}
+                                onChange={(e) =>
+                                    setFormData((prevData) => ({
+                                        ...prevData,
+                                        rush: e.target.checked,
+                                    }))
+                                }
                             />
                         </div>
                     </div>
 
-                    <div className="personal-bottom segment">
+                    <div className="notes segment">
                         <div className="form-div message">
                             <label htmlFor="dest-message" className="message-label">Notes</label>
                             <textarea
@@ -301,7 +328,7 @@ const Quote = () => {
                 </div>
 
 
-                <div className="personal-top segment">
+                <div className="personal segment">
                     <div className="subtitle">
                         Contact Info
                     </div>
@@ -340,7 +367,7 @@ const Quote = () => {
                     </div>
                 </div>
 
-                <div className="form-section-bottom segment">
+                <div className="submit-button segment">
                     <div className="form-div submit">
                         <button
                             type="submit"
