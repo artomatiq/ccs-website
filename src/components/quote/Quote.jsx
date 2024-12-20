@@ -242,6 +242,7 @@ const Quote = () => {
                                             id="dest-time"
                                             value={formData.dropoffTime}
                                             onChange={handleChange}
+                                            onBlur={(e) => handleDateBlur(e, formData, setFormData)}
                                             disabled={!formData.pickupDate || !formData.pickupTime || !formData.dropoffDate}
                                         />
                                     </div>

@@ -78,6 +78,29 @@ const handleDateBlur = (e, formData, setFormData) => {
             return;
         }
     }
+
+    else if (name === 'dropoffTime') {
+        console.log('form data', formData);
+        const pickupTime = new Date(`1970-01-01T${formData.pickupTime}:00`);
+        const dropoffTime = new Date(`1970-01-01T${value}:00`);
+        console.log(dropoffTime, '<=', pickupTime);
+        if (dropoffTime <= pickupTime) {
+            Swal.fire({
+                title: 'Invalid Time',
+                text: 'Please select a drop-off time that is later than the pick-up time.',
+                icon: 'warning',
+                customClass: {
+                    container: 'swal-container',
+                    popup: 'swal-popup',
+                    title: 'swal-title',
+                    content: 'swal-content',
+                    confirmButton: 'swal-confirm-button'
+                }
+            });
+            setFormData(prevState => ({ ...prevState, [name]: '' }));
+            return;
+        }
+    }
 }
 
 export default handleDateBlur
