@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 import emailjs from '@emailjs/browser';
 import Swal from 'sweetalert2';
 import { Autocomplete, LoadScript } from '@react-google-maps/api';
+import { handleDateBlur } from '../../utils/DateValidation';
 
 const googleLibraries = ["places"]
 
@@ -196,23 +197,25 @@ const Quote = () => {
                                     <div className="form-div date">
                                         <label htmlFor="origin-date" className="date-label">Date</label>
                                         <input
-                                            type="text"
+                                            type="date"
                                             name="pickupDate"
                                             className="date-input"
                                             id="origin-date"
                                             value={formData.pickupDate}
                                             onChange={handleChange}
+                                            onBlur={(e) => handleDateBlur(e, formData, setFormData)}
                                         />
                                     </div>
                                     <div className="form-div time">
                                         <label htmlFor="origin-time" className="time-label">Time</label>
                                         <input
-                                            type="text"
+                                            type="time"
                                             name="pickupTime"
                                             className="time-input"
                                             id="origin-time"
                                             value={formData.pickupTime}
                                             onChange={handleChange}
+                                            disabled={!formData.pickupDate}
                                         />
                                     </div>
                                 </div>
@@ -254,23 +257,26 @@ const Quote = () => {
                                     <div className="form-div date">
                                         <label htmlFor="dest-date" className="date-label">Date</label>
                                         <input
-                                            type="text"
+                                            type="date"
                                             name="dropoffDate"
                                             className="date-input"
                                             id="dest-date"
                                             value={formData.dropoffDate}
                                             onChange={handleChange}
+                                            onBlur={(e) => handleDateBlur(e, formData, setFormData)}
+                                            disabled={!formData.pickupDate || !formData.pickupTime}
                                         />
                                     </div>
                                     <div className="form-div time">
                                         <label htmlFor="dest-time" className="time-label">Time</label>
                                         <input
-                                            type="text"
+                                            type="time"
                                             name="dropoffTime"
                                             className="time-input"
                                             id="dest-time"
                                             value={formData.dropoffTime}
                                             onChange={handleChange}
+                                            disabled={!formData.pickupDate || !formData.pickupTime || !formData.dropoffDate}
                                         />
                                     </div>
                                 </div>
@@ -293,8 +299,8 @@ const Quote = () => {
                                 value={formData.vehicle}
                                 onChange={handleChange}
                             >
-                                <option value="Car">Car</option>
                                 <option value="Sprinter Van">Sprinter Van</option>
+                                <option value="Car">Car</option>
                                 <option value="Box Truck">Box Truck</option>
                             </select>
                         </div>

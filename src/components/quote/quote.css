@@ -200,6 +200,10 @@
         letter-spacing: 2px;
 
         transition: background-color 0.3s ease;
+
+        &:disabled {
+            color: #0f162000;
+        }
     }
 
     label {}
