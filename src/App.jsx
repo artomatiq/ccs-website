@@ -31,7 +31,7 @@ function App() {
       if (window.location.pathname === "/quote") {
         window.scrollTo(0, 0)
       }
-    }, 200);
+    }, 100);
     if (window.location.hash) {
       window.location.href = window.location.origin + window.location.pathname;
     }
