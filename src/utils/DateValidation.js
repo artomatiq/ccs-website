@@ -19,7 +19,7 @@ const handleDateBlur = (e, formData, setFormData) => {
     } else if (name === 'dropoffDate') {
         const pickupDate = new Date(formData.pickupDate);
         const dropoffDate = new Date(value);
-        if (dropoffDate <= pickupDate) {
+        if (dropoffDate < pickupDate) {
             alert('Please select a drop-off date that is later than the pick-up date.');
             setFormData(prevState => ({ ...prevState, [name]: '' }));
             return
@@ -34,4 +34,4 @@ const handleDateBlur = (e, formData, setFormData) => {
     }
 }
 
-export {handleDateBlur}
+export default handleDateBlur

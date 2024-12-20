@@ -3,7 +3,8 @@ import { useState, useRef } from "react";
 import emailjs from '@emailjs/browser';
 import Swal from 'sweetalert2';
 import { Autocomplete, LoadScript } from '@react-google-maps/api';
-import { handleDateBlur } from '../../utils/DateValidation';
+import handleDateBlur from '../../utils/DateValidation';
+import sendEmail from '../../utils/Emailjs';
 
 const googleLibraries = ["places"]
 
@@ -16,7 +17,7 @@ const Quote = () => {
         destination: '',
         dropoffDate: '',
         dropoffTime: '',
-        vehicle: '',
+        vehicle: 'Sprinter Van',
         rush: false,
         name: '',
         company: '',
@@ -106,42 +107,7 @@ const Quote = () => {
             return;
         }
 
-        emailjs
-            .send('service_crxagxx', 'template_qp97umb', formData, {
-                publicKey: '1LrsqCWwK1-KwUSbt',
-            })
-            .then(
-                () => {
-                    console.log('Quote successfully sent!');
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Thank you for your interest. We will be in touch with you soon.',
-                        icon: 'success',
-                        customClass: {
-                            container: 'swal-container',
-                            popup: 'swal-popup',
-                            title: 'swal-title',
-                            content: 'swal-content',
-                            confirmButton: 'swal-confirm-button'
-                        }
-                    });
-                },
-                (error) => {
-                    console.log('Failed to send request...', error.text);
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'There was an error submitting your request.',
-                        icon: 'failure',
-                        customClass: {
-                            container: 'swal-container',
-                            popup: 'swal-popup',
-                            title: 'swal-title',
-                            content: 'swal-content',
-                            confirmButton: 'swal-confirm-button'
-                        }
-                    });
-                },
-            );
+        sendEmail(e, formData)
 
         setFormData(initialState)
         setValid(false)
