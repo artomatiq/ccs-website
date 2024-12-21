@@ -3,11 +3,13 @@
     height: auto;
     width: 100%;
     color: white;
+    overflow-x: hidden;
 
     .segment.title {
         color: white;
         font-size: 3rem;
         align-self: center;
+        text-align: center;
         margin: 5rem;
     }
 
@@ -22,9 +24,6 @@
         margin-bottom: 10rem;
         margin-left: 4rem;
         margin-right: 4rem;
-
-
-        .segment {}
 
         .origin-dest {
             display: flex;
@@ -262,21 +261,116 @@
         background-color: var(--primary-color);
     }
 
-    @media screen and (max-width: 550px) {
+}
 
-        .quote-container {
-            padding-top: 3rem;
+@media screen and (max-width: 550px) {
+
+    .quote-container {
+        padding-top: 3rem;
+
+
+        .segment.title {
+            margin: auto;
+            margin-top: 5rem;
+            font-size: 2.5rem;
         }
 
-        label {
-            font-size: 0.75rem;
+        .quote__form {
+            gap: 6rem;
+
+            margin-top: 6rem;
+            margin-bottom: 6rem;
+            margin-left: 4rem;
+            margin-right: 4rem;
+
+            .origin-dest {
+                flex-direction: column;
+                justify-content: space-evenly;
+            }
+
+            .origin-container {
+                margin-right: 0;
+                gap: 3rem;
+            }
+
+            .origin-content {
+                gap: 2rem;
+
+                .location-input {
+                    padding: 1rem;
+                }
+            }
+
+            .dest-container {
+                gap: 3rem;
+                margin-left: 0;
+                margin-top: 4rem;
+            }
+
+            .dest-content {
+                gap: 2rem;
+
+                .location-input {
+                    padding: 1rem;
+                    box-sizing: border-box;
+                    width: 100%;
+                }
+            }
+
+            .appointment {
+                justify-content: space-between;
+
+                .date {
+                    height: auto;
+
+                    input {
+                        height: 2.7rem;
+                        width: 8rem;
+                    }
+                }
+
+                .time {
+                    height: auto;
+
+                    input {
+                        height: 2.7rem;
+                        width: 5rem;
+                    }
+                }
+            }
+
+            .load-content {
+                .vehicle {
+                    select {
+                    }
+                }
+            }
+
+            textarea {
+                padding: 1rem;
+            }
+
+
+            .personal {
+                input {
+                    width: 250px;
+                }
+            }
+
+            input {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            button:disabled {
+                color: black;
+                background-color: var(--secondary-color);
+                transform: none;
+            }
         }
 
-        .quote__form button:disabled {
-            color: black;
-            background-color: var(--secondary-color);
-            transform: none;
-        }
+
+
+
     }
-
 }
