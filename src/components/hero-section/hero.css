@@ -121,7 +121,7 @@
     .hero-slogan {
         font-size: clamp(20px, 35px, 45px);  
         
-        transition: transform 2s ease-out 1s;
+        transition: transform 2s ease-out;
     
         &:hover {
             border: none;
