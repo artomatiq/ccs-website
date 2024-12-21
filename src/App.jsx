@@ -26,16 +26,9 @@ function App() {
 
   const location = useLocation();
 
-  window.onload = () => {
-    setTimeout(() => {
-      if (window.location.pathname === "/quote") {
-        window.scrollTo(0, 0)
-      }
-    }, 100);
-    if (window.location.hash) {
-      window.location.href = window.location.origin + window.location.pathname;
-    }
-  };
+  if ('scrollRestoration' in window.history) {
+    window.history.scrollRestoration = 'manual'; // Disable default scroll restoration
+  }
 
   const [isLoading, setIsLoading] = useState(true)
 
