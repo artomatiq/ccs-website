@@ -75,3 +75,24 @@ a {
         justify-content: space-evenly;
     }
 }
+
+@media screen and (orientation: landscape) {
+    
+    .header-container {
+        height: 3rem;
+    }
+    
+    .nav-button {
+        font-size: 0.9rem;
+        margin-right: 1.5vw;
+        margin-left: 1.5vw;
+        align-content: center;
+        height: fit-content;
+        padding: 0.3rem;
+    }
+    
+    .quote-button {
+        margin-left: auto;
+        margin-right: 1.5vw;
+    }
+}

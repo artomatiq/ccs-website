@@ -370,3 +370,71 @@
         }
     }
 }
+
+@media screen and (orientation: landscape) {
+    .quote-container {
+        height: auto;
+    
+        .segment.title {
+            font-size: 3rem;
+            margin: 4rem;
+        }
+    
+        .quote__form {
+            gap: 4rem;
+    
+            margin-top: 6rem;
+            margin-bottom: 6rem;
+    
+            .origin-container {
+                margin-right: 4rem;
+                gap: 2rem;
+            }
+    
+            .origin-content {
+                gap: 2rem;
+            }
+    
+            .dest-container {
+                gap: 2rem;
+                margin-left: 4rem;
+            }
+    
+            .dest-content {
+                gap: 2rem;
+            }
+    
+            .appointment {
+                .date {
+                    height: auto;
+
+                    input {
+                        height: 2.7rem;
+                        width: 8rem;
+                    }
+                }
+
+                .time {
+                    height: auto;
+
+                    input {
+                        height: 2.7rem;
+                        width: 5rem;
+                    }
+                }
+            }
+    
+            .personal {
+                gap: 1rem;
+    
+                .subtitle {
+                    margin-bottom: 1rem;
+                }
+            }
+        }
+    
+        button:disabled {
+            color: black;
+        }
+    }
+}
