@@ -76,7 +76,7 @@ a {
     }
 }
 
-@media screen and (orientation: landscape) {
+@media screen and (orientation: landscape) and (max-width: 768px) {
     
     .header-container {
         height: 3rem;

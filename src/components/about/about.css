@@ -45,7 +45,7 @@
     }
 }
 
-@media screen and (orientation: landscape) {
+@media screen and (orientation: landscape) and (max-width: 768px) {
     .about-container {
         height: auto;
 
