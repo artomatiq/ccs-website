@@ -6,8 +6,8 @@
     overflow: hidden;
 }
 
-.hero-container.show {
-    opacity: 1;
+.hero-container.hide {
+    opacity: 0;
     filter: none;
 
     display: flex;
@@ -25,6 +25,10 @@
 
     position: relative;
     z-index: 1;
+}
+
+.hero-container.show {
+    opacity: 1;
 }
 
 .hero-container::before {
