@@ -1,6 +1,5 @@
 import './quote.css'
-import { useState, useRef } from "react";
-import emailjs from '@emailjs/browser';
+import { useState, useRef, useEffect } from "react";
 import Swal from 'sweetalert2';
 import { Autocomplete, LoadScript } from '@react-google-maps/api';
 import handleDateBlur from '../../utils/DateValidation';
@@ -9,6 +8,17 @@ import sendEmail from '../../utils/Emailjs';
 const googleLibraries = ["places"]
 
 const Quote = () => {
+
+    useEffect(() => {
+        const button = document.querySelector('.quote-button.nav-button');
+        const element = document.querySelector('.quote-container')
+        if (element) {
+            button.addEventListener('click', () => window.scrollTo(0, element.offsetTop));
+            return () => {
+                element.removeEventListener('click', () => window.scrollTo(0, element.offsetTop));
+            };
+        }
+    }, []);
 
     const initialState = {
         origin: '',
