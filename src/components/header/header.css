@@ -6,10 +6,7 @@
 
 }
 
-.header-container.show {
-    opacity: 1;
-    filter: none;
-
+.header-container {
     text-align: center;
     color: white;
 
@@ -17,7 +14,6 @@
     top: 0;
     width: 100vw;
 
-    
     backdrop-filter: blur(10px);
     height: 4rem;
 
@@ -27,6 +23,11 @@
     align-items: center;
 
     z-index: 2;
+}
+
+.header-container.show {
+    opacity: 1;
+    filter: none;
 }
 
 .nav-button {
