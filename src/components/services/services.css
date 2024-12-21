@@ -42,10 +42,46 @@
     }
 }
 
-@media screen and (max-width: 550px){
+@media screen and (max-width: 550px) {
     .contents {
         width: 90%;
         align-self: center;
         font-size: 0.7rem;
+    }
+}
+
+@media screen and (orientation: landscape) {
+    .services-container {
+        height: auto;
+    
+        .title {
+            font-size: 3rem;    
+            /* margin: 2rem; */
+        }
+    
+        .contents {
+            display: grid;
+            height: auto;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 6rem;
+    
+            .service {
+    
+                transition: all 0.3s ease;
+                transition-delay: 0.075s;
+    
+                &:hover {
+                    transform: translateY(-15px);
+                    color: var(--primary-color);
+                }
+            }
+    
+            .logo {
+                font-size: 2rem;
+            }
+    
+        }
     }
 }

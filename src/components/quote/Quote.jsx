@@ -1,11 +1,9 @@
 import './quote.css'
 import { useState, useRef, useEffect } from "react";
 import Swal from 'sweetalert2';
-import { Autocomplete, LoadScript } from '@react-google-maps/api';
+import { Autocomplete } from '@react-google-maps/api';
 import handleDateBlur from '../../utils/DateValidation';
 import sendEmail from '../../utils/Emailjs';
-
-const googleLibraries = ["places"]
 
 const Quote = () => {
 
@@ -13,6 +11,7 @@ const Quote = () => {
         const button = document.querySelector('.quote-button.nav-button');
         const element = document.querySelector('.quote-container')
         if (element) {
+            window.scrollTo(0, element.offsetTop)
             button.addEventListener('click', () => window.scrollTo(0, element.offsetTop));
             return () => {
                 element.removeEventListener('click', () => window.scrollTo(0, element.offsetTop));
@@ -136,8 +135,6 @@ const Quote = () => {
 
 
                 <div className="origin-dest">
-                    <LoadScript googleMapsApiKey="AIzaSyA_qFc3Kpi_iiqzHCvWuURX3ElEab5-EKw" libraries={googleLibraries}>
-
                         <div className="origin-container segment">
                             <div className="subtitle">
                                 Origin
@@ -259,8 +256,6 @@ const Quote = () => {
                                 </div>
                             </div>
                         </div>
-
-                    </LoadScript>
                 </div>
 
 

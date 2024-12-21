@@ -35,12 +35,35 @@
     filter: hue-rotate(90deg);
 }
 
-@media screen and (max-width: 550px){
+@media screen and (max-width: 550px) {
     .about-container {
         height: 175vh;
     }
 
     .about-text {
         font-size: 0.85rem;
+    }
+}
+
+@media screen and (orientation: landscape) {
+    .about-container {
+        height: auto;
+
+        .title {
+            font-size: 3rem;
+            margin-bottom: 6rem;
+        }
+    }
+
+    .about-text {
+        font-size: 0.45rem;
+        line-height: 0.75rem;
+        width: 85%;
+
+        margin-bottom: 6rem;
+    }
+
+    .about-text em {
+        font-size: 1.25rem;
     }
 }
