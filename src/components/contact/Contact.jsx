@@ -137,7 +137,7 @@ const Contact = () => {
             <div className="our-email-container">
                 <div className="our-email-button" onClick={handleEmailClick}>
                     <div className="off">Our Email Address</div>
-                    <span className="on">vardan@ccsexpedited.com</span>
+                    <span className="on">contact@ccsexpedited.com</span>
                 </div>
             </div>
 

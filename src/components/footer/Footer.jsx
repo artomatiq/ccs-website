@@ -1,10 +1,7 @@
 import './footer.css'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
-
-    const handleScroll = () => {
-        document.querySelector('#contact-id').scrollIntoView()
-    }
 
     return (
         <div className="footer-container section">
@@ -16,8 +13,10 @@ const Footer = () => {
                     </div>
                     <div className="three">Services</div>
                 </div>
-                <div className="get-quote" onClick={handleScroll}>
-                    Get Free Quote
+                <div className="get-quote">
+                    <Link to='quote'>
+                        Get Free Quote
+                    </Link>
                 </div>
                 <div className="links">
                     <div className="home">
