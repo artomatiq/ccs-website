@@ -28,18 +28,14 @@ const handleAppointmentClick = (e) => {
     console.log('handling app click')
 
     const target = e.target.tagName === 'INPUT' ? e.target : e.target.querySelector('input');
-    if (!isTouchDevice || !target.disabled) return
+    if (!isTouchDevice || !target || !target.disabled) return
 
-    if (!pickupTimeInput.disabled) {
-        fireSwal('pick-up time')
-    }
-
-    else if (!dropoffDateInput.disabled) {
-        fireSwal('drop-off date')
-    }
-
-    else {
-        fireSwal('pick-up date')
+    if (pickupTimeInput && !pickupTimeInput.disabled) {
+        fireSwal('pick-up time');
+    } else if (dropoffDateInput && !dropoffDateInput.disabled) {
+        fireSwal('drop-off date');
+    } else {
+        fireSwal('pick-up date');
     }
 }
 

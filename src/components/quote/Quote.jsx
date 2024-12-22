@@ -240,7 +240,7 @@ const Quote = () => {
                                             onChange={handleChange}
                                             onBlur={(e) => handleDateBlur(e, formData, setFormData)}
                                             disabled={!formData.pickupDate || !formData.pickupTime}
-                                            style={{ pointerEvents: formData.pickupDate ? 'auto' : 'none' }} //let event propagate on disbaled input
+                                            style={{ pointerEvents: formData.pickupTime ? 'auto' : 'none' }} //let event propagate on disbaled input
                                         />
                                     </div>
                                     <div className="form-div time" id='dropoffTimeTap' onClick={handleAppointmentClick}>
@@ -254,7 +254,7 @@ const Quote = () => {
                                             onChange={handleChange}
                                             onBlur={(e) => handleDateBlur(e, formData, setFormData)}
                                             disabled={!formData.pickupDate || !formData.pickupTime || !formData.dropoffDate}
-                                            style={{ pointerEvents: formData.pickupDate ? 'auto' : 'none' }} //let event propagate on disbaled input
+                                            style={{ pointerEvents: formData.dropoffDate ? 'auto' : 'none' }} //let event propagate on disbaled input
                                         />
                                     </div>
                                 </div>
