@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { Autocomplete } from '@react-google-maps/api';
 import handleDateBlur from '../../utils/DateValidation';
 import sendEmail from '../../utils/Emailjs';
+import handleAppointmentClick from '../../utils/handleAppointmentClick';
 
 const Quote = () => {
 
@@ -187,6 +188,7 @@ const Quote = () => {
                                             className="time-input"
                                             id="origin-time"
                                             value={formData.pickupTime}
+                                            onClick={handleAppointmentClick}
                                             onChange={handleChange}
                                             disabled={!formData.pickupDate}
                                         />
@@ -235,6 +237,7 @@ const Quote = () => {
                                             className="date-input"
                                             id="dest-date"
                                             value={formData.dropoffDate}
+                                            onClick={handleAppointmentClick}
                                             onChange={handleChange}
                                             onBlur={(e) => handleDateBlur(e, formData, setFormData)}
                                             disabled={!formData.pickupDate || !formData.pickupTime}
@@ -248,6 +251,7 @@ const Quote = () => {
                                             className="time-input"
                                             id="dest-time"
                                             value={formData.dropoffTime}
+                                            onClick={handleAppointmentClick}
                                             onChange={handleChange}
                                             onBlur={(e) => handleDateBlur(e, formData, setFormData)}
                                             disabled={!formData.pickupDate || !formData.pickupTime || !formData.dropoffDate}
