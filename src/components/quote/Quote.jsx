@@ -180,7 +180,7 @@ const Quote = () => {
                                             onBlur={(e) => handleDateBlur(e, formData, setFormData)}
                                         />
                                     </div>
-                                    <div className="form-div time">
+                                    <div className="form-div time" id='pickupTimeTap' onClick={handleAppointmentClick}>
                                         <label htmlFor="origin-time" className="time-label">Time</label>
                                         <input
                                             type="time"
@@ -188,9 +188,9 @@ const Quote = () => {
                                             className="time-input"
                                             id="origin-time"
                                             value={formData.pickupTime}
-                                            onClick={handleAppointmentClick}
                                             onChange={handleChange}
                                             disabled={!formData.pickupDate}
+                                            style={{ pointerEvents: formData.pickupDate ? 'auto' : 'none' }} //let event propagate on disbaled input
                                         />
                                     </div>
                                 </div>
@@ -229,7 +229,7 @@ const Quote = () => {
                                     </Autocomplete>
                                 </div>
                                 <div className="form-div appointment">
-                                    <div className="form-div date">
+                                    <div className="form-div date" id='dropoffDateTap' onClick={handleAppointmentClick}>
                                         <label htmlFor="dest-date" className="date-label">Date</label>
                                         <input
                                             type="date"
@@ -237,13 +237,13 @@ const Quote = () => {
                                             className="date-input"
                                             id="dest-date"
                                             value={formData.dropoffDate}
-                                            onClick={handleAppointmentClick}
                                             onChange={handleChange}
                                             onBlur={(e) => handleDateBlur(e, formData, setFormData)}
                                             disabled={!formData.pickupDate || !formData.pickupTime}
+                                            style={{ pointerEvents: formData.pickupDate ? 'auto' : 'none' }} //let event propagate on disbaled input
                                         />
                                     </div>
-                                    <div className="form-div time">
+                                    <div className="form-div time" id='dropoffTimeTap' onClick={handleAppointmentClick}>
                                         <label htmlFor="dest-time" className="time-label">Time</label>
                                         <input
                                             type="time"
@@ -251,10 +251,10 @@ const Quote = () => {
                                             className="time-input"
                                             id="dest-time"
                                             value={formData.dropoffTime}
-                                            onClick={handleAppointmentClick}
                                             onChange={handleChange}
                                             onBlur={(e) => handleDateBlur(e, formData, setFormData)}
                                             disabled={!formData.pickupDate || !formData.pickupTime || !formData.dropoffDate}
+                                            style={{ pointerEvents: formData.pickupDate ? 'auto' : 'none' }} //let event propagate on disbaled input
                                         />
                                     </div>
                                 </div>
