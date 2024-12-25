@@ -173,6 +173,7 @@ const Quote = () => {
                                         <input
                                             type="date"
                                             name="pickupDate"
+                                            data-name="pick-up date"
                                             className="date-input"
                                             id="origin-date"
                                             value={formData.pickupDate}
@@ -185,6 +186,7 @@ const Quote = () => {
                                         <input
                                             type="time"
                                             name="pickupTime"
+                                            data-name="pick-up time"
                                             className="time-input"
                                             id="origin-time"
                                             value={formData.pickupTime}
@@ -234,6 +236,7 @@ const Quote = () => {
                                         <input
                                             type="date"
                                             name="dropoffDate"
+                                            data-name="drop-off date"
                                             className="date-input"
                                             id="dest-date"
                                             value={formData.dropoffDate}
