@@ -60,7 +60,6 @@ const handleDateBlur = (e, formData, setFormData) => {
             return;
         }
         if (dropoffDate) {
-            console.log('here is the dropoff date object', dropoffDateObject);
             if (pickupDate > dropoffDate) {
                 fireSwal('Pick-up date must precede drop-off date.')
                 setFormData(prevState => ({ ...prevState, [targetName]: '' }))
