@@ -145,9 +145,6 @@
 
 .contact__form input:focus {
     outline: none;
-    /* background-color: inherit;
-    filter: hue-rotate(-155deg); */
-
 }
 
 .form-div.message {
@@ -166,7 +163,6 @@
 
 .contact__form textarea:focus {
     outline: none;
-    /* background-color: var(--primary-color); */
 }
 
 .contact__form button {
@@ -176,6 +172,8 @@
     width: 8rem;
     align-self: center;
     letter-spacing: 2px;
+    background-color: white;
+    color: black;
 
     transition: all 0.3s ease;
 }
@@ -188,6 +186,7 @@
 }
 
 .contact__form button:disabled {
+    background-color: rgba(153, 153, 153, 0.483);
     color: white;
     transform: none;
 }
@@ -208,11 +207,6 @@
 
     label {
         font-size: 0.75rem;
-    }
-
-    .contact__form button:disabled {
-        color: black;
-        transform: none;
     }
 }
 
@@ -251,19 +245,7 @@
         gap: 0.75rem;
     }
     
-    
     .contact__form input {
         height: 20px;
-    }
-    
-    .contact__form button:disabled {
-        color: black;
-    }
-}
-
-/* all iPads */
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
-    .contact__form button:disabled {
-        color: black;
     }
 }
