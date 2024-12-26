@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom'
 
 const Footer = () => {
 
+    const handleClick = (id) => {
+
+    }
+
     return (
         <div className="footer-container section">
             <div className="top">
@@ -20,12 +24,12 @@ const Footer = () => {
                 </div>
                 <div className="links">
                     <div className="home">
-                        <a href='#home-id'>
+                        <a href='/#home-id'>
                             Home
                         </a>
                     </div>
                     <div className="services">
-                        <a href='#services-id'>
+                        <a href='/#services-id'>
                             Services
                         </a>
                     </div>
@@ -35,12 +39,12 @@ const Footer = () => {
                         </a>
                     </div> */}
                     <div className="about">
-                        <a href='#about-id'>
+                        <a href='/#about-id'>
                             About Us
                         </a>
                     </div>
                     <div className="contact">
-                        <a href='#contact-id'>
+                        <a href='/#contact-id'>
                             Contact
                         </a>
                     </div>
