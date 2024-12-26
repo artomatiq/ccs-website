@@ -237,6 +237,8 @@
         width: 8rem;
         align-self: center;
         letter-spacing: 2px;
+        background-color: white;
+        color: black;
 
         transition: all 0.3s ease;
     }
@@ -249,6 +251,7 @@
     }
 
     button:disabled {
+        background-color: rgba(153, 153, 153, 0.483);
         color: white;
         transform: none;
     }
@@ -363,8 +366,6 @@
             }
 
             button:disabled {
-                color: black;
-                background-color: var(--secondary-color);
                 transform: none;
             }
         }
@@ -432,16 +433,11 @@
                 }
             }
         }
-    
-        button:disabled {
-            color: black;
-        }
     }
 }
 
 /* all iPads */
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
     .segment button:disabled {
-        color: black;
     }
 }
