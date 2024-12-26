@@ -212,6 +212,7 @@
 
 @media screen and (orientation: landscape) and (max-width: 768px) {
     .contact-container {
+        padding-top: 3rem;
         height: auto;
     }
     
