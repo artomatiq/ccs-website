@@ -191,6 +191,7 @@ const Quote = () => {
                                             id="origin-time"
                                             value={formData.pickupTime}
                                             onChange={handleChange}
+                                            onBlur={(e) => handleDateBlur(e, formData, setFormData)}
                                             disabled={!formData.pickupDate}
                                             style={{ pointerEvents: formData.pickupDate ? 'auto' : 'none' }} //let event propagate on disbaled input
                                         />

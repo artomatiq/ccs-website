@@ -1,203 +1,101 @@
 import Swal from "sweetalert2"
 
+const fireSwal = (text) => {
+    Swal.fire({
+        title: '',
+        text: text,
+        icon: 'warning',
+        customClass: {
+            container: 'swal-container',
+            popup: 'swal-popup',
+            title: 'swal-title',
+            content: 'swal-content',
+            confirmButton: 'swal-confirm-button'
+        }
+    });
+}
+
 const handleDateBlur = (e, formData, setFormData) => {
 
-
-
+    const targetName = e.target.name
 
     const pickupDate = formData.pickupDate ? formData.pickupDate : null
     const pickupTime = formData.pickupTime ? formData.pickupTime : null
     const dropoffDate = formData.dropoffDate ? formData.dropoffDate : null
     const dropoffTime = formData.dropoffTime ? formData.dropoffTime : null
 
-    const todayObject = new Date()
-    todayObject.setHours(0, 0, 0, 0);
+    const todayDateObject = new Date()
+    todayDateObject.setHours(0, 0, 0, 0);
 
-    const [year, month, day] = e.target.value.split('-')
-    const pickupDateObject = new Date(year, month - 1, day)
-    pickupDateObject.setHours(0, 0, 0, 0)
+    let pickupDateObject
+    if (pickupDate) {
+        const [year, month, day] = pickupDate.split('-')
+        pickupDateObject = new Date(year, month - 1, day)
+        pickupDateObject.setHours(0, 0, 0, 0)
+    }
+    let dropoffDateObject
+    if (dropoffDate) {
+        const [year, month, day] = dropoffDate.split('-')
+        dropoffDateObject = new Date(year, month - 1, day)
+        dropoffDateObject.setHours(0, 0, 0, 0)
+    }
 
-    const sixMonthsAfterToday = new Date();
-    sixMonthsAfterToday.setMonth(sixMonthsAfterToday.getMonth() + 6);
+    const sixMonthsAfterTodayObject = new Date();
+    sixMonthsAfterTodayObject.setMonth(sixMonthsAfterTodayObject.getMonth() + 6);
+
+    const oneMonthAfterPickupObject = new Date(pickupDate);
+    oneMonthAfterPickupObject.setMonth(oneMonthAfterPickupObject.getMonth() + 1);
 
 
     //pickup date
-    if (pickupDateObject <= todayObject) {
-        Swal.fire({
-            title: 'Invalid Date',
-            text: 'Please select a pick-up date that is later than today.',
-            icon: 'warning',
-            customClass: {
-                container: 'swal-container',
-                popup: 'swal-popup',
-                title: 'swal-title',
-                content: 'swal-content',
-                confirmButton: 'swal-confirm-button'
+    if (targetName === 'pickupDate') {
+        if (pickupDateObject <= todayDateObject) {
+            fireSwal('Pick-up date must be later than today.')
+            setFormData(prevState => ({ ...prevState, [targetName]: '' }))
+            return;
+        }
+        if (pickupDateObject > sixMonthsAfterTodayObject) {
+            fireSwal('Pick-up date cannot be more than 6 months away.')
+            setFormData(prevState => ({ ...prevState, [targetName]: '' }))
+            return;
+        }
+        if (dropoffDate) {
+            console.log('here is the dropoff date object', dropoffDateObject);
+            if (pickupDate > dropoffDate) {
+                fireSwal('Pick-up date must precede drop-off date.')
+                setFormData(prevState => ({ ...prevState, [targetName]: '' }))
+                return;
             }
-        });
-        setFormData(prevState => ({ ...prevState, [name]: '' }))
-        return;
-    }
-
-    if (pickupDateObject > sixMonthsAfterToday) {
-        Swal.fire({
-            title: 'Invalid Date',
-            text: 'Please select a pick-up date that is no more than 6 months away.',
-            icon: 'warning',
-            customClass: {
-                container: 'swal-container',
-                popup: 'swal-popup',
-                title: 'swal-title',
-                content: 'swal-content',
-                confirmButton: 'swal-confirm-button'
+            if (dropoffDateObject > oneMonthAfterPickupObject) {
+                fireSwal('Pick-up date can precede drop-off date at most by a month.')
+                setFormData(prevState => ({ ...prevState, dropoffDate: '' }))
+                return;
             }
-        });
-        setFormData(prevState => ({ ...prevState, [name]: '' }))
-        return;
-    }
-
-
-
-
-
-
-
-
-
-
-
-    function validateTime() {
-        const pickupTime = new Date(`1970-01-01T${formData.pickupTime}:00`);
-        const dropoffTime = new Date(`1970-01-01T${value}:00`);
-        console.log('inside validateTime', pickupTime, dropoffTime);
-        if (dropoffTime <= pickupTime && formData.pickupDate === formData.dropoffDate) {
-            Swal.fire({
-                title: 'Invalid Time',
-                text: 'Please select a drop-off time that is later than the pick-up time.',
-                icon: 'warning',
-                customClass: {
-                    container: 'swal-container',
-                    popup: 'swal-popup',
-                    title: 'swal-title',
-                    content: 'swal-content',
-                    confirmButton: 'swal-confirm-button'
-                }
-            });
-            setFormData(prevState => ({ ...prevState, [name]: '' }));
-            return;
         }
     }
 
-    const name = e.target.name
-    const value = e.target.value
-
-    if (name === 'pickupDate') {
-        const todayDate = new Date()
-        todayDate.setHours(0, 0, 0, 0);
-
-        const [year, month, day] = value.split('-')
-        const pickupDate = new Date(year, month - 1, day)
-        pickupDate.setHours(0, 0, 0, 0)
-
-        const dropOffDate = formData.dropoffDate
-
-        if (pickupDate <= todayDate) {
-            Swal.fire({
-                title: 'Invalid Date',
-                text: 'Please select a pick-up date that is later than today.',
-                icon: 'warning',
-                customClass: {
-                    container: 'swal-container',
-                    popup: 'swal-popup',
-                    title: 'swal-title',
-                    content: 'swal-content',
-                    confirmButton: 'swal-confirm-button'
-                }
-            });
-            setFormData(prevState => ({ ...prevState, [name]: '' }))
-            return;
-        }
-        const sixMonthsAfterToday = new Date();
-        sixMonthsAfterToday.setMonth(sixMonthsAfterToday.getMonth() + 6);
-        if (pickupDate > sixMonthsAfterToday) {
-            Swal.fire({
-                title: 'Invalid Date',
-                text: 'Please select a pick-up date that is no more than 6 months away.',
-                icon: 'warning',
-                customClass: {
-                    container: 'swal-container',
-                    popup: 'swal-popup',
-                    title: 'swal-title',
-                    content: 'swal-content',
-                    confirmButton: 'swal-confirm-button'
-                }
-            });
-            setFormData(prevState => ({ ...prevState, [name]: '' }))
-            return;
-        }
-        if (pickupDate === dropOffDate && formData.dropoffTime) {
-            validateTime()
-            return
-        }
-    }
-
-
-
-
-    else if (name === 'dropoffDate') {
-        const pickupDate = new Date(formData.pickupDate);
-        const dropoffDate = new Date(value);
-        console.log('pickupdate', pickupDate, 'dropoffdate', dropoffDate, pickupDate === dropoffDate);
+    //dropoff date
+    if (targetName === 'dropoffDate') {
         if (dropoffDate < pickupDate) {
-            Swal.fire({
-                title: 'Invalid Date',
-                text: 'Please select a drop-off date that is later than the pick-up date.',
-                icon: 'warning',
-                customClass: {
-                    container: 'swal-container',
-                    popup: 'swal-popup',
-                    title: 'swal-title',
-                    content: 'swal-content',
-                    confirmButton: 'swal-confirm-button'
-                }
-            });
-            setFormData(prevState => ({ ...prevState, [name]: '' }))
+            fireSwal('Pick-up date must precede drop-off date.')
+            setFormData(prevState => ({ ...prevState, [targetName]: '' }))
             return;
         }
-        const oneMonthAfterPickup = new Date(pickupDate);
-        oneMonthAfterPickup.setMonth(pickupDate.getMonth() + 1);
-        if (dropoffDate > oneMonthAfterPickup) {
-            Swal.fire({
-                title: 'Invalid Date',
-                text: 'Please select a drop-off date that is no more than one month after the pick-up date.',
-                icon: 'warning',
-                customClass: {
-                    container: 'swal-container',
-                    popup: 'swal-popup',
-                    title: 'swal-title',
-                    content: 'swal-content',
-                    confirmButton: 'swal-confirm-button'
-                }
-            });
-            setFormData(prevState => ({ ...prevState, [name]: '' }))
+        if (dropoffDateObject > oneMonthAfterPickupObject) {
+            fireSwal('Pick-up date can precede drop-off date at most by a month.')
+            setFormData(prevState => ({ ...prevState, [targetName]: '' }))
             return;
-        }
-        if (pickupDate.getTime() === dropoffDate.getTime() && formData.dropoffTime) {
-            console.log('they are equal');
-            validateTime()
-            return
         }
     }
 
-    else if (name === 'dropoffTime' || name === 'pickupTime') {
-        validateTime(name)
-        return
+    //same day
+    if (dropoffDate && pickupDate === dropoffDate) {
+        if (pickupTime >= dropoffTime) {
+            fireSwal('Pick-up time must precede drop-off time on same-day deliveries.')
+            setFormData(prevState => ({ ...prevState, dropoffTime: '' }))
+            return;
+        }
     }
 }
 
 export default handleDateBlur
-
-
-
-//compare pickupDate vs pickupTime
-
