@@ -212,7 +212,6 @@
 
     .contact__form button:disabled {
         color: black;
-        background-color: var(--primary-color);
         transform: none;
     }
 }
