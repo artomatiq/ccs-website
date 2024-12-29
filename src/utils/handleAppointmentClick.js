@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 
-const isTouchDevice = 'ontouchstart' in window && (window.innerWidth <= 1024);
+// const isTouchDevice = 'ontouchstart' in window && (window.innerWidth <= 1024);
 
 const fireSwal = (inputName) => {
     Swal.fire({
@@ -28,10 +28,10 @@ const handleAppointmentClick = (e) => {
     const inputArray = [dropoffDateInput, pickupTimeInput, pickupDateInput]
 
     const target = e.target.tagName === 'INPUT' ? e.target : e.target.querySelector('input');
-    if (!isTouchDevice || !target || !target.disabled) return
+    // if (!isTouchDevice || !target || !target.disabled) return
 
     for (let input of inputArray) {
-        if (!input.disabled) {
+        if (target.disabled && !input.disabled) {
             fireSwal(input.dataset.name);
             break;
         }
