@@ -2,9 +2,14 @@ import emailjs from '@emailjs/browser';
 import Swal from 'sweetalert2';
 
 const sendEmail = (e, formData) => {
+
+    const service_id = process.env.REACT_APP_EMAILJS_SERVICE_ID
+    const template_id = process.env.REACT_APP_EMAILJS_TEMPLATE_ID
+    const public_key = process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+
     emailjs
-            .send('service_crxagxx', 'template_qp97umb', formData, {
-                publicKey: '1LrsqCWwK1-KwUSbt',
+            .send(service_id, template_id, formData, {
+                publicKey: public_key,
             })
             .then(
                 () => {
