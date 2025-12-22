@@ -13,6 +13,10 @@ const Header = () => {
                 document.getElementById(targetId)?.scrollIntoView()
             }, 250);
         }
+        if (targetId === 'ticket-id') {
+            e.preventDefault()
+            navigate('/ticket')
+        }
     }
 
     return (
@@ -45,6 +49,12 @@ const Header = () => {
             <span className="contact nav-button" onClick={(e) => handleClick(e, 'contact-id')}>
                 <a href='#contact-id'>
                     Contact
+                </a>
+            </span>
+
+            <span className="ticket nav-button" onClick={(e) => handleClick(e, 'ticket-id')}>
+                <a href='#contact-id'>
+                    Ticket
                 </a>
             </span>
 
