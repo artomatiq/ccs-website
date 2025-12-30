@@ -8,6 +8,7 @@ import Services from './components/services/Services';
 import About from './components/about/About';
 import Contact from './components/contact/Contact';
 import Quote from './components/quote/Quote';
+import Ticket from './components/ticket/Ticket';
 import Footer from './components/footer/Footer';
 
 import { Routes, Route, useLocation } from 'react-router-dom';
@@ -91,6 +92,7 @@ function App() {
       <Header />
       <Hero />
       <Routes>
+        <Route path='/ticket' element={<Ticket />} />
         <Route path='/quote' element={<Quote />} />
         <Route path='*' element={<Home />} />
       </Routes>

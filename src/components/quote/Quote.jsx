@@ -78,7 +78,6 @@ const Quote = () => {
             ...prevData,
             [fieldName]: place?.formatted_address || '',
         }))
-
     }
 
     const handleSubmit = async (e) => {

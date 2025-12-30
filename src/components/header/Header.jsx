@@ -6,17 +6,11 @@ const Header = () => {
     const navigate = useNavigate()
 
     const handleClick = (e, targetId) => {
-        if (location.pathname === '/quote') {
-            e.preventDefault()
-            navigate(`/`)
-            setTimeout(() => {
-                document.getElementById(targetId)?.scrollIntoView()
-            }, 250);
-        }
-        if (targetId === 'ticket-id') {
-            e.preventDefault()
-            navigate('/ticket')
-        }
+        e.preventDefault()
+        navigate(`/`)
+        setTimeout(() => {
+            document.getElementById(targetId)?.scrollIntoView()
+        }, 250);
     }
 
     return (
@@ -34,12 +28,6 @@ const Header = () => {
                 </a>
             </span>
 
-            {/* <span className="gallery nav-button">
-                <a href='#gallery-id'>
-                    Gallery
-                </a>
-            </span> */}
-
             <span className="about nav-button" onClick={(e) => handleClick(e, 'about-id')}>
                 <a href='#about-id'>
                     About Us
@@ -52,10 +40,10 @@ const Header = () => {
                 </a>
             </span>
 
-            <span className="ticket nav-button" onClick={(e) => handleClick(e, 'ticket-id')}>
-                <a href='#contact-id'>
+            <span className="ticket-button nav-button">
+                <Link to='ticket'>
                     Ticket
-                </a>
+                </Link>
             </span>
 
             <span className='quote-button nav-button'>
