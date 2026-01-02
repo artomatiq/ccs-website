@@ -1,42 +1,47 @@
 import './ticket.css'
 import { useState, useEffect } from "react";
+import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const PasscodePage = () => {
 
     useEffect(() => {
-        // const button = document.querySelector('.ticket.nav-button');
-        // const element = document.querySelector('.ticket-container')
-        // if (element) {
-        //     window.scrollTo(0, element.offsetTop)
-        //     button.addEventListener('click', () => window.scrollTo(0, element.offsetTop));
-        //     return () => {
-        //         element.removeEventListener('click', () => window.scrollTo(0, element.offsetTop));
-        //     };
-        // }
     }, []);
 
     const [passcode, setPasscode] = useState()
 
     const handleChange = (e) => {
         const { value } = e.target;
-        // const updatedFormData = { ...formData, [name]: value };
-        // setFormData(updatedFormData);
+        setPasscode(value);
     }
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        axios.send()
     }
 
     return (
         <div className="quote-container ticket-container section" id="about-id">
 
             <form className="ticket__form quote__form">
-                <div className="upload-button segment">
-                    <div className="form-div upload">
+                <div className="passcode input segment">
+                    <div className="form-div passcode">
+                        <input
+                            type="text"
+                            name="passcode"
+                            className="passcode-input"
+                            id="passcode-input"
+                            placeholder='Enter driver passcode'
+                            value={passcode}
+                            onChange={handleChange}
+                        />
+                    </div>
+                </div>
+                <div className="passcode segment">
+                    <div className="form-div passcode">
                         <button
                             type="submit"
-                            value="Send"
+                            value="send"
                             onClick={handleLogin}
                             className="button"
                         >
