@@ -38,10 +38,10 @@ const PasscodePage = (props) => {
     }
 
     return (
-        <div className="quote-container ticket-container section" id="about-id">
+        <div className="quote-container ticket-container section" id="ticket-login-id">
 
             <form className="ticket__form quote__form">
-                <div className="passcode input segment">
+                <div className="passcode input segment" id='passcode-input'>
                     <div className="form-div passcode">
                         <input
                             type="password"
