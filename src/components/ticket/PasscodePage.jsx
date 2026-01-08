@@ -44,7 +44,7 @@ const PasscodePage = () => {
                             value="send"
                             onClick={handleLogin}
                             className="button"
-                            disabled={!passcode}
+                            disabled={passcode.length<4}
                         >
                             Login
                         </button>
