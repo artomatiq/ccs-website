@@ -8,6 +8,11 @@ const UploadPage = ({ setToken }) => {
     const [attachment, setAttachment] = useState(null)
     const fileInputRef = useRef(null)
 
+
+    //handle large files, do not allow large files to cost lambda rutnime
+
+    //do not allow multiple files to be selected
+
     const handleCapture = (e) => {
         e.preventDefault()
         fileInputRef.current.click()
@@ -75,6 +80,23 @@ const UploadPage = ({ setToken }) => {
 
                 <div className="upload-button segment">
                     <div className="form-div upload">
+                        <div className="rotate-buttons">
+                            <button
+                                type="button"
+                                onClick={handleSubmit}
+                                className="button"
+                                hidden={!attachment}
+                            >
+                                left
+                            </button><button
+                                type="button"
+                                onClick={handleSubmit}
+                                className="button"
+                                hidden={!attachment}
+                            >
+                                right
+                            </button>
+                        </div>
                         <button
                             type="submit"
                             onClick={handleCapture}
