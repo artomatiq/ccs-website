@@ -18,10 +18,8 @@ const PasscodePage = (props) => {
         try {
             const response = await loginDriver(passcode)
             const token = response.token
-            
             sessionStorage.setItem("drivertoken", token)
             props.handleLoginSuccess(token)
-
         } catch (error) {
             Swal.fire({
                 title: error.message,
@@ -44,7 +42,7 @@ const PasscodePage = (props) => {
                 <div className="passcode input segment">
                     <div className="form-div passcode">
                         <input
-                            type="text"
+                            type="password"
                             name="passcode"
                             className="passcode-input"
                             id="passcode-input"

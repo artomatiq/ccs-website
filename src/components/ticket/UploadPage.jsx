@@ -8,7 +8,7 @@ const UploadPage = () => {
 
     }
 
-    const [attached, setAttached] = useState(false)
+    const [attachment, setAttachment] = useState(false)
 
     return (
         <div className="quote-container ticket-container section" id="about-id">
@@ -21,7 +21,7 @@ const UploadPage = () => {
                             value="Send"
                             onClick={handleUpload}
                             className="button"
-                            disabled={!attached}
+                            disabled={!attachment}
                         >
                             Upload Photo
                         </button>
