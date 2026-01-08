@@ -3,12 +3,9 @@ import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
 import loginDriver from '../../api/mock';
 
-const PasscodePage = () => {
+const PasscodePage = (props) => {
 
-    useEffect(() => {
-    }, []);
-
-    const [passcode, setPasscode] = useState()
+    const [passcode, setPasscode] = useState("")
 
     const handleChange = (e) => {
         const { value } = e.target;
@@ -20,6 +17,11 @@ const PasscodePage = () => {
 
         try {
             const response = await loginDriver(passcode)
+            const token = response.token
+            
+            sessionStorage.setItem("drivertoken", token)
+            props.handleLoginSuccess(token)
+
         } catch (error) {
             Swal.fire({
                 title: error.message,
