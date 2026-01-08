@@ -18,11 +18,13 @@ const PasscodePage = (props) => {
         try {
             const response = await loginDriver(passcode)
             const token = response.token
-            sessionStorage.setItem("drivertoken", token)
+            if (!token) throw new Error("Login failed by the server.")
+            sessionStorage.setItem("driverToken", token)
             props.handleLoginSuccess(token)
         } catch (error) {
             Swal.fire({
-                title: error.message,
+                title: error.status || "",
+                text: error.message,
                 icon: 'warning',
                 customClass: {
                     container: 'swal-container',

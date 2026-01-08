@@ -2,10 +2,16 @@ import './ticket.css'
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
 
-const UploadPage = () => {
+const UploadPage = ({ setToken }) => {
+
 
     const handleUpload = () => {
 
+    }
+
+    const handleLogout = () => {
+        sessionStorage.removeItem("driverToken")
+        setToken(null)
     }
 
     const [attachment, setAttachment] = useState(false)
@@ -18,12 +24,18 @@ const UploadPage = () => {
                     <div className="form-div upload">
                         <button
                             type="submit"
-                            value="Send"
                             onClick={handleUpload}
                             className="button"
                             disabled={!attachment}
                         >
                             Upload Photo
+                        </button>
+                        <button
+                            type="button"
+                            onClick={handleLogout}
+                            className="button upload-logout-button "
+                        >
+                            Logout
                         </button>
                     </div>
                 </div>

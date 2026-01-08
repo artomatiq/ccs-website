@@ -20,12 +20,9 @@ const Ticket = () => {
 
     const isMobile = true ///Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     const [token, setToken] = useState(sessionStorage.getItem("driverToken" || null))
-
     const handleLoginSuccess = (jwt) => {
-        console.log('handleSuccessLogin triggered');
         setToken(jwt)
     }
-
 
     return (
         isMobile ? (
@@ -34,10 +31,9 @@ const Ticket = () => {
                     <span className="hide" >Submit Hauling Ticket</span>
                 </div>
                 {token
-                    ? <UploadPage token={token}/>
+                    ? <UploadPage setToken={setToken}/>
                     : <PasscodePage handleLoginSuccess={handleLoginSuccess}/>
                 }
-
             </div>
         ) : (
             <div>
@@ -45,6 +41,5 @@ const Ticket = () => {
             </div>
         )
     );
-
 }
 export default Ticket;
