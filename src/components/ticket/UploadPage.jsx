@@ -68,7 +68,6 @@ const UploadPage = ({ setToken }) => {
                 <input
                     type="file"
                     accept="image/*"
-                    capture="environment"
                     style={{ display: "none" }}
                     ref={fileInputRef}
                     onChange={handleFileChange}
@@ -80,6 +79,7 @@ const UploadPage = ({ setToken }) => {
                             type="submit"
                             onClick={handleCapture}
                             className="button"
+                            id='attach-button'
                         >
                             {attachment ? "Replace" : "Attach Photo"}
                         </button>

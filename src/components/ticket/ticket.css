@@ -1,3 +1,7 @@
 #passcode-input {
     font-size: 16px;
 }
+
+#attach-button:hover {
+    transform: none;
+}
