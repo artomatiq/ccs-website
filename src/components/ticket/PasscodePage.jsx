@@ -1,7 +1,7 @@
 import './ticket.css'
 import { useState, useEffect } from "react";
-import axios from 'axios';
 import Swal from 'sweetalert2';
+import loginDriver from '../../api/mock';
 
 const PasscodePage = () => {
 
@@ -17,7 +17,22 @@ const PasscodePage = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        axios.send()
+
+        try {
+            const response = await loginDriver(passcode)
+        } catch (error) {
+            Swal.fire({
+                title: error.message,
+                icon: 'warning',
+                customClass: {
+                    container: 'swal-container',
+                    popup: 'swal-popup',
+                    title: 'swal-title',
+                    content: 'swal-content',
+                    confirmButton: 'swal-confirm-button'
+                }
+            });
+        }
     }
 
     return (
@@ -44,7 +59,7 @@ const PasscodePage = () => {
                             value="send"
                             onClick={handleLogin}
                             className="button"
-                            disabled={passcode.length<4}
+                            disabled={passcode.length < 4}
                         >
                             Login
                         </button>
