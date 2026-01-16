@@ -1,16 +1,19 @@
+/* global cv */
 import './ticket.css'
 import { useState, useRef } from "react";
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import cropTicket from '../../utils/cropTicket'
+import uploadToS3 from '../../utils/uploadToS3';
+import ImagePreview from './ImagePreview';
 
 const UploadPage = ({ setToken }) => {
 
     const [attachment, setAttachment] = useState(null)
     const fileInputRef = useRef(null)
-
+    const [imageSrc, setImageSrc] = useState(null)
 
     //handle large files, do not allow large files to cost lambda rutnime
-
     //do not allow multiple files to be selected
 
     const handleCapture = (e) => {
@@ -18,10 +21,37 @@ const UploadPage = ({ setToken }) => {
         fileInputRef.current.click()
     }
 
-    const handleFileChange = (e) => {
+    const handleFileChange = async (e) => {
         const file = e.target.files[0]
         if (file) {
             setAttachment(file)
+        } else return
+
+        const img = new Image()
+        img.src = URL.createObjectURL(file)
+        img.onload = async () => {
+            try {
+                const dstMat = await cropTicket(img)
+                //draw to canvas
+                const canvas = document.createElement("canvas")
+                canvas.width = dstMat.cols
+                canvas.height = dstMat.rows
+                cv.imshow(canvas, dstMat)
+                setImageSrc(canvas.toDataURL())
+            } catch (err) {
+                Swal.fire({
+                    title: err.status,
+                    text: err.message,
+                    icon: 'warning',
+                    customClass: {
+                        container: 'swal-container',
+                        popup: 'swal-popup',
+                        title: 'swal-title',
+                        content: 'swal-content',
+                        confirmButton: 'swal-confirm-button'
+                    }
+                });
+            }
         }
     }
 
@@ -77,6 +107,8 @@ const UploadPage = ({ setToken }) => {
                     ref={fileInputRef}
                     onChange={handleFileChange}
                 />
+
+                <ImagePreview src={imageSrc}/>
 
                 <div className="upload-button segment">
                     <div className="form-div upload">
