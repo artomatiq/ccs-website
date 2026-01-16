@@ -134,6 +134,12 @@ export default function cropTicket(img) {
         const cnt = contours.get(i)           // get the contour
         const peri = cv.arcLength(cnt, true)
         const approx = new cv.Mat()
+        const area = cv.contourArea(cnt)
+        const imgArea = src.rows * src.cols
+        if (area < imgArea * 0.1) {
+            cnt.delete()
+            continue
+        }
         cv.approxPolyDP(cnt, approx, 0.02 * peri, true) // approximate polygon
 
         // draw the approximated contour
