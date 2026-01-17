@@ -3,7 +3,8 @@ import './ticket.css'
 import { useState, useRef } from "react";
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import cropTicket from '../../utils/cropTicket'
+// import cropTicket from '../../utils/cropTicketWithHue'
+import cropTicket from '../../utils/cropTicketWithCanny';
 import uploadToS3 from '../../utils/uploadToS3';
 import ImagePreview from './ImagePreview';
 

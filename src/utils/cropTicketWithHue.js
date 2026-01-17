@@ -1,7 +1,7 @@
 /* global cv */
 import fourPointTransform from "./fourPointTransform"
 
-export default function cropTicket(img) {
+export default function cropTicketWithHue(img) {
 
 
     function cleanup() {
@@ -100,17 +100,17 @@ export default function cropTicket(img) {
     }
 
     //create yellow mask from dominant hue
-    const hueMargin = 3   // ±7 degrees around dominant
-    const lower = new cv.Mat(hsv.rows, hsv.cols, hsv.type(), [dominantHue - hueMargin, 50, 100, 0])
+    const hueMargin = 6   // ±7 degrees around dominant
+    const lower = new cv.Mat(hsv.rows, hsv.cols, hsv.type(), [dominantHue - hueMargin, 40, 50, 0])
     const upper = new cv.Mat(hsv.rows, hsv.cols, hsv.type(), [dominantHue + hueMargin, 255, 255, 255])
 
     const mask = new cv.Mat()
     cv.inRange(hsv, lower, upper, mask)
 
     //clean up mask
-    const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(4, 4))
-    cv.morphologyEx(mask, mask, cv.MORPH_CLOSE, kernel, new cv.Point(-1, -1), 2) // fill gaps
-    cv.morphologyEx(mask, mask, cv.MORPH_OPEN, kernel, new cv.Point(-1, -1), 2)  // remove noise
+    const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(5, 5))
+    cv.morphologyEx(mask, mask, cv.MORPH_CLOSE, kernel, new cv.Point(-1, -1), 1) // fill gaps
+    cv.morphologyEx(mask, mask, cv.MORPH_OPEN, kernel, new cv.Point(-1, -1), 1)  // remove noise
     // return mask
 
     //find contours
@@ -153,7 +153,7 @@ export default function cropTicket(img) {
         approxVec.delete()
         cnt.delete()
     }
-    // return contourPreview
+    return contourPreview
 
 
 
