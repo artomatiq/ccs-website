@@ -38,6 +38,7 @@ const UploadPage = ({ setToken }) => {
                 canvas.width = dstMat.cols
                 canvas.height = dstMat.rows
                 cv.imshow(canvas, dstMat)
+                dstMat.delete()
                 setImageSrc(canvas.toDataURL())
             } catch (err) {
                 Swal.fire({
@@ -97,7 +98,7 @@ const UploadPage = ({ setToken }) => {
     }
 
     return (
-        <div className="quote-container ticket-container section" id="ticket-upload-id">
+        <div className="quote-container section" id="ticket-upload-section">
 
             <form className="ticket__form quote__form">
 
@@ -109,27 +110,10 @@ const UploadPage = ({ setToken }) => {
                     onChange={handleFileChange}
                 />
 
-                <ImagePreview src={imageSrc}/>
+                <ImagePreview src={imageSrc} hidden={!imageSrc} />
 
                 <div className="upload-button segment">
                     <div className="form-div upload">
-                        <div className="rotate-buttons">
-                            <button
-                                type="button"
-                                onClick={handleSubmit}
-                                className="button"
-                                hidden={!attachment}
-                            >
-                                left
-                            </button><button
-                                type="button"
-                                onClick={handleSubmit}
-                                className="button"
-                                hidden={!attachment}
-                            >
-                                right
-                            </button>
-                        </div>
                         <button
                             type="submit"
                             onClick={handleCapture}
@@ -144,18 +128,19 @@ const UploadPage = ({ setToken }) => {
                             onClick={handleSubmit}
                             className="button"
                             disabled={!attachment}
+                            hidden={!attachment}
                         >
                             Submit
                         </button>
-
-                        <button
-                            type="button"
-                            onClick={handleLogout}
-                            className="button upload-logout-button "
-                        >
-                            Logout
-                        </button>
                     </div>
+                    <button
+                        type="button"
+                        onClick={handleLogout}
+                        className="button"
+                        id='logout-button'
+                    >
+                        Logout
+                    </button>
                 </div>
             </form>
         </div>

@@ -1,7 +1,96 @@
-#passcode-input {
-    font-size: 16px;
-}
+    .ticket-container {
+        min-height: 101vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 
-#attach-button:hover {
-    transform: none;
-}
+    #ticket-upload-section {
+        padding-top: 0;
+
+        .ticket__form {
+            margin-top: 3rem;
+
+            .upload-button.segment {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                gap: 30vh;
+            }
+        }
+    }
+
+
+    #passcode-input {
+        font-size: 16px;
+    }
+
+    #attach-button:hover {
+        transform: none;
+    }
+
+    #preview-div {
+        align-self: center;
+    }
+
+    #preview-img {
+        height: 65vh;
+    }
+
+    div.rotate-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        margin: 2rem;
+
+        button {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            font-size: 2rem;
+        }
+    }
+
+    .form-div.upload {
+        button {
+            margin: 0.5rem;
+        }
+
+        #logout-button {
+            /* margin-top: 6rem; */
+        }
+    }
+
+    @media screen and (max-width: 550px) {
+        .ticket-container {
+            min-height: 95vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        #preview-img {
+            height: 60vh;
+        }
+
+        div.rotate-buttons {
+            button {}
+        }
+
+        #ticket-upload-section {
+            padding-top: 0;
+
+            .ticket__form {
+                /* margin-top: 3rem; */
+
+                .upload-button.segment {
+                    gap: 20vh;
+                }
+            }
+        }
+    }
+
+    @media screen and (orientation: landscape) and (max-width: 768px) {}
+
+    /* all iPads */
+    @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {}
