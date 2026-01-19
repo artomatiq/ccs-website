@@ -153,11 +153,6 @@ export default function cropTicketWithHue(img) {
         approxVec.delete()
         cnt.delete()
     }
-    return contourPreview
-
-
-
-
 
 
 
