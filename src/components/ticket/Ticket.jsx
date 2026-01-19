@@ -1,6 +1,5 @@
 import './ticket.css'
 import { useState, useEffect } from "react";
-import Swal from 'sweetalert2';
 import PasscodePage from './PasscodePage';
 import UploadPage from './UploadPage';
 
