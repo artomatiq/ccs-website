@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom'
 
 const Footer = () => {
 
-    const handleClick = (id) => {
-
-    }
+    // const handleClick = (id) => {
+    // }
 
     return (
         <div className="footer-container section">
