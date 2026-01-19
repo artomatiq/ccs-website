@@ -48,7 +48,7 @@ export default function cropTicketWithCanny(img) {
     const imgArea = src.rows * src.cols
     const docArea = cv.contourArea(contourArray[0])
     const areaRatio = docArea / imgArea
-    if (areaRatio < 0.3 || areaRatio > 0.95) {
+    if (areaRatio < 0.15 || areaRatio > 0.95) {
         src.delete()
         gray.delete()
         blurred.delete()
