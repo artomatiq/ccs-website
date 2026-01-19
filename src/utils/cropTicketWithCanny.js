@@ -42,10 +42,23 @@ export default function cropTicketWithCanny(img) {
 
     //reduce noise
     const blurred = new cv.Mat()
-    cv.GaussianBlur(gray, blurred, new cv.Size(1, 1), 0)
+    cv.GaussianBlur(gray, blurred, new cv.Size(5, 5), 1)
     //get cleaner edges
     const edged = new cv.Mat()
-    cv.Canny(blurred, edged, 50, 150)
+    cv.Canny(blurred, edged, 75, 200)
+    // return edged
+
+    //morphological transform
+    const kernel = cv.getStructuringElement(
+        cv.MORPH_RECT,
+        new cv.Size(6, 6)
+    )
+    cv.dilate(edged, edged, kernel)
+    // cv.morphologyEx(edged, edged, cv.MORPH_CLOSE, kernel)
+    // cv.morphologyEx(edged, edged, cv.MORPH_CLOSE, kernel, new cv.Point(-1, -1), 2)
+    kernel.delete()
+    // return edged
+
     //find all contours
     const contours = new cv.MatVector()
     const hierarchy = new cv.Mat()
@@ -53,10 +66,24 @@ export default function cropTicketWithCanny(img) {
     console.log('found this many contours: ', contours.size());
 
 
-
+    //sort contours by area, largest first
+    const contourArray = []
+    for (let i = 0; i < contours.size(); i++) {
+        const cnt = contours.get(i)
+        contourArray.push(cnt)
+        // console.log('Contour', i, 'area:', cv.contourArea(cnt))
+    }
+    contourArray.sort((a, b) => cv.contourArea(b) - cv.contourArea(a))
 
     //preview contours
     const contourPreview = new cv.Mat.zeros(edged.rows, edged.cols, cv.CV_8UC3)
+
+    const largestVec = new cv.MatVector()
+    largestVec.push_back(contourArray[0])
+
+    //draw only largest contour
+    cv.drawContours(contourPreview, largestVec, 0, new cv.Scalar(0, 255, 0), 1, cv.LINE_8)
+    // return contourPreview
 
     for (let i = 0; i < contours.size(); i++) {
         const cnt = contours.get(i)           // get the contour
@@ -81,7 +108,7 @@ export default function cropTicketWithCanny(img) {
         approxVec.delete()
         cnt.delete()
     }
-    return contourPreview
+    // return contourPreview
 
 
 
@@ -91,14 +118,7 @@ export default function cropTicketWithCanny(img) {
 
 
 
-    //sort contours by area, largest first
-    const contourArray = []
-    for (let i = 0; i < contours.size(); i++) {
-        const cnt = contours.get(i)
-        contourArray.push(cnt)
-        // console.log('Contour', i, 'area:', cv.contourArea(cnt))
-    }
-    contourArray.sort((a, b) => cv.contourArea(b) - cv.contourArea(a))
+
 
 
     let docContour = null
