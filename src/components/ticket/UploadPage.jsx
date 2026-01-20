@@ -88,8 +88,6 @@ const UploadPage = ({ setToken }) => {
                 }
             });
         }
-
-
     }
 
     const handleLogout = () => {
@@ -110,7 +108,7 @@ const UploadPage = ({ setToken }) => {
                     onChange={handleFileChange}
                 />
 
-                <ImagePreview src={imageSrc} hidden={!imageSrc} />
+                <ImagePreview src={imageSrc} setImageSrc={setImageSrc} hidden={!imageSrc} />
 
                 <div className="upload-button segment">
                     <div className="form-div upload">

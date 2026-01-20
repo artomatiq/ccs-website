@@ -31,17 +31,33 @@
 
     #preview-div {
         align-self: center;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #img-wrapper {
+        height: 65vh;
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
     }
 
     #preview-img {
-        height: 65vh;
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
     }
 
     div.rotate-buttons {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
+        align-self: center;
         margin: 2rem;
+        width: 20rem;
 
         button {
             width: 4rem;
@@ -69,9 +85,13 @@
             justify-content: space-between;
         }
 
-        #preview-img {
+        #img-wrapper {
             height: 60vh;
         }
+
+        /* #preview-img {
+            height: 60vh;
+        } */
 
         div.rotate-buttons {
             button {}
