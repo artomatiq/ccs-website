@@ -92,6 +92,39 @@ export default function cropTicketWithCanny(img) {
         approx.delete()
     }
 
+    //reject docContour if the proportions of the rectangle are not within a specific range
+    if (docContour) {
+        // extract the 4 points
+        const pts = []
+        for (let i = 0; i < 4; i++) {
+            pts.push({
+                x: docContour.intPtr(i, 0)[0],
+                y: docContour.intPtr(i, 0)[1],
+            })
+        }
+        // helper to compute distance
+        const dist = (p1, p2) =>
+            Math.hypot(p1.x - p2.x, p1.y - p2.y)
+        // compute side lengths (assumes approxPolyDP returns ordered points)
+        const d0 = dist(pts[0], pts[1])
+        const d1 = dist(pts[1], pts[2])
+        const d2 = dist(pts[2], pts[3])
+        const d3 = dist(pts[3], pts[0])
+        //find average side length
+        const width = (d0 + d2) / 2
+        const height = (d1 + d3) / 2
+        //find ratio
+        const aspect = width > height ? width / height : height / width
+
+        const ticketAspect = 2
+        const tolerance = 0.15
+
+        if (Math.abs(aspect - ticketAspect) > ticketAspect * tolerance) {
+            docContour.delete()
+            docContour = null
+        }
+    }
+
     if (!docContour) {
         src.delete()
         gray.delete()

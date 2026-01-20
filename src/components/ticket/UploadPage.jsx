@@ -14,6 +14,7 @@ const UploadPage = ({ setToken }) => {
     const fileInputRef = useRef(null)
     const [imageSrc, setImageSrc] = useState(null)
 
+    //TODO  
     //handle large files, do not allow large files to cost lambda rutnime
     //do not allow multiple files to be selected
 
@@ -66,6 +67,8 @@ const UploadPage = ({ setToken }) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         if (!attachment) alert('there is no attachment')
+        //TODO
+            //reject upload if image is sideways
         try {
             // const response = await new Promise((resolve, reject) => setTimeout(resolve, 1000))
 
