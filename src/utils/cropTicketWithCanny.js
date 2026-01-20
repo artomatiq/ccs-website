@@ -132,7 +132,7 @@ export default function cropTicketWithCanny(img) {
         edged.delete()
         contours.delete()
         for (const cnt of contourArray) cnt.delete()
-        throw new Error("Unable to locate document")
+        throw new Error('Unable to locate document. Please chooose another photo.')
     }
 
     //perspective transform

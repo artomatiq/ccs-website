@@ -21,7 +21,6 @@ function orderPoints(pts) {
 }
 
 export default function fourPointTransform(src, pts) {
-    console.log('performing four point transform');
     const [tl, tr, br, bl] = orderPoints(pts)
 
     //compute width of new image
