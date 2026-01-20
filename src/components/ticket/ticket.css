@@ -64,6 +64,13 @@
             height: 4rem;
             border-radius: 50%;
             font-size: 2rem;
+
+            :hover {
+                cursor: pointer;
+                background-color: var(--primary-color);
+                transition-delay: 0.1s;
+                transform: none;
+            }
         }
     }
 

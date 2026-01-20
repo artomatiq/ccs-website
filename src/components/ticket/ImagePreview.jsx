@@ -25,9 +25,9 @@ const ImagePreview = ({ src, setImageSrc, hidden }) => {
     }
 
     return (
-        <div className="" id="preview-div" hidden={hidden}>
+        <div className="" id="preview-div" style={{ display: hidden ? 'none' : 'flex' }} >
             <div className="image-wrapper" id="img-wrapper">
-                <img src={src} alt="Cropped Ticket Preview" id="preview-img" />
+                <img src={src} alt="Cropped Ticket Preview" id="preview-img" hidden={hidden}/>
             </div>
             <div className="rotate-buttons">
                 <button

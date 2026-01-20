@@ -1,5 +1,5 @@
 import './ticket.css'
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import PasscodePage from './PasscodePage';
 import UploadPage from './UploadPage';
 
@@ -8,11 +8,12 @@ const Ticket = () => {
     useEffect(() => {
         const button = document.querySelector('.ticket-button.nav-button');
         const element = document.querySelector('.ticket-container')
+        const scroll = () => window.scrollTo(0, element.offsetTop)
         if (element) {
-            window.scrollTo(0, element.offsetTop)
-            button.addEventListener('click', () => window.scrollTo(0, element.offsetTop));
+            scroll()
+            if (button) button.addEventListener('click', scroll);
             return () => {
-                element.removeEventListener('click', () => window.scrollTo(0, element.offsetTop));
+                button.removeEventListener('click', scroll);
             };
         }
     }, []);

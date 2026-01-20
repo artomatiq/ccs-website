@@ -94,10 +94,6 @@
         .appointment {
             display: flex;
             flex-direction: row;
-
-            .date {}
-
-            .time {}
         }
 
         .load-content {

@@ -1,6 +1,6 @@
 /* global cv */
 import './ticket.css'
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 // import axios from 'axios';
 import Swal from 'sweetalert2';
 // import cropTicket from '../../utils/cropTicketWithHue'
@@ -16,6 +16,12 @@ const UploadPage = ({ setToken }) => {
 
     //handle large files, do not allow large files to cost lambda rutnime
     //do not allow multiple files to be selected
+
+    useEffect(() => {
+        const element = document.querySelector('.ticket-container')
+        const scroll = () => window.scrollTo(0, element.offsetTop)
+        if (element) scroll()
+    }, []);
 
     const handleCapture = (e) => {
         e.preventDefault()
