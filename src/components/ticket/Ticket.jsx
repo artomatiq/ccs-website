@@ -1,5 +1,5 @@
 import './ticket.css'
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import PasscodePage from './PasscodePage';
 import UploadPage from './UploadPage';
 
