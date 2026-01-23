@@ -16,7 +16,6 @@ const loginDriver = async (passcode) => {
         )
         return {token: res.data.token}
     } catch (err) {
-        console.log(err);
         return {error: err.response?.data?.error || 'Server error'}
     }
 }
