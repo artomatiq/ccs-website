@@ -1,7 +1,7 @@
 import './ticket.css'
 import { useState } from "react";
 import Swal from 'sweetalert2';
-import loginDriver from '../../api/mock';
+import loginDriver from '../../api/driverLogin';
 
 const PasscodePage = (props) => {
 
@@ -16,9 +16,9 @@ const PasscodePage = (props) => {
         e.preventDefault();
 
         try {
-            const response = await loginDriver(passcode)
-            const token = response.token
-            if (!token) throw new Error("Login failed by the server.")
+            const res = await loginDriver(passcode)
+            const token = res.token
+            if (!token) throw new Error(res.error)
             sessionStorage.setItem("driverToken", token)
             props.handleLoginSuccess(token)
         } catch (error) {
