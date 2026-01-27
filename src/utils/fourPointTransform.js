@@ -32,7 +32,7 @@ export default function fourPointTransform(src, pts) {
     // const heightA = Math.hypot(tr.x - br.x, tr.y - br.y)
     // const heightB = Math.hypot(tl.x - bl.x, tl.y - bl.y)
     // const maxHeight = Math.round(Math.max(heightA, heightB))
-    const maxHeight = maxWidth / 0.47
+    const maxHeight = Math.round(maxWidth / 0.47)
 
     console.log('computed aspect ratio: ', Math.min(maxWidth, maxHeight) / Math.max(maxWidth, maxHeight))
 
