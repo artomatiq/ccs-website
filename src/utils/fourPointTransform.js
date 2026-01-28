@@ -26,13 +26,21 @@ export default function fourPointTransform(src, pts) {
     //compute width of new image
     const widthA = Math.hypot(br.x - bl.x, br.y - bl.y)
     const widthB = Math.hypot(tr.x - tl.x, tr.y - tl.y)
-    const maxWidth = Math.round(Math.max(widthA, widthB))
+    let maxWidth = Math.round(Math.max(widthA, widthB))
 
     //compute height of new image
-    // const heightA = Math.hypot(tr.x - br.x, tr.y - br.y)
-    // const heightB = Math.hypot(tl.x - bl.x, tl.y - bl.y)
-    // const maxHeight = Math.round(Math.max(heightA, heightB))
-    const maxHeight = Math.round(maxWidth / 0.47)
+    const heightA = Math.hypot(tr.x - br.x, tr.y - br.y)
+    const heightB = Math.hypot(tl.x - bl.x, tl.y - bl.y)
+    let maxHeight = Math.round(Math.max(heightA, heightB))
+    if (maxWidth >= maxHeight) {
+        // landscape
+        maxWidth = Math.round(maxWidth)
+        maxHeight = Math.round(maxWidth * 0.47)
+    } else {
+        // portrait
+        maxHeight = Math.round(maxHeight)
+        maxWidth = Math.round(maxHeight * 0.47)
+    }
 
     console.log('computed aspect ratio: ', Math.min(maxWidth, maxHeight) / Math.max(maxWidth, maxHeight))
 

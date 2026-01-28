@@ -68,9 +68,14 @@ const UploadPage = ({ setToken }) => {
         e.preventDefault()
         if (!attachment) alert('there is no attachment')
         //TODO
-            //reject upload if image is sideways
+        //reject upload if image is sideways
         try {
             // const response = await new Promise((resolve, reject) => setTimeout(resolve, 1000))
+            
+            const res = await fetch(imageSrc)
+            const blob = await res.blob()
+            const url = URL.createObjectURL(blob)
+            window.open(url, "_blank")
 
             Swal.fire({
                 title: "Upload Successful!",
