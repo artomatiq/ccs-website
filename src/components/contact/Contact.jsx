@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import emailjs from '@emailjs/browser';
 import Swal from 'sweetalert2';
 import './contact.css'
