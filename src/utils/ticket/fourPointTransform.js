@@ -38,8 +38,6 @@ export default function fourPointTransform(src, pts) {
         maxHeight = Math.round(maxHeight)
         maxWidth = Math.round(maxHeight * 0.47)
     }
-    console.log('computed aspect ratio: ', Math.min(maxWidth, maxHeight) / Math.max(maxWidth, maxHeight))
-
     //destination points
     const dstPts = cv.matFromArray(4, 1, cv.CV_32FC2, [
         0, 0, //top-left
