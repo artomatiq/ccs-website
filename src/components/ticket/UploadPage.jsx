@@ -96,7 +96,7 @@ const UploadPage = ({ token, setToken }) => {
                         })
                     }
                 />
-                <ImagePreview src={imageSrc} setImageSrc={setImageSrc} hidden={!imageSrc} />
+                <ImagePreview src={imageSrc} setImageSrc={setImageSrc} hidden={!imageSrc} setPortrait={setPortrait} />
                 <div className="upload-button segment">
                     <div className="form-div upload">
                         <button

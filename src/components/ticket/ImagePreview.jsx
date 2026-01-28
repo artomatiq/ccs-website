@@ -1,6 +1,4 @@
-import React from "react";
-
-const ImagePreview = ({ src, setImageSrc, hidden }) => {
+const ImagePreview = ({ src, setImageSrc, hidden, setPortrait }) => {
 
     const handleRotate = (e) => {
         const direction = e.target.id
@@ -21,13 +19,14 @@ const ImagePreview = ({ src, setImageSrc, hidden }) => {
             ctx.drawImage(img, -img.width / 2, -img.height / 2)
 
             setImageSrc(canvas.toDataURL('image/png'))
+            const isPortrait = canvas.height >= canvas.width
+            setPortrait(isPortrait)
         }
     }
-
     return (
         <div className="" id="preview-div" style={{ display: hidden ? 'none' : 'flex' }} >
             <div className="image-wrapper" id="img-wrapper">
-                <img src={src} alt="Cropped Ticket Preview" id="preview-img" hidden={hidden}/>
+                <img src={src} alt="Cropped Ticket Preview" id="preview-img" hidden={hidden} />
             </div>
             <div className="rotate-buttons">
                 <button
