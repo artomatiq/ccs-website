@@ -2,9 +2,9 @@ import './quote.css'
 import { useState, useRef, useEffect } from "react";
 import Swal from 'sweetalert2';
 import { Autocomplete } from '@react-google-maps/api';
-import handleDateBlur from '../../utils/DateValidation';
-import sendEmail from '../../utils/Emailjs';
-import handleAppointmentClick from '../../utils/handleAppointmentClick';
+import handleDateBlur from '../../utils/quote/DateValidation';
+import sendEmail from '../../utils/quote/Emailjs';
+import handleAppointmentClick from '../../utils/quote/handleAppointmentClick'
 
 const Quote = () => {
 

@@ -31,7 +31,7 @@ const Ticket = () => {
                     <span className="hide" >Submit Hauling Ticket</span>
                 </div>
                 {token
-                    ? <UploadPage setToken={setToken}/>
+                    ? <UploadPage token={token} setToken={setToken}/>
                     : <PasscodePage handleLoginSuccess={handleLoginSuccess}/>
                 }
             </div>
