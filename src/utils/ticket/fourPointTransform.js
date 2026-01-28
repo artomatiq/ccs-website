@@ -1,5 +1,4 @@
 /* global cv */
-
 function orderPoints(pts) {
     const arr = []
     for (let i = 0; i < 4; i++) {
@@ -8,7 +7,6 @@ function orderPoints(pts) {
             y: pts.data32S[i * 2 + 1]
         })
     }
-
     arr.sort((a, b) => (a.x + a.y) - (b.x + b.y))
     const tl = arr[0]
     const br = arr[3]
@@ -27,7 +25,6 @@ export default function fourPointTransform(src, pts) {
     const widthA = Math.hypot(br.x - bl.x, br.y - bl.y)
     const widthB = Math.hypot(tr.x - tl.x, tr.y - tl.y)
     let maxWidth = Math.round(Math.max(widthA, widthB))
-
     //compute height of new image
     const heightA = Math.hypot(tr.x - br.x, tr.y - br.y)
     const heightB = Math.hypot(tl.x - bl.x, tl.y - bl.y)
@@ -41,7 +38,6 @@ export default function fourPointTransform(src, pts) {
         maxHeight = Math.round(maxHeight)
         maxWidth = Math.round(maxHeight * 0.47)
     }
-
     console.log('computed aspect ratio: ', Math.min(maxWidth, maxHeight) / Math.max(maxWidth, maxHeight))
 
     //destination points
@@ -51,7 +47,6 @@ export default function fourPointTransform(src, pts) {
         maxWidth - 1, maxHeight - 1, //bottom right
         0, maxHeight - 1 //bottom left
     ])
-
     //source points
     const srcPts = cv.matFromArray(4, 1, cv.CV_32FC2, [
         tl.x, tl.y,
@@ -59,14 +54,11 @@ export default function fourPointTransform(src, pts) {
         br.x, br.y,
         bl.x, bl.y
     ])
-
     //encode the transformation needed for each pixel
     const M = cv.getPerspectiveTransform(srcPts, dstPts)
-
     //warp image
     const dst = new cv.Mat()
     cv.warpPerspective(src, dst, M, new cv.Size(maxWidth, maxHeight))
-
     //cleanup
     srcPts.delete()
     dstPts.delete()
