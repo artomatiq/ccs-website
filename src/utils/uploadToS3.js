@@ -11,7 +11,6 @@ export default async function uploadToS3(ticket, token) {
         })
         if (!presignRes.ok) throw new Error("Failed to get presigned URL")
         const { uploadURL, key, ticketId } = await presignRes.json()
-
         //upload to s3
         const uploadRes = await fetch (uploadURL, {
             method: "PUT",
