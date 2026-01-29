@@ -12,8 +12,8 @@ export async function apiFetch(url, options = {}, setToken) {
         headers
     })
     if (res.status === 401 || res.status === 403) {
-        // sessionStorage.removeItem("driverToken")
-        // setToken(null)
+        sessionStorage.removeItem("driverToken")
+        setToken(null)
         console.log(res);
         throw new Error("Session expired. Please log in.")
     }
