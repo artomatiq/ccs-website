@@ -28,7 +28,6 @@ export default async function uploadToS3(imgSrc, setToken) {
         //upload to s3
         const uploadRes = await fetch(uploadUrl, {
             method: "PUT",
-            headers: { "Content-Type": fileToUpload.type },
             body: fileToUpload
         })
         if (!uploadRes.ok) throw new Error("S3 upload failed")
