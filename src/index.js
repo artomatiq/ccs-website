@@ -5,6 +5,7 @@ import App from './App';
 
 import { BrowserRouter } from 'react-router-dom';
 import { LoadScript } from '@react-google-maps/api';
+import { AuthProvider } from './auth/AuthContext';
 
 const libraries = ['places']
 const googleMapsPublicKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
@@ -12,10 +13,15 @@ const googleMapsPublicKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <LoadScript googleMapsApiKey={googleMapsPublicKey} libraries={libraries}>
-        <App />
-      </LoadScript>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <LoadScript
+          googleMapsApiKey={googleMapsPublicKey}
+          libraries={libraries}
+        >
+          <App />
+        </LoadScript>
+      </BrowserRouter>
+    </AuthProvider>
   </React.StrictMode>
 );

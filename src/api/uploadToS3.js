@@ -1,4 +1,6 @@
-export default async function uploadToS3(imgSrc, token) {
+import { apiFetch } from "./apiFetch"
+
+export default async function uploadToS3(imgSrc, setToken) {
     try {
         if (!imgSrc) throw new Error("No image source provided")
         //convert imgSrc data URL to file
@@ -13,14 +15,14 @@ export default async function uploadToS3(imgSrc, token) {
         }
         const fileToUpload = dataURLToFile(imgSrc)
         //get presigned url
-        const presignRes = await fetch(`${process.env.REACT_APP_API_BASE_URL}/upload-ticket`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
+        const presignRes = await apiFetch(
+            `${process.env.REACT_APP_API_BASE_URL}/upload-ticket`,
+            {
+                method: "POST",
+                body: JSON.stringify({ fileType: fileToUpload.type })
             },
-            body: JSON.stringify({ fileType: fileToUpload.type })
-        })
+            setToken
+        )
         if (!presignRes.ok) throw new Error("Failed to get presigned URL")
         const { uploadUrl, key, ticketId } = await presignRes.json()
         //upload to s3

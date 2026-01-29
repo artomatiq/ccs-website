@@ -1,7 +1,8 @@
 import './ticket.css'
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import PasscodePage from './PasscodePage';
 import UploadPage from './UploadPage';
+import { useAuth } from '../../auth/AuthContext';
 
 const Ticket = () => {
 
@@ -17,13 +18,8 @@ const Ticket = () => {
             };
         }
     }, []);
-
     const isMobile = true ///Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    const [token, setToken] = useState(sessionStorage.getItem("driverToken" || null))
-    const handleLoginSuccess = (jwt) => {
-        setToken(jwt)
-    }
-
+    const {token} = useAuth()
     return (
         isMobile ? (
             <div className="quote-container ticket-container section" id="about-id">
@@ -31,8 +27,8 @@ const Ticket = () => {
                     <span className="hide" >Submit Hauling Ticket</span>
                 </div>
                 {token
-                    ? <UploadPage token={token} setToken={setToken}/>
-                    : <PasscodePage handleLoginSuccess={handleLoginSuccess}/>
+                    ? <UploadPage/>
+                    : <PasscodePage/>
                 }
             </div>
         ) : (

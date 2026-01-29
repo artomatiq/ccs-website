@@ -4,9 +4,11 @@ import handleFileChange from '../../utils/ticket/handleFileChange';
 // import axios from 'axios';
 import Swal from 'sweetalert2';
 import ImagePreview from './ImagePreview';
-import uploadToS3 from '../../utils/ticket/uploadToS3';
+import uploadToS3 from '../../api/uploadToS3';
+import { useAuth } from '../../auth/AuthContext';
 
-const UploadPage = ({ token, setToken }) => {
+const UploadPage = () => {
+    const {token, setToken} = useAuth()
     const [attachment, setAttachment] = useState(null)
     const fileInputRef = useRef(null)
     const [imageSrc, setImageSrc] = useState(null)
@@ -42,7 +44,7 @@ const UploadPage = ({ token, setToken }) => {
             return
         }
         try {
-            const {key, ticketId} = await uploadToS3(imageSrc, token)
+            const {key, ticketId} = await uploadToS3(imageSrc, setToken)
             Swal.fire({
                 title: "Upload Successful!",
                 icon: 'success',
@@ -60,11 +62,11 @@ const UploadPage = ({ token, setToken }) => {
             setPortrait(null)
             fileInputRef.current.value = ""
         } catch (error) {
-            console.log(error)
+            console.log(error, error.stack)
             Swal.fire({
                 title: error.status,
                 text: error.message,
-                icon: 'success',
+                icon: 'error',
                 customClass: {
                     container: 'swal-container',
                     popup: 'swal-popup',
@@ -100,7 +102,7 @@ const UploadPage = ({ token, setToken }) => {
                 <div className="upload-button segment">
                     <div className="form-div upload">
                         <button
-                            type="submit"
+                            type="button"
                             onClick={handleCapture}
                             className="button"
                             id='attach-button'

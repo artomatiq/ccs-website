@@ -2,25 +2,24 @@ import './ticket.css'
 import { useState } from "react";
 import Swal from 'sweetalert2';
 import loginDriver from '../../api/driverLogin';
+import { useAuth } from '../../auth/AuthContext'
 
-const PasscodePage = (props) => {
+const PasscodePage = () => {
 
     const [passcode, setPasscode] = useState("")
-
+    const { setToken } = useAuth()
     const handleChange = (e) => {
         const { value } = e.target;
         setPasscode(value);
     }
-
     const handleLogin = async (e) => {
         e.preventDefault();
-
         try {
             const res = await loginDriver(passcode)
             const token = res.token
             if (!token) throw new Error(res.error)
-            sessionStorage.setItem("driverToken", token)
-            props.handleLoginSuccess(token)
+            sessionStorage.setItem("driverToken", token);
+            setToken(token)
         } catch (error) {
             Swal.fire({
                 title: error.status || "",
@@ -36,10 +35,8 @@ const PasscodePage = (props) => {
             });
         }
     }
-
     return (
         <div className="quote-container ticket-container section" id="ticket-login-id">
-
             <form className="ticket__form quote__form">
                 <div className="passcode input segment" id='passcode-input'>
                     <div className="form-div passcode">
