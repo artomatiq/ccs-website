@@ -22,9 +22,9 @@ export default async function uploadToS3(imgSrc, token) {
             body: JSON.stringify({ fileType: fileToUpload.type })
         })
         if (!presignRes.ok) throw new Error("Failed to get presigned URL")
-        const { uploadURL, key, ticketId } = await presignRes.json()
+        const { uploadUrl, key, ticketId } = await presignRes.json()
         //upload to s3
-        const uploadRes = await fetch(uploadURL, {
+        const uploadRes = await fetch(uploadUrl, {
             method: "PUT",
             headers: { "Content-Type": fileToUpload.type },
             body: fileToUpload
