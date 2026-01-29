@@ -13,7 +13,7 @@ export default async function uploadToS3(imgSrc, token) {
         }
         const fileToUpload = dataURLToFile(imgSrc)
         //get presigned url
-        const presignRes = await fetch(process.env.REACT_APP_API_BASE_URL, {
+        const presignRes = await fetch(`${process.env.REACT_APP_API_BASE_URL}/upload-ticket`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
