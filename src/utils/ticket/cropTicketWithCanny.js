@@ -18,7 +18,7 @@ export default function cropTicketWithCanny(img) {
     const blurred = new cv.Mat()
     const blurSize = new cv.Size(5, 5)
     cv.GaussianBlur(gray, blurred, blurSize, 1)
-    //get cleaner edges
+    //get edges
     const edged = new cv.Mat()
     cv.Canny(blurred, edged, 75, 200)
     //morphological transform
