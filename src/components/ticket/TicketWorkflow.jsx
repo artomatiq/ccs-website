@@ -5,7 +5,8 @@ import ReviewPage from "./ReviewPage";
 
 export default function TicketWorkflow() {
     const [ticket, setTicket] = useState({
-        status: 'idle'
+        status: 'idle',
+        extractedData: null
     })
 
     if (ticket.status === 'idle') return <UploadPage setTicket={setTicket} />

@@ -1,7 +1,7 @@
 import './ticket.css'
 import { useEffect } from "react";
 import PasscodePage from './PasscodePage';
-import UploadPage from './UploadPage';
+import TicketWorkflow from './TicketWorkflow';
 import { useAuth } from '../../auth/AuthContext';
 
 const Ticket = () => {
@@ -27,7 +27,7 @@ const Ticket = () => {
                     <span className="hide" >Submit Hauling Ticket</span>
                 </div>
                 {token
-                    ? <UploadPage/>
+                    ? <TicketWorkflow/>
                     : <PasscodePage/>
                 }
             </div>

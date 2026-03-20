@@ -7,12 +7,13 @@ import ImagePreview from './ImagePreview';
 import uploadToS3 from '../../api/uploadToS3';
 import { useAuth } from '../../auth/AuthContext';
 
-const UploadPage = () => {
+const UploadPage = (props) => {
     const {token, setToken} = useAuth()
     const [attachment, setAttachment] = useState(null)
     const fileInputRef = useRef(null)
     const [imageSrc, setImageSrc] = useState(null)
     const [portrait, setPortrait] = useState(null)
+    const {setTicket} = props
     useEffect(() => {
         const element = document.querySelector('.ticket-container')
         const scroll = () => window.scrollTo(0, element.offsetTop)
@@ -45,36 +46,40 @@ const UploadPage = () => {
         }
         try {
             const {key, ticketId} = await uploadToS3(imageSrc, setToken)
-            Swal.fire({
-                title: "Upload Successful!",
-                icon: 'success',
-                customClass: {
-                    container: 'swal-container',
-                    popup: 'swal-popup',
-                    title: 'swal-title',
-                    content: 'swal-content',
-                    confirmButton: 'swal-confirm-button'
-                }
-            });
+            // Swal.fire({
+            //     title: "Upload Successful!",
+            //     icon: 'success',
+            //     customClass: {
+            //         container: 'swal-container',
+            //         popup: 'swal-popup',
+            //         title: 'swal-title',
+            //         content: 'swal-content',
+            //         confirmButton: 'swal-confirm-button'
+            //     }
+            // });
             console.log("Uploaded ticket key:", key, "ticketId:", ticketId)
-            setAttachment(null)
-            setImageSrc(null)
-            setPortrait(null)
-            fileInputRef.current.value = ""
+            // setAttachment(null)
+            // setImageSrc(null)
+            // setPortrait(null)
+            // fileInputRef.current.value = ""
+            setTicket({
+                status: 'uploading',
+                id: ticketId
+            })
         } catch (error) {
             console.log(error, error.stack)
-            Swal.fire({
-                title: error.status,
-                text: error.message,
-                icon: 'error',
-                customClass: {
-                    container: 'swal-container',
-                    popup: 'swal-popup',
-                    title: 'swal-title',
-                    content: 'swal-content',
-                    confirmButton: 'swal-confirm-button'
-                }
-            });
+            // Swal.fire({
+            //     title: error.status,
+            //     text: error.message,
+            //     icon: 'error',
+            //     customClass: {
+            //         container: 'swal-container',
+            //         popup: 'swal-popup',
+            //         title: 'swal-title',
+            //         content: 'swal-content',
+            //         confirmButton: 'swal-confirm-button'
+            //     }
+            // });
         }
     }
     const handleLogout = () => {
