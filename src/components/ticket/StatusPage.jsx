@@ -21,6 +21,7 @@ export default function StatusPage({ ticket, setTicket }) {
           ...prev,
           status: data.status,
           extractedData: data.extractedData || prev.extractedData,
+          presignedUrl: data.presignedUrl || prev.presignedUrl
         }));
 
         if (
