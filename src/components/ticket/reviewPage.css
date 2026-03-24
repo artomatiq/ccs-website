@@ -56,16 +56,22 @@ input.review-input {
     background-color: rgb(228, 228, 207);
     opacity: 100%;
     padding: 0.1rem;
+    box-shadow: 0 0 3px rgb(22, 129, 10)
 }
 
 @keyframes pulsate {
-  0%   { box-shadow: 0 0 6px rgba(255,0,0,0.7); }
-  50%  { box-shadow: 0 0 15px rgba(255,0,0,1); }
-  100% { box-shadow: 0 0 6px rgba(255,0,0,0.7); }
+  0%   { box-shadow: 0 0 6px rgba(0, 0, 0, 0.7); }
+  50%  { box-shadow: 0 0 9px rgb(246, 166, 166);}
+  100% { box-shadow: 0 0 6px rgba(0, 0, 0, 0.7); }
 }
 
-.unconfirmed {
-  animation: pulsate 1.5s ease-in-out infinite;
+.review-input.focused.unconfirmed {
+  animation: pulsate 1s ease-in-out infinite;
+  z-index: 100;
+}
+
+.review-input.unconfirmed {
+  box-shadow: 0 0 3px rgb(119, 11, 11)
 }
 
 button {

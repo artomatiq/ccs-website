@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import "./ticketOverlay.css"
 export default function TicketOverlay({ dbTicket }) {
     const [reviewForm, setReviewForm] = useState({})
-    const [currentField, setCurrentField] = useState("date")
+    const [focused, setFocused] = useState("date")
     const [touched, setTouched] = useState({
         date: false,
         day: false,
@@ -59,13 +59,14 @@ export default function TicketOverlay({ dbTicket }) {
 
                 return (
                     <input
-                        className={`review-input ${!touched.date ? "unconfirmed" : ""}`}
+                        className={`review-input ${!touched.date ? "unconfirmed" : ""} ${focused === "date" ? "focused" : ""}`}
                         type={inputType}
                         value={value}
                         onChange={(e) => handleChange("date", e.target.value)}
-                        onFocus={() =>
+                        onFocus={() => {
                             setTouched((prev) => ({ ...prev, date: true }))
-                        }
+                            setFocused("day")
+                        }}
                         style={{
                             position: "absolute",
                             left: `53%`,
@@ -79,13 +80,14 @@ export default function TicketOverlay({ dbTicket }) {
 
             {/* DAY */}
             <input
-                className={`review-input ${!touched.day ? "unconfirmed" : ""}`}
+                className={`review-input ${!touched.day ? "unconfirmed" : ""} ${focused === "day" ? "focused" : ""}`}
                 type="text"
                 value={reviewForm.day?.value ?? ""}
                 onChange={(e) => handleChange("day", e.target.value)}
-                onFocus={() =>
-                            setTouched((prev) => ({ ...prev, day: true }))
-                        }
+                onFocus={() => {
+                    setTouched((prev) => ({ ...prev, day: true }))
+                    setFocused("customerName")
+                }}
                 style={{
                     position: "absolute",
                     left: `53%`,
@@ -97,13 +99,14 @@ export default function TicketOverlay({ dbTicket }) {
 
             {/* CUSTOMER NAME */}
             <input
-                className={`review-input ${!touched.customerName ? "unconfirmed" : ""}`}
+                className={`review-input ${!touched.customerName ? "unconfirmed" : ""} ${focused === "customerName" ? "focused" : ""}`}
                 type="text"
                 value={reviewForm.customerName?.value ?? ""}
                 onChange={(e) => handleChange("customerName", e.target.value)}
-                onFocus={() =>
-                            setTouched((prev) => ({ ...prev, customerName: true }))
-                        }
+                onFocus={() => {
+                    setTouched((prev) => ({ ...prev, customerName: true }))
+                    setFocused("jobName")
+                }}
                 style={{
                     position: "absolute",
                     left: `${reviewForm.customerName?.corner?.[0] * 100 + 3}%`,
@@ -115,13 +118,14 @@ export default function TicketOverlay({ dbTicket }) {
 
             {/* JOB NAME */}
             <input
-                className={`review-input ${!touched.jobName ? "unconfirmed" : ""}`}
+                className={`review-input ${!touched.jobName ? "unconfirmed" : ""} ${focused === "jobName" ? "focused" : ""}`}
                 type="text"
                 value={reviewForm.jobName?.value ?? ""}
                 onChange={(e) => handleChange("jobName", e.target.value)}
-                onFocus={() =>
-                            setTouched((prev) => ({ ...prev, jobName: true }))
-                        }
+                onFocus={() => {
+                    setTouched((prev) => ({ ...prev, jobName: true }))
+                    setFocused("city")
+                }}
                 style={{
                     position: "absolute",
                     left: `${reviewForm.jobName?.corner?.[0] * 100 + 3}%`,
@@ -133,13 +137,14 @@ export default function TicketOverlay({ dbTicket }) {
 
             {/* CITY */}
             <input
-                className={`review-input ${!touched.city ? "unconfirmed" : ""}`}
+                className={`review-input ${!touched.city ? "unconfirmed" : ""} ${focused === "city" ? "focused" : ""}`}
                 type="text"
                 value={reviewForm.city?.value ?? ""}
                 onChange={(e) => handleChange("city", e.target.value)}
-                onFocus={() =>
-                            setTouched((prev) => ({ ...prev, city: true }))
-                        }
+                onFocus={() => {
+                    setTouched((prev) => ({ ...prev, city: true }))
+                    setFocused("truckNo")
+                }}
                 style={{
                     position: "absolute",
                     left: `${reviewForm.city?.corner?.[0] * 100 + 3}%`,
@@ -151,13 +156,14 @@ export default function TicketOverlay({ dbTicket }) {
 
             {/* TRUCK NUMBER */}
             <input
-                className={`review-input ${!touched.truckNo ? "unconfirmed" : ""}`}
+                className={`review-input ${!touched.truckNo ? "unconfirmed" : ""} ${focused === "truckNo" ? "focused" : ""}`}
                 type="text"
                 value={reviewForm.truckNo?.value ?? ""}
                 onChange={(e) => handleChange("truckNumber", e.target.value)}
-                onFocus={() =>
-                            setTouched((prev) => ({ ...prev, truckNo: true }))
-                        }
+                onFocus={() => {
+                    setTouched((prev) => ({ ...prev, truckNo: true }))
+                    setFocused("start")
+                }}
                 style={{
                     position: "absolute",
                     left: `${reviewForm.truckNo?.corner?.[0] * 100 + 3}%`,
@@ -189,13 +195,14 @@ export default function TicketOverlay({ dbTicket }) {
 
                 return (
                     <input
-                        className={`review-input ${!touched.start ? "unconfirmed" : ""}`}
+                        className={`review-input ${!touched.start ? "unconfirmed" : ""} ${focused === "start" ? "focused" : ""}`}
                         type="time"
                         value={value}
                         onChange={(e) => handleChange("start", e.target.value)}
-                        onFocus={() =>
+                        onFocus={() => {
                             setTouched((prev) => ({ ...prev, start: true }))
-                        }
+                            setFocused("stop")
+                        }}
                         style={{
                             position: "absolute",
                             left: `60%`,
@@ -229,13 +236,14 @@ export default function TicketOverlay({ dbTicket }) {
 
                 return (
                     <input
-                        className={`review-input ${!touched.stop ? "unconfirmed" : ""}`}
+                        className={`review-input ${!touched.stop ? "unconfirmed" : ""} ${focused === "stop" ? "focused" : ""}`}
                         type="time"
                         value={value}
                         onChange={(e) => handleChange("stop", e.target.value)}
-                        onFocus={() =>
+                        onFocus={() => {
                             setTouched((prev) => ({ ...prev, stop: true }))
-                        }
+                            setFocused(null)
+                        }}
                         style={{
                             position: "absolute",
                             left: `60%`,
