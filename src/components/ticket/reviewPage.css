@@ -1,25 +1,31 @@
 .review-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
 }
 
 .ticket-container {
-    position: relative; /* container for absolute positioning */
     display: flex;
-    height: 80%
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative; 
+    height: 100%;
+    width: 100%;
 }
 
 .ticket-image {
-    height: 80%;
-    width: auto
+    max-height: 70%;
+    padding-right: 20%;
+
+    align-self: left;
 }
 
-.ticket-overlay {
+/* .ticket-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none; /* optional, allows clicks to pass through */
-}
+    pointer-events: none;
+} */
