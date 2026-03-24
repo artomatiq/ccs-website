@@ -71,7 +71,6 @@ export default function TicketOverlay({ dbTicket }) {
                             position: "absolute",
                             left: `53%`,
                             top: `3%`,
-                            height: `1rem`,
                             width: `9rem`,
                         }}
                     />
@@ -92,7 +91,6 @@ export default function TicketOverlay({ dbTicket }) {
                     position: "absolute",
                     left: `53%`,
                     top: `6.5%`,
-                    height: `1rem`,
                     width: `9rem`,
                 }}
             />
@@ -111,7 +109,6 @@ export default function TicketOverlay({ dbTicket }) {
                     position: "absolute",
                     left: `${reviewForm.customerName?.corner?.[0] * 100 + 3}%`,
                     top: `${reviewForm.customerName?.corner?.[1] * 100}%`,
-                    height: `1rem`,
                     width: `${Math.max((reviewForm.customerName?.value || "").length, 4) + 4}ch`,
                 }}
             />
@@ -130,7 +127,6 @@ export default function TicketOverlay({ dbTicket }) {
                     position: "absolute",
                     left: `${reviewForm.jobName?.corner?.[0] * 100 + 3}%`,
                     top: `${reviewForm.jobName?.corner?.[1] * 100}%`,
-                    height: `1rem`,
                     width: `${Math.max((reviewForm.jobName?.value || "").length, 4) + 4}ch`,
                 }}
             />
@@ -168,7 +164,6 @@ export default function TicketOverlay({ dbTicket }) {
                     position: "absolute",
                     left: `${reviewForm.truckNo?.corner?.[0] * 100 + 3}%`,
                     top: `${reviewForm.truckNo?.corner?.[1] * 100}%`,
-                    height: `1rem`,
                     width: `4rem`,
                 }}
             />
@@ -207,7 +202,6 @@ export default function TicketOverlay({ dbTicket }) {
                             position: "absolute",
                             left: `60%`,
                             top: `83.5%`,
-                            height: `1rem`,
                             width: `8rem`,
                         }}
                     />
@@ -248,7 +242,6 @@ export default function TicketOverlay({ dbTicket }) {
                             position: "absolute",
                             left: `60%`,
                             top: `87.5%`,
-                            height: `1rem`,
                             width: `8rem`,
                         }}
                     />

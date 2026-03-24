@@ -12,9 +12,25 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
     }
 
     useEffect(() => {
-        const element = document.querySelector(".review-wrapper")
-        const scroll = () => window.scrollTo(0, element.offsetTop)
-        if (element) scroll()
+        setTimeout(() => {
+            const review = document.querySelector(".review-wrapper")
+            const header = document.querySelector(".header-container")
+            console.log(review, header)
+
+            if (!review || !header) return
+
+            const reviewTop =
+                review.getBoundingClientRect().top + window.scrollY
+
+            const headerHeight = header.offsetHeight
+
+            const scrollTo = reviewTop - headerHeight
+
+            window.scrollTo({
+                top: scrollTo,
+                behavior: "smooth",
+            })
+        }, 2000)
     }, [])
 
     if (imgError) {
@@ -25,7 +41,9 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
             {imgLoaded ? (
                 <>
                     <div className="ticket-wrapper">
-                        <div className="ticket-number">Ticket {dbTicket?.text?.ticketNumber}</div>
+                        <div className="ticket-number">
+                            Ticket {dbTicket?.text?.ticketNumber}
+                        </div>
                         <div className="ticket-box">
                             <img
                                 src={imgUrl}
