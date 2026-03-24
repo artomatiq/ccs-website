@@ -63,6 +63,9 @@ export default function TicketOverlay({ dbTicket }) {
                         type={inputType}
                         value={value}
                         onChange={(e) => handleChange("date", e.target.value)}
+                        onFocus={() =>
+                            setTouched((prev) => ({ ...prev, date: true }))
+                        }
                         style={{
                             position: "absolute",
                             left: `53%`,
@@ -76,10 +79,13 @@ export default function TicketOverlay({ dbTicket }) {
 
             {/* DAY */}
             <input
-                className={`review-input ${!touched.date ? "unconfirmed" : ""}`}
+                className={`review-input ${!touched.day ? "unconfirmed" : ""}`}
                 type="text"
                 value={reviewForm.day?.value ?? ""}
                 onChange={(e) => handleChange("day", e.target.value)}
+                onFocus={() =>
+                            setTouched((prev) => ({ ...prev, day: true }))
+                        }
                 style={{
                     position: "absolute",
                     left: `53%`,
@@ -91,10 +97,13 @@ export default function TicketOverlay({ dbTicket }) {
 
             {/* CUSTOMER NAME */}
             <input
-                className={`review-input ${!touched.date ? "unconfirmed" : ""}`}
+                className={`review-input ${!touched.customerName ? "unconfirmed" : ""}`}
                 type="text"
                 value={reviewForm.customerName?.value ?? ""}
                 onChange={(e) => handleChange("customerName", e.target.value)}
+                onFocus={() =>
+                            setTouched((prev) => ({ ...prev, customerName: true }))
+                        }
                 style={{
                     position: "absolute",
                     left: `${reviewForm.customerName?.corner?.[0] * 100 + 3}%`,
@@ -106,10 +115,13 @@ export default function TicketOverlay({ dbTicket }) {
 
             {/* JOB NAME */}
             <input
-                className={`review-input ${!touched.date ? "unconfirmed" : ""}`}
+                className={`review-input ${!touched.jobName ? "unconfirmed" : ""}`}
                 type="text"
                 value={reviewForm.jobName?.value ?? ""}
                 onChange={(e) => handleChange("jobName", e.target.value)}
+                onFocus={() =>
+                            setTouched((prev) => ({ ...prev, jobName: true }))
+                        }
                 style={{
                     position: "absolute",
                     left: `${reviewForm.jobName?.corner?.[0] * 100 + 3}%`,
@@ -121,10 +133,13 @@ export default function TicketOverlay({ dbTicket }) {
 
             {/* CITY */}
             <input
-                className={`review-input ${!touched.date ? "unconfirmed" : ""}`}
+                className={`review-input ${!touched.city ? "unconfirmed" : ""}`}
                 type="text"
                 value={reviewForm.city?.value ?? ""}
                 onChange={(e) => handleChange("city", e.target.value)}
+                onFocus={() =>
+                            setTouched((prev) => ({ ...prev, city: true }))
+                        }
                 style={{
                     position: "absolute",
                     left: `${reviewForm.city?.corner?.[0] * 100 + 3}%`,
@@ -136,10 +151,13 @@ export default function TicketOverlay({ dbTicket }) {
 
             {/* TRUCK NUMBER */}
             <input
-                className={`review-input ${!touched.date ? "unconfirmed" : ""}`}
+                className={`review-input ${!touched.truckNo ? "unconfirmed" : ""}`}
                 type="text"
                 value={reviewForm.truckNo?.value ?? ""}
                 onChange={(e) => handleChange("truckNumber", e.target.value)}
+                onFocus={() =>
+                            setTouched((prev) => ({ ...prev, truckNo: true }))
+                        }
                 style={{
                     position: "absolute",
                     left: `${reviewForm.truckNo?.corner?.[0] * 100 + 3}%`,
@@ -171,10 +189,13 @@ export default function TicketOverlay({ dbTicket }) {
 
                 return (
                     <input
-                        className={`review-input ${!touched.date ? "unconfirmed" : ""}`}
+                        className={`review-input ${!touched.start ? "unconfirmed" : ""}`}
                         type="time"
                         value={value}
                         onChange={(e) => handleChange("start", e.target.value)}
+                        onFocus={() =>
+                            setTouched((prev) => ({ ...prev, start: true }))
+                        }
                         style={{
                             position: "absolute",
                             left: `60%`,
@@ -208,12 +229,12 @@ export default function TicketOverlay({ dbTicket }) {
 
                 return (
                     <input
-                        className={`review-input ${!touched.date ? "unconfirmed" : ""}`}
+                        className={`review-input ${!touched.stop ? "unconfirmed" : ""}`}
                         type="time"
                         value={value}
                         onChange={(e) => handleChange("stop", e.target.value)}
                         onFocus={() =>
-                            setTouched((prev) => ({ ...prev, date: true }))
+                            setTouched((prev) => ({ ...prev, stop: true }))
                         }
                         style={{
                             position: "absolute",
