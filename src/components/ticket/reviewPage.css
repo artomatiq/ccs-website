@@ -1,31 +1,57 @@
 .review-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
     height: 100vh;
     width: 100vw;
     overflow: hidden;
 }
 
-.ticket-container {
+.ticket-wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    position: relative; 
-    height: 100%;
+    position: relative;
     width: 100%;
+}
+
+.ticket-number {
+    align-self: center;
+    margin: 2rem;
+    font-size: 1.5rem;
+    font-family: sans-serif;
+}
+
+.ticket-box {
+    display: flex;
+    position: relative;
+    max-width: 60%;
+    /* margin-left: 10%; */
 }
 
 .ticket-image {
-    max-height: 70%;
-    padding-right: 20%;
-
-    align-self: left;
+    object-fit: contain;
+    width: 100%;
 }
 
-/* .ticket-overlay {
+.ticket-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none;
-} */
+}
+
+input.review-input {
+    height: min-content;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    background-color: rgb(228, 228, 207);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.99);
+    opacity: 100%;
+    padding: 0.1rem;
+}
+
+button {
+    width: fit-content;
+}

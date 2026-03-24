@@ -11,7 +11,7 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
         e.preventDefault()
     }
 
-    useEffect( () => {
+    useEffect(() => {
         const element = document.querySelector(".review-wrapper")
         const scroll = () => window.scrollTo(0, element.offsetTop)
         if (element) scroll()
@@ -22,27 +22,32 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
     }
     return (
         <div className="review-wrapper">
-            {!imgLoaded && <div>Fetching ticket...</div>}
-            {imgLoaded && (
-                <div className="ticket-container">
-                    <img
-                        src={imgUrl}
-                        alt="ValidTicketImg"
-                        className="ticket-image"
-                        onLoad={() => setImgLoaded(true)}
-                        onError={() => setImgError(true)}
-                    />
-                    <TicketOverlay dbTicket={dbTicket} />
-                </div>
+            {imgLoaded ? (
+                <>
+                    <div className="ticket-wrapper">
+                        <div className="ticket-number">Ticket {dbTicket?.text?.ticketNumber}</div>
+                        <div className="ticket-box">
+                            <img
+                                src={imgUrl}
+                                alt="ValidTicketImg"
+                                className="ticket-image"
+                                onLoad={() => setImgLoaded(true)}
+                                onError={() => setImgError(true)}
+                            />
+                            <TicketOverlay dbTicket={dbTicket} />
+                        </div>
+                    </div>
+                    <button
+                        type="button"
+                        onClick={handleConfirm}
+                        className="button"
+                    >
+                        Finalize
+                    </button>
+                </>
+            ) : (
+                <div>Fetching ticket...</div>
             )}
-            <button
-                type="button"
-                onClick={handleConfirm}
-                className="button"
-                // disabled={!attachment}
-            >
-                Submit
-            </button>
         </div>
     )
 }
