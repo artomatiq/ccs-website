@@ -1,0 +1,25 @@
+.review-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.ticket-container {
+    position: relative; /* container for absolute positioning */
+    display: flex;
+    height: 80%
+}
+
+.ticket-image {
+    height: 80%;
+    width: auto
+}
+
+.ticket-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* optional, allows clicks to pass through */
+}
