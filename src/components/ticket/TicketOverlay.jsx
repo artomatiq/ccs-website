@@ -37,10 +37,14 @@ export default function TicketOverlay({ dbTicket }) {
                 let value = reviewForm.date?.value ?? ""
                 let inputType = "date"
 
-                const d = new Date(value)
-                if (!isNaN(d)) {
-                    value = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`
-                } else value = ""
+                if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+                    const d = new Date(value)
+                    if (!isNaN(d)) {
+                        value = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`
+                    } else {
+                        value = ""
+                    }
+                }
 
                 return (
                     <input
@@ -54,6 +58,9 @@ export default function TicketOverlay({ dbTicket }) {
                             top: `3%`,
                             height: `1rem`,
                             width: `9rem`,
+                            boxShadow: reviewForm.date?.value
+                                ? "0 0 6px rgba(0, 0, 0, 0.99)"
+                                : "0 0 6px rgba(255, 0, 0, 0.9)",
                         }}
                     />
                 )
@@ -71,6 +78,9 @@ export default function TicketOverlay({ dbTicket }) {
                     top: `6.5%`,
                     height: `1rem`,
                     width: `9rem`,
+                    boxShadow: reviewForm.day?.value
+                        ? "0 0 6px rgba(0, 0, 0, 0.99)"
+                        : "0 0 6px rgba(255, 0, 0, 0.9)",
                 }}
             />
 
@@ -85,7 +95,10 @@ export default function TicketOverlay({ dbTicket }) {
                     left: `${reviewForm.customerName?.corner?.[0] * 100 + 3}%`,
                     top: `${reviewForm.customerName?.corner?.[1] * 100}%`,
                     height: `1rem`,
-                    width: `${Math.max((reviewForm.customerName?.value || "").length, 4) + 4}ch`
+                    width: `${Math.max((reviewForm.customerName?.value || "").length, 4) + 4}ch`,
+                    boxShadow: reviewForm.customerName?.value
+                        ? "0 0 6px rgba(0, 0, 0, 0.99)"
+                        : "0 0 6px rgba(255, 0, 0, 0.9)",
                 }}
             />
 
@@ -100,7 +113,10 @@ export default function TicketOverlay({ dbTicket }) {
                     left: `${reviewForm.jobName?.corner?.[0] * 100 + 3}%`,
                     top: `${reviewForm.jobName?.corner?.[1] * 100}%`,
                     height: `1rem`,
-                    width: `${Math.max((reviewForm.jobName?.value || "").length, 4) + 4}ch`
+                    width: `${Math.max((reviewForm.jobName?.value || "").length, 4) + 4}ch`,
+                    boxShadow: reviewForm.jobName?.value
+                        ? "0 0 6px rgba(0, 0, 0, 0.99)"
+                        : "0 0 6px rgba(255, 0, 0, 0.9)",
                 }}
             />
 
@@ -115,7 +131,10 @@ export default function TicketOverlay({ dbTicket }) {
                     left: `${reviewForm.city?.corner?.[0] * 100 + 3}%`,
                     top: `${reviewForm.city?.corner?.[1] * 100}%`,
                     height: `1rem`,
-                    width: `${Math.max((reviewForm.city?.value || "").length, 4) + 4}ch`
+                    width: `${Math.max((reviewForm.city?.value || "").length, 4) + 4}ch`,
+                    boxShadow: reviewForm.city?.value
+                        ? "0 0 6px rgba(0, 0, 0, 0.99)"
+                        : "0 0 6px rgba(255, 0, 0, 0.9)",
                 }}
             />
 
@@ -130,24 +149,37 @@ export default function TicketOverlay({ dbTicket }) {
                     left: `${reviewForm.truckNo?.corner?.[0] * 100 + 3}%`,
                     top: `${reviewForm.truckNo?.corner?.[1] * 100}%`,
                     height: `1rem`,
-                    width: `4rem`
+                    width: `4rem`,
+                    boxShadow: reviewForm.truckNo?.value
+                        ? "0 0 6px rgba(0, 0, 0, 0.99)"
+                        : "0 0 6px rgba(255, 0, 0, 0.9)",
                 }}
             />
 
             {/* START */}
             {(() => {
-                let value = reviewForm.start?.value ?? ""
-                let inputType = "time"
+                let raw = reviewForm.start?.value ?? ""
+                let value = ""
 
-                const d = new Date(`1970-01-01T${value}`)
-                if (!isNaN(d)) {
-                    value = `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`
-                } else value = ""
+                const match = raw.match(/(\d{1,2}):(\d{2})(am|pm)/i)
+                if (match) {
+                    let [_, hour, minute, period] = match
+                    hour = parseInt(hour)
+
+                    if (period.toLowerCase() === "pm" && hour !== 12) hour += 12
+                    if (period.toLowerCase() === "am" && hour === 12) hour = 0
+
+                    value = `${String(hour).padStart(2, "0")}:${minute}`
+                } else if (/^\d{2}:\d{2}$/.test(raw)) {
+                    value = raw
+                } else {
+                    value = ""
+                }
 
                 return (
                     <input
                         className="review-input"
-                        type={inputType}
+                        type="time"
                         value={value}
                         onChange={(e) => handleChange("start", e.target.value)}
                         style={{
@@ -156,6 +188,9 @@ export default function TicketOverlay({ dbTicket }) {
                             top: `83.5%`,
                             height: `1rem`,
                             width: `8rem`,
+                            boxShadow: value
+                                ? "0 0 6px rgba(0, 0, 0, 0.99)"
+                                : "0 0 6px rgba(255, 0, 0, 0.9)",
                         }}
                     />
                 )
@@ -163,26 +198,39 @@ export default function TicketOverlay({ dbTicket }) {
 
             {/* STOP */}
             {(() => {
-                let value = reviewForm.stop?.value ?? ""
-                let inputType = "time"
+                let raw = reviewForm.stop?.value ?? ""
+                let value = ""
 
-                const d = new Date(`1970-01-01T${value}`)
-                if (!isNaN(d)) {
-                    value = `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`
-                } else value = ""
+                const match = raw.match(/(\d{1,2}):(\d{2})(am|pm)/i)
+                if (match) {
+                    let [_, hour, minute, period] = match
+                    hour = parseInt(hour)
+
+                    if (period.toLowerCase() === "pm" && hour !== 12) hour += 12
+                    if (period.toLowerCase() === "am" && hour === 12) hour = 0
+
+                    value = `${String(hour).padStart(2, "0")}:${minute}`
+                } else if (/^\d{2}:\d{2}$/.test(raw)) {
+                    value = raw
+                } else {
+                    value = ""
+                }
 
                 return (
                     <input
                         className="review-input"
-                        type={inputType}
-                        value={value || 0}
+                        type="time"
+                        value={value}
                         onChange={(e) => handleChange("stop", e.target.value)}
                         style={{
                             position: "absolute",
                             left: `60%`,
                             top: `87.5%`,
                             height: `1rem`,
-                            width: `8rem`
+                            width: `8rem`,
+                            boxShadow: value
+                                ? "0 0 6px rgba(0, 0, 0, 0.99)"
+                                : "0 0 6px rgba(255, 0, 0, 0.9)",
                         }}
                     />
                 )

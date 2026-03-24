@@ -1,3 +1,9 @@
+input[type="date"],
+input[type="time"] {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
 .review-wrapper {
     display: flex;
     flex-direction: column;
@@ -21,6 +27,7 @@
     margin: 2rem;
     font-size: 1.5rem;
     font-family: sans-serif;
+    text-shadow: 0 4px 12px rgba(228, 228, 207, 0.25);
 }
 
 .ticket-box {
@@ -47,7 +54,6 @@ input.review-input {
     color: black;
     font-weight: bold;
     background-color: rgb(228, 228, 207);
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.99);
     opacity: 100%;
     padding: 0.1rem;
 }
