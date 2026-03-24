@@ -2,6 +2,17 @@ import { useState, useEffect } from "react"
 import "./ticketOverlay.css"
 export default function TicketOverlay({ dbTicket }) {
     const [reviewForm, setReviewForm] = useState({})
+    const [currentField, setCurrentField] = useState("date")
+    const [touched, setTouched] = useState({
+        date: false,
+        day: false,
+        customerName: false,
+        jobName: false,
+        city: false,
+        truckNo: false,
+        start: false,
+        stop: false,
+    })
 
     useEffect(() => {
         const form = Object.fromEntries(
@@ -48,7 +59,7 @@ export default function TicketOverlay({ dbTicket }) {
 
                 return (
                     <input
-                        className="review-input"
+                        className={`review-input ${!touched.date ? "unconfirmed" : ""}`}
                         type={inputType}
                         value={value}
                         onChange={(e) => handleChange("date", e.target.value)}
@@ -58,9 +69,6 @@ export default function TicketOverlay({ dbTicket }) {
                             top: `3%`,
                             height: `1rem`,
                             width: `9rem`,
-                            boxShadow: reviewForm.date?.value
-                                ? "0 0 6px rgba(0, 0, 0, 0.99)"
-                                : "0 0 6px rgba(255, 0, 0, 0.9)",
                         }}
                     />
                 )
@@ -68,7 +76,7 @@ export default function TicketOverlay({ dbTicket }) {
 
             {/* DAY */}
             <input
-                className="review-input"
+                className={`review-input ${!touched.date ? "unconfirmed" : ""}`}
                 type="text"
                 value={reviewForm.day?.value ?? ""}
                 onChange={(e) => handleChange("day", e.target.value)}
@@ -78,15 +86,12 @@ export default function TicketOverlay({ dbTicket }) {
                     top: `6.5%`,
                     height: `1rem`,
                     width: `9rem`,
-                    boxShadow: reviewForm.day?.value
-                        ? "0 0 6px rgba(0, 0, 0, 0.99)"
-                        : "0 0 6px rgba(255, 0, 0, 0.9)",
                 }}
             />
 
             {/* CUSTOMER NAME */}
             <input
-                className="review-input"
+                className={`review-input ${!touched.date ? "unconfirmed" : ""}`}
                 type="text"
                 value={reviewForm.customerName?.value ?? ""}
                 onChange={(e) => handleChange("customerName", e.target.value)}
@@ -96,15 +101,12 @@ export default function TicketOverlay({ dbTicket }) {
                     top: `${reviewForm.customerName?.corner?.[1] * 100}%`,
                     height: `1rem`,
                     width: `${Math.max((reviewForm.customerName?.value || "").length, 4) + 4}ch`,
-                    boxShadow: reviewForm.customerName?.value
-                        ? "0 0 6px rgba(0, 0, 0, 0.99)"
-                        : "0 0 6px rgba(255, 0, 0, 0.9)",
                 }}
             />
 
             {/* JOB NAME */}
             <input
-                className="review-input"
+                className={`review-input ${!touched.date ? "unconfirmed" : ""}`}
                 type="text"
                 value={reviewForm.jobName?.value ?? ""}
                 onChange={(e) => handleChange("jobName", e.target.value)}
@@ -114,15 +116,12 @@ export default function TicketOverlay({ dbTicket }) {
                     top: `${reviewForm.jobName?.corner?.[1] * 100}%`,
                     height: `1rem`,
                     width: `${Math.max((reviewForm.jobName?.value || "").length, 4) + 4}ch`,
-                    boxShadow: reviewForm.jobName?.value
-                        ? "0 0 6px rgba(0, 0, 0, 0.99)"
-                        : "0 0 6px rgba(255, 0, 0, 0.9)",
                 }}
             />
 
             {/* CITY */}
             <input
-                className="review-input"
+                className={`review-input ${!touched.date ? "unconfirmed" : ""}`}
                 type="text"
                 value={reviewForm.city?.value ?? ""}
                 onChange={(e) => handleChange("city", e.target.value)}
@@ -132,15 +131,12 @@ export default function TicketOverlay({ dbTicket }) {
                     top: `${reviewForm.city?.corner?.[1] * 100}%`,
                     height: `1rem`,
                     width: `${Math.max((reviewForm.city?.value || "").length, 4) + 4}ch`,
-                    boxShadow: reviewForm.city?.value
-                        ? "0 0 6px rgba(0, 0, 0, 0.99)"
-                        : "0 0 6px rgba(255, 0, 0, 0.9)",
                 }}
             />
 
             {/* TRUCK NUMBER */}
             <input
-                className="review-input"
+                className={`review-input ${!touched.date ? "unconfirmed" : ""}`}
                 type="text"
                 value={reviewForm.truckNo?.value ?? ""}
                 onChange={(e) => handleChange("truckNumber", e.target.value)}
@@ -150,9 +146,6 @@ export default function TicketOverlay({ dbTicket }) {
                     top: `${reviewForm.truckNo?.corner?.[1] * 100}%`,
                     height: `1rem`,
                     width: `4rem`,
-                    boxShadow: reviewForm.truckNo?.value
-                        ? "0 0 6px rgba(0, 0, 0, 0.99)"
-                        : "0 0 6px rgba(255, 0, 0, 0.9)",
                 }}
             />
 
@@ -178,7 +171,7 @@ export default function TicketOverlay({ dbTicket }) {
 
                 return (
                     <input
-                        className="review-input"
+                        className={`review-input ${!touched.date ? "unconfirmed" : ""}`}
                         type="time"
                         value={value}
                         onChange={(e) => handleChange("start", e.target.value)}
@@ -188,9 +181,6 @@ export default function TicketOverlay({ dbTicket }) {
                             top: `83.5%`,
                             height: `1rem`,
                             width: `8rem`,
-                            boxShadow: value
-                                ? "0 0 6px rgba(0, 0, 0, 0.99)"
-                                : "0 0 6px rgba(255, 0, 0, 0.9)",
                         }}
                     />
                 )
@@ -218,19 +208,19 @@ export default function TicketOverlay({ dbTicket }) {
 
                 return (
                     <input
-                        className="review-input"
+                        className={`review-input ${!touched.date ? "unconfirmed" : ""}`}
                         type="time"
                         value={value}
                         onChange={(e) => handleChange("stop", e.target.value)}
+                        onFocus={() =>
+                            setTouched((prev) => ({ ...prev, date: true }))
+                        }
                         style={{
                             position: "absolute",
                             left: `60%`,
                             top: `87.5%`,
                             height: `1rem`,
                             width: `8rem`,
-                            boxShadow: value
-                                ? "0 0 6px rgba(0, 0, 0, 0.99)"
-                                : "0 0 6px rgba(255, 0, 0, 0.9)",
                         }}
                     />
                 )
