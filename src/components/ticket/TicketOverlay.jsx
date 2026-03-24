@@ -63,7 +63,7 @@ export default function TicketOverlay({ dbTicket }) {
                         type={inputType}
                         value={value}
                         onChange={(e) => handleChange("date", e.target.value)}
-                        onFocus={() => {
+                        onBlur={() => {
                             setTouched((prev) => ({ ...prev, date: true }))
                             setFocused("day")
                         }}
@@ -84,7 +84,7 @@ export default function TicketOverlay({ dbTicket }) {
                 type="text"
                 value={reviewForm.day?.value ?? ""}
                 onChange={(e) => handleChange("day", e.target.value)}
-                onFocus={() => {
+                onBlur={() => {
                     setTouched((prev) => ({ ...prev, day: true }))
                     setFocused("customerName")
                 }}
@@ -103,7 +103,7 @@ export default function TicketOverlay({ dbTicket }) {
                 type="text"
                 value={reviewForm.customerName?.value ?? ""}
                 onChange={(e) => handleChange("customerName", e.target.value)}
-                onFocus={() => {
+                onBlur={() => {
                     setTouched((prev) => ({ ...prev, customerName: true }))
                     setFocused("jobName")
                 }}
@@ -122,7 +122,7 @@ export default function TicketOverlay({ dbTicket }) {
                 type="text"
                 value={reviewForm.jobName?.value ?? ""}
                 onChange={(e) => handleChange("jobName", e.target.value)}
-                onFocus={() => {
+                onBlur={() => {
                     setTouched((prev) => ({ ...prev, jobName: true }))
                     setFocused("city")
                 }}
@@ -141,7 +141,7 @@ export default function TicketOverlay({ dbTicket }) {
                 type="text"
                 value={reviewForm.city?.value ?? ""}
                 onChange={(e) => handleChange("city", e.target.value)}
-                onFocus={() => {
+                onBlur={() => {
                     setTouched((prev) => ({ ...prev, city: true }))
                     setFocused("truckNo")
                 }}
@@ -160,7 +160,7 @@ export default function TicketOverlay({ dbTicket }) {
                 type="text"
                 value={reviewForm.truckNo?.value ?? ""}
                 onChange={(e) => handleChange("truckNumber", e.target.value)}
-                onFocus={() => {
+                onBlur={() => {
                     setTouched((prev) => ({ ...prev, truckNo: true }))
                     setFocused("start")
                 }}
@@ -199,7 +199,7 @@ export default function TicketOverlay({ dbTicket }) {
                         type="time"
                         value={value}
                         onChange={(e) => handleChange("start", e.target.value)}
-                        onFocus={() => {
+                        onBlur={() => {
                             setTouched((prev) => ({ ...prev, start: true }))
                             setFocused("stop")
                         }}
@@ -240,7 +240,7 @@ export default function TicketOverlay({ dbTicket }) {
                         type="time"
                         value={value}
                         onChange={(e) => handleChange("stop", e.target.value)}
-                        onFocus={() => {
+                        onBlur={() => {
                             setTouched((prev) => ({ ...prev, stop: true }))
                             setFocused(null)
                         }}

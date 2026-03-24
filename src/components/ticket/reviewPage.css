@@ -56,24 +56,41 @@ input.review-input {
     background-color: rgb(228, 228, 207);
     opacity: 100%;
     padding: 0.1rem;
-    box-shadow: 0 0 3px rgb(22, 129, 10)
+    box-shadow: 0 0 3px rgb(22, 129, 10);
+    pointer-events: all;
 }
 
 @keyframes pulsate {
-  0%   { box-shadow: 0 0 6px rgba(0, 0, 0, 0.7); }
-  50%  { box-shadow: 0 0 9px rgb(246, 166, 166);}
-  100% { box-shadow: 0 0 6px rgba(0, 0, 0, 0.7); }
+    0% {
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 9px rgb(246, 166, 166);
+    }
+    100% {
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
+    }
 }
 
 .review-input.focused.unconfirmed {
-  animation: pulsate 1s ease-in-out infinite;
-  z-index: 100;
+    animation: pulsate 1s ease-in-out infinite;
+    z-index: 100;
+    cursor: pointer;
+    pointer-events: all;
 }
 
 .review-input.unconfirmed {
-  box-shadow: 0 0 3px rgb(119, 11, 11)
+    box-shadow: 0 0 3px rgb(210, 25, 25);
+    pointer-events: none;
 }
 
 button {
     width: fit-content;
+    font-family: sans-serif;
+    :hover {
+        cursor: pointer;
+        background-color: var(--primary-color);
+        transition-delay: 0.1s;
+        transform: none;
+    }
 }
