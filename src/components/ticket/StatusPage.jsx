@@ -26,6 +26,7 @@ export default function StatusPage({ dbTicket, setDbTicket }) {
                     corners: data.extractionApex,
                     downloadUrl: data.presignedUrl,
                 }))
+
                 if (
                     data.status === "extracted" ||
                     data.status === "rejected" ||
