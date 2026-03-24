@@ -1,5 +1,4 @@
 const ImagePreview = ({ src, setImageSrc, hidden, setPortrait }) => {
-
     const handleRotate = (e) => {
         const direction = e.target.id
         const angle = direction === "left" ? -90 : 90
@@ -8,8 +7,8 @@ const ImagePreview = ({ src, setImageSrc, hidden, setPortrait }) => {
         img.src = src
 
         img.onload = () => {
-            const canvas = document.createElement('canvas')
-            const ctx = canvas.getContext('2d')
+            const canvas = document.createElement("canvas")
+            const ctx = canvas.getContext("2d")
 
             canvas.width = img.height
             canvas.height = img.width
@@ -18,15 +17,24 @@ const ImagePreview = ({ src, setImageSrc, hidden, setPortrait }) => {
             ctx.rotate((angle * Math.PI) / 180)
             ctx.drawImage(img, -img.width / 2, -img.height / 2)
 
-            setImageSrc(canvas.toDataURL('image/png'))
+            setImageSrc(canvas.toDataURL("image/png"))
             const isPortrait = canvas.height >= canvas.width
             setPortrait(isPortrait)
         }
     }
     return (
-        <div className="" id="preview-div" style={{ display: hidden ? 'none' : 'flex' }} >
+        <div
+            className=""
+            id="preview-div"
+            style={{ display: hidden ? "none" : "flex" }}
+        >
             <div className="image-wrapper" id="img-wrapper">
-                <img src={src} alt="Cropped Ticket Preview" id="preview-img" hidden={hidden} />
+                <img
+                    src={src}
+                    alt="Cropped Ticket Preview"
+                    id="preview-img"
+                    hidden={hidden}
+                />
             </div>
             <div className="rotate-buttons">
                 <button
@@ -37,7 +45,8 @@ const ImagePreview = ({ src, setImageSrc, hidden, setPortrait }) => {
                     hidden={hidden}
                 >
                     ↺
-                </button><button
+                </button>
+                <button
                     type="button"
                     onClick={handleRotate}
                     className="button"
@@ -48,6 +57,6 @@ const ImagePreview = ({ src, setImageSrc, hidden, setPortrait }) => {
                 </button>
             </div>
         </div>
-    );
+    )
 }
-export default ImagePreview;
+export default ImagePreview

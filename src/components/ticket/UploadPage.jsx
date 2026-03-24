@@ -1,23 +1,23 @@
-import './ticket.css'
-import { useState, useEffect, useRef } from "react";
-import handleFileChange from '../../utils/ticket/handleFileChange';
+import "./ticket.css"
+import { useState, useEffect, useRef } from "react"
+import handleFileChange from "../../utils/ticket/handleFileChange"
 // import axios from 'axios';
-import Swal from 'sweetalert2';
-import ImagePreview from './ImagePreview';
-import uploadToS3 from '../../api/uploadToS3';
-import { useAuth } from '../../auth/AuthContext';
+import Swal from "sweetalert2"
+import ImagePreview from "./ImagePreview"
+import uploadToS3 from "../../api/uploadToS3"
+import { useAuth } from "../../auth/AuthContext"
 
-const UploadPage = ({setDbTicket}) => {
-    const {token, setToken} = useAuth()
+const UploadPage = ({ setDbTicket }) => {
+    const { token, setToken } = useAuth()
     const [attachment, setAttachment] = useState(null)
     const fileInputRef = useRef(null)
     const [imageSrc, setImageSrc] = useState(null)
     const [portrait, setPortrait] = useState(null)
     useEffect(() => {
-        const element = document.querySelector('.ticket-container')
+        const element = document.querySelector(".ticket-container")
         const scroll = () => window.scrollTo(0, element.offsetTop)
         if (element) scroll()
-    }, []);
+    }, [])
     const handleCapture = (e) => {
         e.preventDefault()
         fileInputRef.current.value = ""
@@ -26,25 +26,25 @@ const UploadPage = ({setDbTicket}) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         if (!attachment) {
-            alert('there is no attachment')
+            alert("there is no attachment")
             return
         }
         if (!portrait) {
             Swal.fire({
                 title: "Ticket must be in portrait mode",
-                icon: 'warning',
+                icon: "warning",
                 customClass: {
-                    container: 'swal-container',
-                    popup: 'swal-popup',
-                    title: 'swal-title',
-                    content: 'swal-content',
-                    confirmButton: 'swal-confirm-button'
-                }
-            });
+                    container: "swal-container",
+                    popup: "swal-popup",
+                    title: "swal-title",
+                    content: "swal-content",
+                    confirmButton: "swal-confirm-button",
+                },
+            })
             return
         }
         try {
-            const {key, ticketId} = await uploadToS3(imageSrc, setToken)
+            const { key, ticketId } = await uploadToS3(imageSrc, setToken)
             // Swal.fire({
             //     title: "Upload Successful!",
             //     icon: 'success',
@@ -62,8 +62,8 @@ const UploadPage = ({setDbTicket}) => {
             // setPortrait(null)
             // fileInputRef.current.value = ""
             setDbTicket({
-                status: 'uploading',
-                id: ticketId
+                status: "uploading",
+                id: ticketId,
             })
         } catch (error) {
             console.log(error, error.stack)
@@ -98,18 +98,23 @@ const UploadPage = ({setDbTicket}) => {
                             e,
                             setAttachment,
                             setImageSrc,
-                            setPortrait
+                            setPortrait,
                         })
                     }
                 />
-                <ImagePreview src={imageSrc} setImageSrc={setImageSrc} hidden={!imageSrc} setPortrait={setPortrait} />
+                <ImagePreview
+                    src={imageSrc}
+                    setImageSrc={setImageSrc}
+                    hidden={!imageSrc}
+                    setPortrait={setPortrait}
+                />
                 <div className="upload-button segment">
                     <div className="form-div upload">
                         <button
                             type="button"
                             onClick={handleCapture}
                             className="button"
-                            id='attach-button'
+                            id="attach-button"
                         >
                             {attachment ? "Replace" : "Attach Photo"}
                         </button>
@@ -127,13 +132,13 @@ const UploadPage = ({setDbTicket}) => {
                         type="button"
                         onClick={handleLogout}
                         className="button"
-                        id='logout-button'
+                        id="logout-button"
                     >
                         Logout
                     </button>
                 </div>
             </form>
         </div>
-    );
+    )
 }
-export default UploadPage;
+export default UploadPage

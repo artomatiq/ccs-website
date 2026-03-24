@@ -1,51 +1,53 @@
-import './ticket.css'
-import { useState } from "react";
-import Swal from 'sweetalert2';
-import loginDriver from '../../api/driverLogin';
-import { useAuth } from '../../auth/AuthContext'
+import "./ticket.css"
+import { useState } from "react"
+import Swal from "sweetalert2"
+import loginDriver from "../../api/driverLogin"
+import { useAuth } from "../../auth/AuthContext"
 
 const PasscodePage = () => {
-
     const [passcode, setPasscode] = useState("")
     const { setToken } = useAuth()
     const handleChange = (e) => {
-        const { value } = e.target;
-        setPasscode(value);
+        const { value } = e.target
+        setPasscode(value)
     }
     const handleLogin = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
         try {
             const res = await loginDriver(passcode)
             const token = res.token
             if (!token) throw new Error(res.error)
-            sessionStorage.setItem("driverToken", token);
+            sessionStorage.setItem("driverToken", token)
             setToken(token)
         } catch (error) {
             Swal.fire({
                 title: error.status || "",
                 text: error.message,
-                icon: 'warning',
+                icon: "warning",
                 customClass: {
-                    container: 'swal-container',
-                    popup: 'swal-popup',
-                    title: 'swal-title',
-                    content: 'swal-content',
-                    confirmButton: 'swal-confirm-button'
-                }
-            });
+                    container: "swal-container",
+                    popup: "swal-popup",
+                    title: "swal-title",
+                    content: "swal-content",
+                    confirmButton: "swal-confirm-button",
+                },
+            })
         }
     }
     return (
-        <div className="quote-container ticket-container section" id="ticket-login-id">
+        <div
+            className="quote-container ticket-container section"
+            id="ticket-login-id"
+        >
             <form className="ticket__form quote__form">
-                <div className="passcode input segment" id='passcode-input'>
+                <div className="passcode input segment" id="passcode-input">
                     <div className="form-div passcode">
                         <input
                             type="password"
                             name="passcode"
                             className="passcode-input"
                             id="passcode-input"
-                            placeholder='Enter driver passcode'
+                            placeholder="Enter driver passcode"
                             value={passcode}
                             onChange={handleChange}
                         />
@@ -66,6 +68,6 @@ const PasscodePage = () => {
                 </div>
             </form>
         </div>
-    );
+    )
 }
-export default PasscodePage;
+export default PasscodePage
