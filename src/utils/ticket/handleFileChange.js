@@ -1,8 +1,13 @@
 /* global cv */
-import cropTicket from '../../utils/ticket/cropTicketWithCanny';
-import Swal from 'sweetalert2';
+import cropTicket from "../../utils/ticket/cropTicketWithCanny"
+import Swal from "sweetalert2"
 
-export default async function handleFileChange({ e, setAttachment, setImageSrc, setPortrait }) {
+export default async function handleFileChange({
+    e,
+    setAttachment,
+    setImageSrc,
+    setPortrait,
+}) {
     function resetState() {
         setAttachment(null)
         setImageSrc(null)
@@ -17,12 +22,12 @@ export default async function handleFileChange({ e, setAttachment, setImageSrc, 
                 text: "Please upload an image under 5MB",
                 icon: "warning",
                 customClass: {
-                    container: 'swal-container',
-                    popup: 'swal-popup',
-                    title: 'swal-title',
-                    content: 'swal-content',
-                    confirmButton: 'swal-confirm-button'
-                }
+                    container: "swal-container",
+                    popup: "swal-popup",
+                    title: "swal-title",
+                    content: "swal-content",
+                    confirmButton: "swal-confirm-button",
+                },
             })
             e.target.value = ""
             resetState()
@@ -39,9 +44,9 @@ export default async function handleFileChange({ e, setAttachment, setImageSrc, 
             const dstMat = await cropTicket(img)
             //draw to canvas
             const canvas = document.createElement("canvas")
-            const { cols: width, rows: height } = dstMat;
-            canvas.width = width;
-            canvas.height = height;
+            const { cols: width, rows: height } = dstMat
+            canvas.width = width
+            canvas.height = height
             const isPortrait = height >= width
             cv.imshow(canvas, dstMat)
             dstMat.delete()
@@ -54,15 +59,15 @@ export default async function handleFileChange({ e, setAttachment, setImageSrc, 
             Swal.fire({
                 title: err.status,
                 text: err.message,
-                icon: 'warning',
+                icon: "warning",
                 customClass: {
-                    container: 'swal-container',
-                    popup: 'swal-popup',
-                    title: 'swal-title',
-                    content: 'swal-content',
-                    confirmButton: 'swal-confirm-button'
-                }
-            });
+                    container: "swal-container",
+                    popup: "swal-popup",
+                    title: "swal-title",
+                    content: "swal-content",
+                    confirmButton: "swal-confirm-button",
+                },
+            })
         }
     }
 }

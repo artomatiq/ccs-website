@@ -7,13 +7,12 @@ import ImagePreview from './ImagePreview';
 import uploadToS3 from '../../api/uploadToS3';
 import { useAuth } from '../../auth/AuthContext';
 
-const UploadPage = (props) => {
+const UploadPage = ({setDbTicket}) => {
     const {token, setToken} = useAuth()
     const [attachment, setAttachment] = useState(null)
     const fileInputRef = useRef(null)
     const [imageSrc, setImageSrc] = useState(null)
     const [portrait, setPortrait] = useState(null)
-    const {setTicket} = props
     useEffect(() => {
         const element = document.querySelector('.ticket-container')
         const scroll = () => window.scrollTo(0, element.offsetTop)
@@ -62,7 +61,7 @@ const UploadPage = (props) => {
             // setImageSrc(null)
             // setPortrait(null)
             // fileInputRef.current.value = ""
-            setTicket({
+            setDbTicket({
                 status: 'uploading',
                 id: ticketId
             })
