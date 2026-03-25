@@ -6,17 +6,26 @@ import TicketOverlay from "./TicketOverlay"
 export default function ReviewPage({ dbTicket, setDbTicket }) {
     const [imgLoaded, setImgLoaded] = useState(true)
     const [imgError, setImgError] = useState(false)
+    const [reviewForm, setReviewForm] = useState({})
+    const [touched, setTouched] = useState({
+        date: false,
+        day: false,
+        customerName: false,
+        jobName: false,
+        city: false,
+        truckNo: false,
+        start: false,
+        stop: false,
+    })
 
-    const handleConfirm = async (e) => {
-        e.preventDefault()
+    const handleConfirm = async () => {
+        
     }
 
     useEffect(() => {
         setTimeout(() => {
             const review = document.querySelector(".review-wrapper")
             const header = document.querySelector(".header-container")
-            console.log(review, header)
-
             if (!review || !header) return
 
             const reviewTop =
@@ -52,13 +61,14 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
                                 onLoad={() => setImgLoaded(true)}
                                 onError={() => setImgError(true)}
                             />
-                            <TicketOverlay dbTicket={dbTicket} />
+                            <TicketOverlay dbTicket={dbTicket} reviewForm={reviewForm} setReviewForm={setReviewForm} touched={touched} setTouched={setTouched}/>
                         </div>
                     </div>
                     <button
                         type="button"
                         onClick={handleConfirm}
                         className="button"
+                        disabled={!Object.values(touched).every(Boolean)}
                     >
                         Finalize
                     </button>

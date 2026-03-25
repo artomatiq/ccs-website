@@ -1,18 +1,8 @@
 import { useState, useEffect } from "react"
 import "./ticketOverlay.css"
-export default function TicketOverlay({ dbTicket }) {
-    const [reviewForm, setReviewForm] = useState({})
+export default function TicketOverlay(props) {
     const [focused, setFocused] = useState("date")
-    const [touched, setTouched] = useState({
-        date: false,
-        day: false,
-        customerName: false,
-        jobName: false,
-        city: false,
-        truckNo: false,
-        start: false,
-        stop: false,
-    })
+    const {dbTicket, reviewForm, setReviewForm, touched, setTouched} = props
 
     useEffect(() => {
         const form = Object.fromEntries(
