@@ -86,15 +86,20 @@ input.review-input {
     pointer-events: none;
 }
 
-button {
-    width: fit-content;
-    font-family: sans-serif;
-    :hover {
-        cursor: pointer;
-        background-color: var(--primary-color);
-        transition-delay: 0.1s;
-        transform: none;
-    }
+#finalize-button {
+    background-color: var(--primary-color);
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.2rem;
+    box-shadow: 0 0 9px rgb(246, 166, 166);
+    animation: pulsate 1.2s ease-in-out infinite;
+}
+
+#finalize-button:disabled {
+    color: rgb(0, 0, 0);
+    background-color: gray;
+    animation: none;
+    box-shadow: none;
 }
 
 @media (min-width: 600px) and (max-width: 900px) {

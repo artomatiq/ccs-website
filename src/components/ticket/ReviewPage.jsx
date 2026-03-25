@@ -18,8 +18,16 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
         stop: false,
     })
 
-    const handleConfirm = async () => {
-        
+    const handleFinalize = async () => {
+        const confirmUrl = process.env.REACT_APP_API_BASE_URL + "confirm-ticket"
+
+        const cleanedForm = Object.fromEntries(
+            Object.entries(reviewForm).map(([key, obj]) => [
+                key,
+                obj?.value ?? null,
+            ]),
+        )
+        console.log(cleanedForm)
     }
 
     useEffect(() => {
@@ -30,9 +38,7 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
 
             const reviewTop =
                 review.getBoundingClientRect().top + window.scrollY
-
             const headerHeight = header.offsetHeight
-
             const scrollTo = reviewTop - headerHeight
 
             window.scrollTo({
@@ -61,13 +67,20 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
                                 onLoad={() => setImgLoaded(true)}
                                 onError={() => setImgError(true)}
                             />
-                            <TicketOverlay dbTicket={dbTicket} reviewForm={reviewForm} setReviewForm={setReviewForm} touched={touched} setTouched={setTouched}/>
+                            <TicketOverlay
+                                dbTicket={dbTicket}
+                                reviewForm={reviewForm}
+                                setReviewForm={setReviewForm}
+                                touched={touched}
+                                setTouched={setTouched}
+                            />
                         </div>
                     </div>
                     <button
                         type="button"
-                        onClick={handleConfirm}
+                        onClick={handleFinalize}
                         className="button"
+                        id="finalize-button"
                         disabled={!Object.values(touched).every(Boolean)}
                     >
                         Finalize
