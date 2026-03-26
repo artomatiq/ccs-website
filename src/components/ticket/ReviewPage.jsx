@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import "./reviewPage.css"
 import imgUrl from "../../assets/60b65df1-392f-401f-91b9-dea5173562df.png"
 import TicketOverlay from "./TicketOverlay"
+import Swal from "sweetalert2"
 
 export default function ReviewPage({ dbTicket, setDbTicket }) {
     const [imgLoaded, setImgLoaded] = useState(true)
@@ -36,25 +37,34 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
             pastLimit.setDate(pastLimit.getDate() - 7)
             const minDate = pastLimit.toISOString().slice(0, 10)
             if (cleanedForm.date > today) {
-                errors.push("Date cannot be in the future")
+                errors.push("Date cannot be in the future.")
                 cleanedForm.date = null
             } else if (cleanedForm.date < minDate) {
-                errors.push("Ticket must be dated within the past week")
+                errors.push("Ticket must be dated within the past week.")
                 cleanedForm.date = null
             }
         }
         //TIME VALIDATION
         if (cleanedForm.start && cleanedForm.stop) {
             if (cleanedForm.start >= cleanedForm.stop) {
-                errors.push("Start time must be earlier than stop time")
+                errors.push("Start time must be earlier than stop time.")
                 cleanedForm.start = null
                 cleanedForm.stop = null
             }
         }
         //HANDLE ERRORS
         if (errors.length > 0) {
-            alert(errors.join("\n"))
-            // clear only invalid fields in state
+            Swal.fire({
+    html: errors.join("<br>"),
+    icon: "warning",
+    customClass: {
+        container: "swal-container",
+        popup: "swal-popup",
+        title: "swal-title",
+        content: "swal-content",
+        confirmButton: "swal-confirm-button",
+    },
+})
             setReviewForm((prev) => {
                 const updated = { ...prev }
                 Object.keys(cleanedForm).forEach((key) => {
