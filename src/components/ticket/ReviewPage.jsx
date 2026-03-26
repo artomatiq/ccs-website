@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react"
+import { useAuth } from "../../auth/AuthContext"
 import "./reviewPage.css"
 import imgUrl from "../../assets/60b65df1-392f-401f-91b9-dea5173562df.png"
 import TicketOverlay from "./TicketOverlay"
 import Swal from "sweetalert2"
 
 export default function ReviewPage({ dbTicket, setDbTicket }) {
+    const { token } = useAuth()
     const [imgLoaded, setImgLoaded] = useState(true)
     const [imgError, setImgError] = useState(false)
     const [reviewForm, setReviewForm] = useState({})
@@ -20,14 +22,13 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
     })
 
     const handleFinalize = async () => {
-        const confirmUrl = process.env.REACT_APP_API_BASE_URL + "confirm-ticket"
         const cleanedForm = Object.fromEntries(
             Object.entries(reviewForm).map(([key, obj]) => [
                 key,
                 obj?.value ?? null,
             ]),
         )
-        console.log(cleanedForm)
+
         const errors = []
 
         //DATE VALIDATION
@@ -88,6 +89,29 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
             })
             return
         }
+
+        //API CALL
+        const confirmUrl = process.env.REACT_APP_API_BASE_URL + "confirm-ticket"
+        const res = await fetch(confirmUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(cleanedForm),
+        })
+        if (!res.ok) {
+            Swal.fire({
+                text: "Failed to finalize ticket.",
+                icon: "error",
+            })
+            return
+        }
+        const data = await res.json()
+        Swal.fire({
+            text: data.message || "Ticket successfully processed.",
+            icon: "success",
+        })
     }
 
     useEffect(() => {
@@ -95,12 +119,10 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
             const review = document.querySelector(".review-wrapper")
             const header = document.querySelector(".header-container")
             if (!review || !header) return
-
             const reviewTop =
                 review.getBoundingClientRect().top + window.scrollY
             const headerHeight = header.offsetHeight
             const scrollTo = reviewTop - headerHeight
-
             window.scrollTo({
                 top: scrollTo,
                 behavior: "smooth",
