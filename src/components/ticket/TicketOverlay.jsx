@@ -13,6 +13,7 @@ export default function TicketOverlay(props) {
         "start",
         "stop",
     ]
+
     useEffect(() => {
         for (let field of fieldOrder) {
             const isEmpty = !reviewForm[field]?.value
@@ -39,14 +40,12 @@ export default function TicketOverlay(props) {
                     },
                 ]),
         )
-
         setReviewForm(form)
     }, [dbTicket])
 
     const handleChange = (e) => {
         const { name, value } = e.target
         const hasValue = !!value.trim()
-
         setReviewForm((prev) => ({
             ...prev,
             [name]: {
@@ -54,7 +53,6 @@ export default function TicketOverlay(props) {
                 value,
             },
         }))
-
         setTouched((prev) => ({
             ...prev,
             [name]: hasValue,
@@ -85,7 +83,6 @@ export default function TicketOverlay(props) {
                         value = ""
                     }
                 }
-
                 return (
                     <input
                         name="date"
@@ -189,7 +186,6 @@ export default function TicketOverlay(props) {
             {(() => {
                 let raw = reviewForm.start?.value ?? ""
                 let value = ""
-
                 const match = raw.match(/(\d{1,2}):(\d{2})(am|pm)/i)
                 if (match) {
                     let [_, hour, minute, period] = match
@@ -204,7 +200,6 @@ export default function TicketOverlay(props) {
                 } else {
                     value = ""
                 }
-
                 return (
                     <input
                         name="start"
@@ -227,22 +222,18 @@ export default function TicketOverlay(props) {
             {(() => {
                 let raw = reviewForm.stop?.value ?? ""
                 let value = ""
-
                 const match = raw.match(/(\d{1,2}):(\d{2})(am|pm)/i)
                 if (match) {
                     let [_, hour, minute, period] = match
                     hour = parseInt(hour)
-
                     if (period.toLowerCase() === "pm" && hour !== 12) hour += 12
                     if (period.toLowerCase() === "am" && hour === 12) hour = 0
-
                     value = `${String(hour).padStart(2, "0")}:${minute}`
                 } else if (/^\d{2}:\d{2}$/.test(raw)) {
                     value = raw
                 } else {
                     value = ""
                 }
-
                 return (
                     <input
                         name="stop"
