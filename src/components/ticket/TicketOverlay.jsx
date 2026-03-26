@@ -2,7 +2,29 @@ import { useState, useEffect } from "react"
 import "./ticketOverlay.css"
 export default function TicketOverlay(props) {
     const [focused, setFocused] = useState("date")
-    const {dbTicket, reviewForm, setReviewForm, touched, setTouched} = props
+    const { dbTicket, reviewForm, setReviewForm, touched, setTouched } = props
+    const fieldOrder = [
+        "date",
+        "day",
+        "customerName",
+        "jobName",
+        "city",
+        "truckNo",
+        "start",
+        "stop",
+    ]
+    useEffect(() => {
+        for (let field of fieldOrder) {
+            const isEmpty = !reviewForm[field]?.value
+            const isUntouched = !touched[field]
+
+            if (isEmpty || isUntouched) {
+                setFocused(field)
+                return
+            }
+        }
+        setFocused(null)
+    }, [reviewForm, touched])
 
     useEffect(() => {
         const form = Object.fromEntries(
@@ -21,13 +43,22 @@ export default function TicketOverlay(props) {
         setReviewForm(form)
     }, [dbTicket])
 
-    const handleChange = (field, newValue) => {
+    const handleChange = (e) => {
+        const { name, value } = e.target
         setReviewForm((prev) => ({
             ...prev,
-            [field]: {
-                ...prev[field],
-                value: newValue,
+            [name]: {
+                ...prev[name],
+                value,
             },
+        }))
+    }
+
+    const handleBlur = (e) => {
+        const { name } = e.target
+        setTouched((prev) => ({
+            ...prev,
+            [name]: true,
         }))
     }
 
@@ -49,14 +80,12 @@ export default function TicketOverlay(props) {
 
                 return (
                     <input
+                        name="date"
                         className={`review-input ${!touched.date ? "unconfirmed" : ""} ${focused === "date" ? "focused" : ""}`}
                         type={inputType}
                         value={value}
-                        onChange={(e) => handleChange("date", e.target.value)}
-                        onBlur={() => {
-                            setTouched((prev) => ({ ...prev, date: true }))
-                            setFocused("day")
-                        }}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
                         style={{
                             position: "absolute",
                             left: `53%`,
@@ -69,14 +98,12 @@ export default function TicketOverlay(props) {
 
             {/* DAY */}
             <input
+                name="day"
                 className={`review-input ${!touched.day ? "unconfirmed" : ""} ${focused === "day" ? "focused" : ""}`}
                 type="text"
                 value={reviewForm.day?.value ?? ""}
-                onChange={(e) => handleChange("day", e.target.value)}
-                onBlur={() => {
-                    setTouched((prev) => ({ ...prev, day: true }))
-                    setFocused("customerName")
-                }}
+                onChange={handleChange}
+                onBlur={handleBlur}
                 style={{
                     position: "absolute",
                     left: `53%`,
@@ -87,14 +114,12 @@ export default function TicketOverlay(props) {
 
             {/* CUSTOMER NAME */}
             <input
+                name="customerName"
                 className={`review-input ${!touched.customerName ? "unconfirmed" : ""} ${focused === "customerName" ? "focused" : ""}`}
                 type="text"
                 value={reviewForm.customerName?.value ?? ""}
-                onChange={(e) => handleChange("customerName", e.target.value)}
-                onBlur={() => {
-                    setTouched((prev) => ({ ...prev, customerName: true }))
-                    setFocused("jobName")
-                }}
+                onChange={handleChange}
+                onBlur={handleBlur}
                 style={{
                     position: "absolute",
                     left: `${reviewForm.customerName?.corner?.[0] * 100 + 3}%`,
@@ -105,14 +130,12 @@ export default function TicketOverlay(props) {
 
             {/* JOB NAME */}
             <input
+                name="jobName"
                 className={`review-input ${!touched.jobName ? "unconfirmed" : ""} ${focused === "jobName" ? "focused" : ""}`}
                 type="text"
                 value={reviewForm.jobName?.value ?? ""}
-                onChange={(e) => handleChange("jobName", e.target.value)}
-                onBlur={() => {
-                    setTouched((prev) => ({ ...prev, jobName: true }))
-                    setFocused("city")
-                }}
+                onChange={handleChange}
+                onBlur={handleBlur}
                 style={{
                     position: "absolute",
                     left: `${reviewForm.jobName?.corner?.[0] * 100 + 3}%`,
@@ -123,14 +146,12 @@ export default function TicketOverlay(props) {
 
             {/* CITY */}
             <input
+                name="city"
                 className={`review-input ${!touched.city ? "unconfirmed" : ""} ${focused === "city" ? "focused" : ""}`}
                 type="text"
                 value={reviewForm.city?.value ?? ""}
-                onChange={(e) => handleChange("city", e.target.value)}
-                onBlur={() => {
-                    setTouched((prev) => ({ ...prev, city: true }))
-                    setFocused("truckNo")
-                }}
+                onChange={handleChange}
+                onBlur={handleBlur}
                 style={{
                     position: "absolute",
                     left: `${reviewForm.city?.corner?.[0] * 100 + 3}%`,
@@ -142,14 +163,12 @@ export default function TicketOverlay(props) {
 
             {/* TRUCK NUMBER */}
             <input
+                name="truckNo"
                 className={`review-input ${!touched.truckNo ? "unconfirmed" : ""} ${focused === "truckNo" ? "focused" : ""}`}
                 type="text"
                 value={reviewForm.truckNo?.value ?? ""}
-                onChange={(e) => handleChange("truckNumber", e.target.value)}
-                onBlur={() => {
-                    setTouched((prev) => ({ ...prev, truckNo: true }))
-                    setFocused("start")
-                }}
+                onChange={handleChange}
+                onBlur={handleBlur}
                 style={{
                     position: "absolute",
                     left: `${reviewForm.truckNo?.corner?.[0] * 100 + 3}%`,
@@ -180,14 +199,12 @@ export default function TicketOverlay(props) {
 
                 return (
                     <input
+                        name="start"
                         className={`review-input ${!touched.start ? "unconfirmed" : ""} ${focused === "start" ? "focused" : ""}`}
                         type="time"
                         value={value}
-                        onChange={(e) => handleChange("start", e.target.value)}
-                        onBlur={() => {
-                            setTouched((prev) => ({ ...prev, start: true }))
-                            setFocused("stop")
-                        }}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
                         style={{
                             position: "absolute",
                             left: `60%`,
@@ -220,14 +237,12 @@ export default function TicketOverlay(props) {
 
                 return (
                     <input
+                        name="stop"
                         className={`review-input ${!touched.stop ? "unconfirmed" : ""} ${focused === "stop" ? "focused" : ""}`}
                         type="time"
                         value={value}
-                        onChange={(e) => handleChange("stop", e.target.value)}
-                        onBlur={() => {
-                            setTouched((prev) => ({ ...prev, stop: true }))
-                            setFocused(null)
-                        }}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
                         style={{
                             position: "absolute",
                             left: `60%`,

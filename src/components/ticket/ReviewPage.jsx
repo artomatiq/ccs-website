@@ -55,16 +55,16 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
         //HANDLE ERRORS
         if (errors.length > 0) {
             Swal.fire({
-    html: errors.join("<br>"),
-    icon: "warning",
-    customClass: {
-        container: "swal-container",
-        popup: "swal-popup",
-        title: "swal-title",
-        content: "swal-content",
-        confirmButton: "swal-confirm-button",
-    },
-})
+                html: errors.join("<br>"),
+                icon: "warning",
+                customClass: {
+                    container: "swal-container",
+                    popup: "swal-popup",
+                    title: "swal-title",
+                    content: "swal-content",
+                    confirmButton: "swal-confirm-button",
+                },
+            })
             setReviewForm((prev) => {
                 const updated = { ...prev }
                 Object.keys(cleanedForm).forEach((key) => {
@@ -73,6 +73,15 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
                             ...prev[key],
                             value: null,
                         }
+                    }
+                })
+                return updated
+            })
+            setTouched((prev) => {
+                const updated = { ...prev }
+                Object.keys(cleanedForm).forEach((key) => {
+                    if (cleanedForm[key] === null) {
+                        updated[key] = false
                     }
                 })
                 return updated
