@@ -55,7 +55,8 @@ export default function TicketOverlay(props) {
     }
 
     const handleBlur = (e) => {
-        const { name } = e.target
+        const { name, value } = e.target
+        if (!value) return
         setTouched((prev) => ({
             ...prev,
             [name]: true,
