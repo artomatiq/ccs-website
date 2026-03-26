@@ -45,12 +45,19 @@ export default function TicketOverlay(props) {
 
     const handleChange = (e) => {
         const { name, value } = e.target
+        const hasValue = !!value.trim()
+
         setReviewForm((prev) => ({
             ...prev,
             [name]: {
                 ...prev[name],
                 value,
             },
+        }))
+
+        setTouched((prev) => ({
+            ...prev,
+            [name]: hasValue,
         }))
     }
 
