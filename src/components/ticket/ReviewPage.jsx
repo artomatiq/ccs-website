@@ -20,7 +20,6 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
 
     const handleFinalize = async () => {
         const confirmUrl = process.env.REACT_APP_API_BASE_URL + "confirm-ticket"
-
         const cleanedForm = Object.fromEntries(
             Object.entries(reviewForm).map(([key, obj]) => [
                 key,
@@ -28,6 +27,48 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
             ]),
         )
         console.log(cleanedForm)
+        const errors = []
+
+        //DATE VALIDATION
+        if (cleanedForm.date) {
+            const today = new Date().toISOString().slice(0, 10)
+            const pastLimit = new Date()
+            pastLimit.setDate(pastLimit.getDate() - 7)
+            const minDate = pastLimit.toISOString().slice(0, 10)
+            if (cleanedForm.date > today) {
+                errors.push("Date cannot be in the future")
+                cleanedForm.date = null
+            } else if (cleanedForm.date < minDate) {
+                errors.push("Ticket must be dated within the past week")
+                cleanedForm.date = null
+            }
+        }
+        //TIME VALIDATION
+        if (cleanedForm.start && cleanedForm.stop) {
+            if (cleanedForm.start >= cleanedForm.stop) {
+                errors.push("Start time must be earlier than stop time")
+                cleanedForm.start = null
+                cleanedForm.stop = null
+            }
+        }
+        //HANDLE ERRORS
+        if (errors.length > 0) {
+            alert(errors.join("\n"))
+            // clear only invalid fields in state
+            setReviewForm((prev) => {
+                const updated = { ...prev }
+                Object.keys(cleanedForm).forEach((key) => {
+                    if (cleanedForm[key] === null && prev[key]) {
+                        updated[key] = {
+                            ...prev[key],
+                            value: null,
+                        }
+                    }
+                })
+                return updated
+            })
+            return
+        }
     }
 
     useEffect(() => {
