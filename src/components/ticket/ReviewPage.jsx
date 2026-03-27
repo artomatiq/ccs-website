@@ -91,7 +91,7 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
         }
 
         //API CALL
-        const confirmUrl = process.env.REACT_APP_API_BASE_URL + "confirm-ticket"
+        const confirmUrl = process.env.REACT_APP_API_BASE_URL + "/confirm-ticket"
         const res = await fetch(confirmUrl, {
             method: "POST",
             headers: {
