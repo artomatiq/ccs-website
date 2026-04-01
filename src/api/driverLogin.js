@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const loginDriver = async (passcode) => {
+const loginUser = async (passcode) => {
     const BASE_URL = process.env.REACT_APP_API_BASE_URL
 
     try {
@@ -19,4 +19,4 @@ const loginDriver = async (passcode) => {
     }
 }
 
-export default loginDriver
+export default loginUser

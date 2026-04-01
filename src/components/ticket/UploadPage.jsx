@@ -82,7 +82,7 @@ const UploadPage = ({ setDbTicket }) => {
         }
     }
     const handleLogout = () => {
-        sessionStorage.removeItem("driverToken")
+        sessionStorage.removeItem("userToken")
         setToken(null)
     }
     return (

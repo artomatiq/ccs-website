@@ -1,7 +1,7 @@
 import "./ticket.css"
 import { useState } from "react"
 import Swal from "sweetalert2"
-import loginDriver from "../../api/driverLogin"
+import loginUser from "../../api/userLogin"
 import { useAuth } from "../../auth/AuthContext"
 
 const PasscodePage = () => {
@@ -14,10 +14,10 @@ const PasscodePage = () => {
     const handleLogin = async (e) => {
         e.preventDefault()
         try {
-            const res = await loginDriver(passcode)
+            const res = await loginUser(passcode)
             const token = res.token
             if (!token) throw new Error(res.error)
-            sessionStorage.setItem("driverToken", token)
+            sessionStorage.setItem("userToken", token)
             setToken(token)
         } catch (error) {
             Swal.fire({
@@ -47,7 +47,7 @@ const PasscodePage = () => {
                             name="passcode"
                             className="passcode-input"
                             id="passcode-input"
-                            placeholder="Enter driver passcode"
+                            placeholder="Enter user passcode"
                             value={passcode}
                             onChange={handleChange}
                         />

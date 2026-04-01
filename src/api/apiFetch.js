@@ -1,5 +1,5 @@
 export async function apiFetch(url, options = {}, setToken) {
-    const token = sessionStorage.getItem("driverToken")
+    const token = sessionStorage.getItem("userToken")
     const headers = {
         "Content-Type": "application/json",
         ...(options.headers || {})
@@ -12,7 +12,7 @@ export async function apiFetch(url, options = {}, setToken) {
         headers
     })
     if (res.status === 401 || res.status === 403) {
-        sessionStorage.removeItem("driverToken")
+        sessionStorage.removeItem("userToken")
         setToken(null)
         console.log(res);
         throw new Error("Session expired. Please log in.")
