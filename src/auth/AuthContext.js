@@ -28,7 +28,7 @@ export function AuthProvider({ children }) {
         return
       }
       setTokenState(newToken)
-      setUser(decoded)
+      setUser(decoded.user)
     } else {
       sessionStorage.removeItem("userToken")
       setTokenState(null)
@@ -40,12 +40,13 @@ export function AuthProvider({ children }) {
     const saved = sessionStorage.getItem("userToken")
     if (!saved) return
     const decoded = decodeJWT(saved)
+    // console.log(decoded)
     if (!decoded || decoded.exp * 1000 < Date.now()) {
       sessionStorage.removeItem("userToken")
       return
     }
     setTokenState(saved)
-    setUser(decoded)
+    setUser(decoded.user)
   }, [])
 
   useEffect(() => {
@@ -74,7 +75,8 @@ export function AuthProvider({ children }) {
         user,
         setToken,
         logout,
-        isAuthenticated: !!token
+        isAuthenticated: !!token,
+        isAdmin: user === "ADMIN"
       }}
     >
       {children}

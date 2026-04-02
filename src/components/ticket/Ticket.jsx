@@ -18,12 +18,13 @@ const Ticket = () => {
         }
     }, [])
     const isMobile = true ///Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    const { isAuthenticated } = useAuth()
+    const { isAuthenticated, isAdmin } = useAuth()
     return isMobile ? (
         <div className="quote-container ticket-container section" id="about-id">
-            <div className="title section segment">
-                <span className="hide">Submit Hauling Ticket</span>
-            </div>
+            {/* <div className="title section segment">
+                {isAdmin && <span className="hide">Welcome</span>}
+                {!isAdmin && <span className="hide">Submit Hauling Ticket</span>}
+            </div> */}
             {isAuthenticated ? <TicketWorkflow /> : <PasscodePage />}
         </div>
     ) : (

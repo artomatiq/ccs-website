@@ -1,4 +1,6 @@
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
+import { useAuth } from "../../auth/AuthContext"
+import AdminWelcome from "./AdminWelcome"
 import UploadPage from "./UploadPage"
 import StatusPage from "./StatusPage"
 import ReviewPage from "./ReviewPage"
@@ -48,11 +50,35 @@ export default function TicketWorkflow() {
     //     extractedData: null,
     //   });
 
+    const { isAdmin } = useAuth()
     const [dbTicket, setDbTicket] = useState(testTicket)
 
-    if (dbTicket.status === "idle")
-        return <UploadPage setDbTicket={setDbTicket} />
-    else if (dbTicket.status === "extracted")
-        return <ReviewPage dbTicket={dbTicket} />
-    else return <StatusPage dbTicket={dbTicket} setDbTicket={setDbTicket} />
+    const spanRef = useRef(null)
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            spanRef.current?.classList.add("show")
+        }, 300)
+
+        return () => clearTimeout(timer)
+    }, [])
+
+    if (isAdmin) return <AdminWelcome />
+    let content
+
+    if (dbTicket.status === "idle") {
+        content = <UploadPage setDbTicket={setDbTicket} />
+    } else if (dbTicket.status === "extracted") {
+        content = <ReviewPage dbTicket={dbTicket} />
+    } else {
+        content = <StatusPage dbTicket={dbTicket} setDbTicket={setDbTicket} />
+    }
+
+    return (
+        <>
+            <div className="title section segment">
+                <span className="hide" ref={spanRef} >Submit Hauling Ticket</span>
+            </div>
+            {content}
+        </>
+    )
 }
