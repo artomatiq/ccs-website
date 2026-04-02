@@ -13,7 +13,7 @@ export default function TicketWorkflow() {
             ticketNumber: "3893",
             stop: "",
             city: "Huntersville",
-            start: "7:00am",
+            start: "07:00",
             truckNo: "VV01",
             day: "Wednesday",
             customerName: "Faulconer",

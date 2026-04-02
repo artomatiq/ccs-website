@@ -6,7 +6,7 @@ import TicketOverlay from "./TicketOverlay"
 import Swal from "sweetalert2"
 
 export default function ReviewPage({ dbTicket, setDbTicket }) {
-    const { token } = useAuth()
+    const { token, setToken } = useAuth()
     const [imgLoaded, setImgLoaded] = useState(true)
     const [imgError, setImgError] = useState(false)
     const [reviewForm, setReviewForm] = useState({})
@@ -20,7 +20,6 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
         start: false,
         stop: false,
     })
-
     const handleFinalize = async () => {
         const cleanedForm = Object.fromEntries(
             Object.entries(reviewForm).map(([key, obj]) => [
@@ -28,9 +27,7 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
                 obj?.value ?? null,
             ]),
         )
-
         const errors = []
-
         //DATE VALIDATION
         if (cleanedForm.date) {
             const today = new Date().toISOString().slice(0, 10)
@@ -91,7 +88,8 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
         }
 
         //API CALL
-        const confirmUrl = process.env.REACT_APP_API_BASE_URL + "/confirm-ticket"
+        const confirmUrl =
+            process.env.REACT_APP_API_BASE_URL + `/confirm-ticket/${dbTicket.id}`
         const res = await fetch(confirmUrl, {
             method: "POST",
             headers: {
@@ -112,6 +110,10 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
             text: data.message || "Ticket successfully processed.",
             icon: "success",
         })
+        setTimeout(() => {
+            sessionStorage.removeItem("driverToken")
+            setToken(null)
+        }, 3000)
     }
 
     useEffect(() => {

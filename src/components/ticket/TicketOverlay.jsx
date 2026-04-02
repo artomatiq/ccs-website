@@ -30,7 +30,6 @@ export default function TicketOverlay(props) {
     useEffect(() => {
         const form = Object.fromEntries(
             Object.keys(dbTicket.text)
-                .filter((field) => field !== "ticketNumber")
                 .map((field) => [
                     field,
                     {
