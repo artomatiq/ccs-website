@@ -66,13 +66,12 @@ export function AuthProvider({ children }) {
   function logout() {
     setToken(null)
   }
-  
+
   return (
     <AuthContext.Provider
       value={{
         token,
         user,
-        role: user?.user,
         setToken,
         logout,
         isAuthenticated: !!token
