@@ -13,18 +13,18 @@ const Ticket = () => {
             scroll()
             if (button) button.addEventListener("click", scroll)
             return () => {
-                button.removeEventListener("click", scroll)
+                if (button) button.removeEventListener("click", scroll)
             }
         }
     }, [])
     const isMobile = true ///Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    const { token } = useAuth()
+    const { isAuthenticated } = useAuth()
     return isMobile ? (
         <div className="quote-container ticket-container section" id="about-id">
             <div className="title section segment">
                 <span className="hide">Submit Hauling Ticket</span>
             </div>
-            {token ? <TicketWorkflow /> : <PasscodePage />}
+            {isAuthenticated ? <TicketWorkflow /> : <PasscodePage />}
         </div>
     ) : (
         <div>
