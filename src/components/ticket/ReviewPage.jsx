@@ -102,7 +102,7 @@ export default function ReviewPage(props) {
         })
         if (!res.ok) {
             Swal.fire({
-                text: "Failed to finalize ticket.",
+                text: "Failed to confirm ticket. Contact admin.",
                 icon: "warning",
             })
             return
