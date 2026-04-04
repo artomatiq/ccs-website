@@ -1,10 +1,11 @@
 import { useEffect, useRef } from "react"
-import "./adminWelcome.css"
+import "./driverWelcome.css"
+import { useAuth } from "../../auth/AuthContext"
 import UploadPage from "./UploadPage"
 import StatusPage from "./StatusPage"
 import ReviewPage from "./ReviewPage"
 
-const AdminWelcome = (props) => {
+const DriverWelcome = (props) => {
     const spanRef = useRef(null)
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -16,7 +17,7 @@ const AdminWelcome = (props) => {
 
     useEffect(() => {
         setTimeout(() => {
-            const dashabord = document.querySelector(".admin-dashboard")
+            const dashabord = document.querySelector(".driver-dashboard")
             // const header = document.querySelector(".header-container")
             if (!dashabord) return
             const dashboardTop =
@@ -28,9 +29,11 @@ const AdminWelcome = (props) => {
         }, 2000)
     }, [])
 
-    const { setView } = props
+    const { dbTicket, setDbTicket } = props
+    const { user } = useAuth()
 
-    let content
+    const {setView} = props
+
     const handleClick = (e) => {
         setView(e.target.name)
     }
@@ -39,19 +42,19 @@ const AdminWelcome = (props) => {
         <>
             <div className="title section segment">
                 <span ref={spanRef} className="hide">
-                    Welcome Admin
+                    Welcome {user}
                 </span>
             </div>
-            <div className="admin-dashboard">
-                <div className="process-section">
-                    <button name="process" onClick={handleClick} >Process Tickets</button>
-                </div>
+            <div className="driver-dashboard">
+                {/* <div className="process-section">
+                    <button>Process Tickets</button>
+                </div> */}
                 <div className="upload-section">
-                    <button name="upload" onClick={handleClick} >Upload Tickets</button>
+                    <button name="upload" onClick={handleClick} >Upload Ticket</button>
                 </div>
             </div>
         </>
     )
 }
 
-export default AdminWelcome
+export default DriverWelcome

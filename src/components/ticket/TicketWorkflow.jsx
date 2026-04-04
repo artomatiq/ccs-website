@@ -1,6 +1,8 @@
-import { useState, useEffect, useRef } from "react"
+import { useState } from "react"
 import { useAuth } from "../../auth/AuthContext"
 import AdminWelcome from "./AdminWelcome"
+import AdminProcess from "./AdminProcess"
+import DriverWelcome from "./DriverWelcome"
 import UploadPage from "./UploadPage"
 import StatusPage from "./StatusPage"
 import ReviewPage from "./ReviewPage"
@@ -52,33 +54,39 @@ export default function TicketWorkflow() {
 
     const { isAdmin } = useAuth()
     const [dbTicket, setDbTicket] = useState(testTicket)
+    const [view, setView] = useState("home")
 
-    const spanRef = useRef(null)
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            spanRef.current?.classList.add("show")
-        }, 300)
+    // useEffect(() => {
+    //     const timer = setTimeout(() => {
+    //         spanRef.current?.classList.add("show")
+    //     }, 300)
 
-        return () => clearTimeout(timer)
-    }, [])
+    //     return () => clearTimeout(timer)
+    // }, [])
 
-    if (isAdmin) return <AdminWelcome />
     let content
 
-    if (dbTicket.status === "idle") {
-        content = <UploadPage setDbTicket={setDbTicket} />
-    } else if (dbTicket.status === "extracted") {
-        content = <ReviewPage dbTicket={dbTicket} />
-    } else {
-        content = <StatusPage dbTicket={dbTicket} setDbTicket={setDbTicket} />
+    if (view === "home") {
+        content = isAdmin ? (
+            <AdminWelcome setView={setView} dbTicket={dbTicket} />
+        ) : (
+            <DriverWelcome setView={setView} dbTicket={dbTicket} />
+        )
+    }
+    else if (view === "process") {
+        content = <AdminProcess dbTicket={dbTicket} setDbTicket={setDbTicket} />
+    }
+    else if (view === "upload") {
+        if (dbTicket.status === "idle") {
+            content = <UploadPage setDbTicket={setDbTicket} />
+        } else if (dbTicket.status === "extracted") {
+            content = <ReviewPage dbTicket={dbTicket} />
+        } else {
+            content = (
+                <StatusPage dbTicket={dbTicket} setDbTicket={setDbTicket} />
+            )
+        }
     }
 
-    return (
-        <>
-            <div className="title section segment">
-                <span className="hide" ref={spanRef} >Submit Hauling Ticket</span>
-            </div>
-            {content}
-        </>
-    )
+    return <>{content}</>
 }
