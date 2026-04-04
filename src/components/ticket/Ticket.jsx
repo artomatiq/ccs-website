@@ -3,9 +3,9 @@ import { useEffect } from "react"
 import PasscodePage from "./PasscodePage"
 import TicketWorkflow from "./TicketWorkflow"
 import { useAuth } from "../../auth/AuthContext"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Navigate } from "react-router-dom"
 import { useLocation } from "react-router-dom"
-
+import { Routes, Route } from "react-router-dom"
 
 const Ticket = () => {
     useEffect(() => {
@@ -21,28 +21,46 @@ const Ticket = () => {
         }
     }, [])
     const isMobile = true ///Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    const { isAuthenticated, isAdmin } = useAuth()
+    const { isAuthenticated, user, isAdmin } = useAuth()
     const navigate = useNavigate()
     const location = useLocation()
 
     useEffect(() => {
-        if (!isAuthenticated && location.pathname !== "/ticket") {
-            navigate("/ticket", { replace: true })
+        if (!isAuthenticated && location.pathname !== "/ticket/login") {
+            navigate("/ticket/login", { replace: true })
         }
-    }, [isAuthenticated])
+    }, [isAuthenticated, location.pathname])
 
-    return isMobile ? (
-        <div className="quote-container ticket-container section" id="about-id">
-            {/* <div className="title section segment">
-                {isAdmin && <span className="hide">Welcome</span>}
-                {!isAdmin && <span className="hide">Submit Hauling Ticket</span>}
-            </div> */}
-            {isAuthenticated ? <TicketWorkflow /> : <PasscodePage />}
-        </div>
-    ) : (
-        <div>
-            <h3>Please use a smartphone.</h3>
+    return (
+        <div className="quote-container ticket-container section">
+            <Routes>
+                <Route path="login" element={<PasscodePage />} />
+                <Route
+                    path="*"
+                    element={
+                        isAuthenticated ? (
+                            <TicketWorkflow />
+                        ) : (
+                            <Navigate to="/ticket/login" replace />
+                        )
+                    }
+                />
+            </Routes>
         </div>
     )
+
+    // return isMobile ? (
+    //     <div className="quote-container ticket-container section" id="about-id">
+    //         {/* <div className="title section segment">
+    //             {isAdmin && <span className="hide">Welcome</span>}
+    //             {!isAdmin && <span className="hide">Submit Hauling Ticket</span>}
+    //         </div> */}
+    //         {isAuthenticated ? <TicketWorkflow /> : <PasscodePage />}
+    //     </div>
+    // ) : (
+    //     <div>
+    //         <h3>Please use a smartphone.</h3>
+    //     </div>
+    // )
 }
 export default Ticket

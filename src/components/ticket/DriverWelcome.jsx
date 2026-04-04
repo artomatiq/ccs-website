@@ -43,7 +43,7 @@ const DriverWelcome = (props) => {
                     <button>Process Tickets</button>
                 </div> */}
                 <div className="upload-section">
-                    <button name="upload" onClick={() => navigate("upload")}>Upload Ticket</button>
+                    <button name="upload" onClick={() => navigate("/ticket/driver/process")}>Upload Ticket</button>
                 </div>
             </div>
         </>

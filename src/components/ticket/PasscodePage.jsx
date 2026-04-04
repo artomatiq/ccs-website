@@ -3,10 +3,12 @@ import { useState } from "react"
 import Swal from "sweetalert2"
 import loginUser from "../../api/userLogin"
 import { useAuth } from "../../auth/AuthContext"
+import { useNavigate } from "react-router-dom"
 
 const PasscodePage = () => {
     const [passcode, setPasscode] = useState("")
-    const { setToken } = useAuth()
+    const { setToken, isAdmin } = useAuth()
+    const navigate = useNavigate()
     const handleChange = (e) => {
         const { value } = e.target
         setPasscode(value)
@@ -19,6 +21,7 @@ const PasscodePage = () => {
             if (!token) throw new Error(res.error)
             sessionStorage.setItem("userToken", token)
             setToken(token)
+            navigate(`/ticket`, { replace: true })
         } catch (error) {
             Swal.fire({
                 title: error.status || "",

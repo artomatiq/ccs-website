@@ -40,10 +40,10 @@ const AdminWelcome = (props) => {
             </div>
             <div className="admin-dashboard">
                 <div className="process-section">
-                    <button name="process" onClick={() => navigate("process")} >Process Tickets</button>
+                    <button name="process" onClick={() => navigate("/ticket/admin/process")} >Process Tickets</button>
                 </div>
                 <div className="upload-section">
-                    <button name="upload" onClick={() => navigate("upload")} >Upload Tickets</button>
+                    <button name="upload" onClick={() => navigate("/ticket/admin/upload")} >Upload Tickets</button>
                 </div>
             </div>
         </>
