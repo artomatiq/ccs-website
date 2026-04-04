@@ -3,18 +3,18 @@ import "./ticketOverlay.css"
 export default function TicketOverlay(props) {
     const [focused, setFocused] = useState("date")
     const { dbTicket, reviewForm, setReviewForm, touched, setTouched } = props
-    const fieldOrder = [
-        "date",
-        "day",
-        "customerName",
-        "jobName",
-        "city",
-        "truckNo",
-        "start",
-        "stop",
-    ]
 
     useEffect(() => {
+        const fieldOrder = [
+            "date",
+            "day",
+            "customerName",
+            "jobName",
+            "city",
+            "truckNo",
+            "start",
+            "stop",
+        ]
         for (let field of fieldOrder) {
             const isEmpty = !reviewForm[field]?.value
             const isUntouched = !touched[field]
@@ -25,19 +25,18 @@ export default function TicketOverlay(props) {
             }
         }
         setFocused(null)
-    }, [reviewForm, touched, fieldOrder])
+    }, [reviewForm, touched])
 
     useEffect(() => {
         const form = Object.fromEntries(
-            Object.keys(dbTicket.text)
-                .map((field) => [
-                    field,
-                    {
-                        value: dbTicket.text?.[field] ?? null,
-                        confidence: dbTicket.confidence?.[field] ?? null,
-                        corner: dbTicket.corners?.[field] ?? null,
-                    },
-                ]),
+            Object.keys(dbTicket.text).map((field) => [
+                field,
+                {
+                    value: dbTicket.text?.[field] ?? null,
+                    confidence: dbTicket.confidence?.[field] ?? null,
+                    corner: dbTicket.corners?.[field] ?? null,
+                },
+            ]),
         )
         setReviewForm(form)
     }, [dbTicket.text, dbTicket.confidence, dbTicket.corners, setReviewForm])
