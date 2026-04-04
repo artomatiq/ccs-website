@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom"
 
 const PasscodePage = () => {
     const [passcode, setPasscode] = useState("")
-    const { setToken, isAdmin } = useAuth()
+    const { setToken } = useAuth()
     const navigate = useNavigate()
     const handleChange = (e) => {
         const { value } = e.target

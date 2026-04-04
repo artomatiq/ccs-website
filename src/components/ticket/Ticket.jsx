@@ -29,7 +29,7 @@ const Ticket = () => {
         if (!isAuthenticated && location.pathname !== "/ticket/login") {
             navigate("/ticket/login", { replace: true })
         }
-    }, [isAuthenticated, location.pathname])
+    }, [isAuthenticated, location.pathname, navigate])
 
     return (
         <div className="quote-container ticket-container section">
