@@ -92,7 +92,7 @@ function App() {
       <Header />
       <Hero />
       <Routes>
-        <Route path='/ticket' element={<Ticket />} />
+        <Route path='/ticket/*' element={<Ticket />} />
         <Route path='/quote' element={<Quote />} />
         <Route path='*' element={<Home />} />
       </Routes>

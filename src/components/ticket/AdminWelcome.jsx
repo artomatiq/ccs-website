@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react"
+import { useNavigate } from "react-router-dom"
 import "./adminWelcome.css"
 import UploadPage from "./UploadPage"
 import StatusPage from "./StatusPage"
@@ -28,12 +29,7 @@ const AdminWelcome = (props) => {
         }, 2000)
     }, [])
 
-    const { setView } = props
-
-    let content
-    const handleClick = (e) => {
-        setView(e.target.name)
-    }
+    const navigate = useNavigate()
 
     return (
         <>
@@ -44,10 +40,10 @@ const AdminWelcome = (props) => {
             </div>
             <div className="admin-dashboard">
                 <div className="process-section">
-                    <button name="process" onClick={handleClick} >Process Tickets</button>
+                    <button name="process" onClick={() => navigate("process")} >Process Tickets</button>
                 </div>
                 <div className="upload-section">
-                    <button name="upload" onClick={handleClick} >Upload Tickets</button>
+                    <button name="upload" onClick={() => navigate("upload")} >Upload Tickets</button>
                 </div>
             </div>
         </>

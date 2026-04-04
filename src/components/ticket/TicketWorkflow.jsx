@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useAuth } from "../../auth/AuthContext"
+import { Routes, Route, Navigate } from "react-router-dom"
 import AdminWelcome from "./AdminWelcome"
 import AdminProcess from "./AdminProcess"
 import DriverWelcome from "./DriverWelcome"
@@ -54,7 +55,6 @@ export default function TicketWorkflow() {
 
     const { isAdmin } = useAuth()
     const [dbTicket, setDbTicket] = useState(testTicket)
-    const [view, setView] = useState("home")
 
     // useEffect(() => {
     //     const timer = setTimeout(() => {
@@ -64,29 +64,39 @@ export default function TicketWorkflow() {
     //     return () => clearTimeout(timer)
     // }, [])
 
-    let content
-
-    if (view === "home") {
-        content = isAdmin ? (
-            <AdminWelcome setView={setView} dbTicket={dbTicket} />
-        ) : (
-            <DriverWelcome setView={setView} dbTicket={dbTicket} />
-        )
-    }
-    else if (view === "process") {
-        content = <AdminProcess dbTicket={dbTicket} setDbTicket={setDbTicket} />
-    }
-    else if (view === "upload") {
-        if (dbTicket.status === "idle") {
-            content = <UploadPage setDbTicket={setDbTicket} />
-        } else if (dbTicket.status === "extracted") {
-            content = <ReviewPage dbTicket={dbTicket} setView={setView} />
-        } else {
-            content = (
-                <StatusPage dbTicket={dbTicket} setDbTicket={setDbTicket} />
-            )
-        }
-    }
-
-    return <>{content}</>
+    return (
+        <Routes>
+            <Route
+                path="/"
+                element={
+                    <Navigate to={isAdmin ? "admin" : "driver"} replace />
+                }
+            />
+            {/* admin */}
+            <Route
+                path="/admin"
+                element={isAdmin ? <AdminWelcome /> : <Navigate to="/driver" />}
+            />
+            <Route
+                path="/admin/process"
+                element={isAdmin ? <AdminProcess /> : <Navigate to="/driver" />}
+            />
+            <Route
+                path="/admin/upload"
+                element={isAdmin ? <UploadPage /> : <Navigate to="/driver" />}
+            />
+            {/* driver */}
+            <Route
+                path="/driver"
+                element={!isAdmin ? <DriverWelcome /> : <Navigate to="/admin" />}
+            />
+            <Route
+                path="/driver/upload"
+                element={!isAdmin ? <UploadPage /> : <Navigate to="/admin" />}
+            />
+            {/* shared */}
+            <Route path="/review" element={<ReviewPage />} />
+            <Route path="/status" element={<StatusPage />} />
+        </Routes>
+    )
 }
