@@ -186,7 +186,7 @@ export default function TicketOverlay(props) {
                 let value = ""
                 const match = raw.match(/(\d{1,2}):(\d{2})(am|pm)/i)
                 if (match) {
-                    let [_, hour, minute, period] = match
+                    let [, hour, minute, period] = match
                     hour = parseInt(hour)
 
                     if (period.toLowerCase() === "pm" && hour !== 12) hour += 12
@@ -222,7 +222,7 @@ export default function TicketOverlay(props) {
                 let value = ""
                 const match = raw.match(/(\d{1,2}):(\d{2})(am|pm)/i)
                 if (match) {
-                    let [_, hour, minute, period] = match
+                    let [, hour, minute, period] = match
                     hour = parseInt(hour)
                     if (period.toLowerCase() === "pm" && hour !== 12) hour += 12
                     if (period.toLowerCase() === "am" && hour === 12) hour = 0
