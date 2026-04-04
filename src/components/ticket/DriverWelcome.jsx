@@ -1,9 +1,7 @@
 import { useEffect, useRef } from "react"
 import "./driverWelcome.css"
 import { useAuth } from "../../auth/AuthContext"
-import UploadPage from "./UploadPage"
-import StatusPage from "./StatusPage"
-import ReviewPage from "./ReviewPage"
+import { useNavigate } from "react-router-dom"
 
 const DriverWelcome = (props) => {
     const spanRef = useRef(null)
@@ -31,12 +29,7 @@ const DriverWelcome = (props) => {
 
     const { dbTicket, setDbTicket } = props
     const { user } = useAuth()
-
-    const {setView} = props
-
-    const handleClick = (e) => {
-        setView(e.target.name)
-    }
+    const navigate = useNavigate()
 
     return (
         <>
@@ -50,7 +43,7 @@ const DriverWelcome = (props) => {
                     <button>Process Tickets</button>
                 </div> */}
                 <div className="upload-section">
-                    <button name="upload" onClick={handleClick} >Upload Ticket</button>
+                    <button name="upload" onClick={() => navigate("upload")}>Upload Ticket</button>
                 </div>
             </div>
         </>

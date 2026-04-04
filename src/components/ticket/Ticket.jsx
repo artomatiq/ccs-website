@@ -3,6 +3,9 @@ import { useEffect } from "react"
 import PasscodePage from "./PasscodePage"
 import TicketWorkflow from "./TicketWorkflow"
 import { useAuth } from "../../auth/AuthContext"
+import { useNavigate } from "react-router-dom"
+import { useLocation } from "react-router-dom"
+
 
 const Ticket = () => {
     useEffect(() => {
@@ -19,6 +22,15 @@ const Ticket = () => {
     }, [])
     const isMobile = true ///Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     const { isAuthenticated, isAdmin } = useAuth()
+    const navigate = useNavigate()
+    const location = useLocation()
+
+    useEffect(() => {
+        if (!isAuthenticated && location.pathname !== "/ticket") {
+            navigate("/ticket", { replace: true })
+        }
+    }, [isAuthenticated])
+
     return isMobile ? (
         <div className="quote-container ticket-container section" id="about-id">
             {/* <div className="title section segment">

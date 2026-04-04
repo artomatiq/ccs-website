@@ -67,36 +67,36 @@ export default function TicketWorkflow() {
     return (
         <Routes>
             <Route
-                path="/"
+                index
                 element={
                     <Navigate to={isAdmin ? "admin" : "driver"} replace />
                 }
             />
             {/* admin */}
             <Route
-                path="/admin"
-                element={isAdmin ? <AdminWelcome /> : <Navigate to="/driver" />}
+                path="admin"
+                element={isAdmin ? <AdminWelcome /> : <Navigate to="driver" />}
             />
             <Route
-                path="/admin/process"
-                element={isAdmin ? <AdminProcess /> : <Navigate to="/driver" />}
+                path="admin/process"
+                element={isAdmin ? <AdminProcess /> : <Navigate to="driver" />}
             />
             <Route
-                path="/admin/upload"
-                element={isAdmin ? <UploadPage /> : <Navigate to="/driver" />}
+                path="admin/upload"
+                element={isAdmin ? <UploadPage /> : <Navigate to="driver" />}
             />
             {/* driver */}
             <Route
-                path="/driver"
-                element={!isAdmin ? <DriverWelcome /> : <Navigate to="/admin" />}
+                path="driver"
+                element={!isAdmin ? <DriverWelcome /> : <Navigate to="admin" />}
             />
             <Route
-                path="/driver/upload"
-                element={!isAdmin ? <UploadPage /> : <Navigate to="/admin" />}
+                path="driver/upload"
+                element={!isAdmin ? <UploadPage /> : <Navigate to="admin" />}
             />
             {/* shared */}
-            <Route path="/review" element={<ReviewPage />} />
-            <Route path="/status" element={<StatusPage />} />
+            <Route path="review" element={<ReviewPage />} />
+            <Route path="status" element={<StatusPage />} />
         </Routes>
     )
 }
