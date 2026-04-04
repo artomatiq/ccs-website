@@ -54,7 +54,7 @@ export default function TicketWorkflow() {
     //   });
 
     const { isAdmin } = useAuth()
-    const [isUploading, setIsUploading] = useState(null)
+    const [isUploading, setIsUploading] = useState(false)
     const [dbTicket, setDbTicket] = useState(testTicket)
 
     // useEffect(() => {
@@ -113,7 +113,7 @@ export default function TicketWorkflow() {
                     path="review"
                     element={
                         isUploading === false ? (
-                            <ReviewPage />
+                            <ReviewPage dbTicket={dbTicket} setDbTicket={setDbTicket} />
                         ) : isUploading === null ? (
                             <Navigate to="../upload" replace />
                         ) : (
@@ -155,7 +155,7 @@ export default function TicketWorkflow() {
                     path="review"
                     element={
                         isUploading === false ? (
-                            <ReviewPage />
+                            <ReviewPage dbTicket={dbTicket} setDbTicket={setDbTicket} />
                         ) : isUploading === null ? (
                             <Navigate to="../upload" replace />
                         ) : (
