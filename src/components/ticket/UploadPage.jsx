@@ -7,8 +7,8 @@ import ImagePreview from "./ImagePreview"
 import uploadToS3 from "../../api/uploadToS3"
 import { useAuth } from "../../auth/AuthContext"
 
-const UploadPage = ({ setDbTicket }) => {
-    const { token, setToken } = useAuth()
+const UploadPage = ({ setDbTicket, setIsUploading }) => {
+    const { setToken } = useAuth()
     const [attachment, setAttachment] = useState(null)
     const fileInputRef = useRef(null)
     const [imageSrc, setImageSrc] = useState(null)
@@ -65,6 +65,7 @@ const UploadPage = ({ setDbTicket }) => {
                 status: "uploading",
                 id: ticketId,
             })
+            setIsUploading(true)
         } catch (error) {
             console.log(error, error.stack)
             // Swal.fire({

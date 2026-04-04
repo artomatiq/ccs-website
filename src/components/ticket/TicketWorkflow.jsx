@@ -2,7 +2,6 @@ import { useState } from "react"
 import { useAuth } from "../../auth/AuthContext"
 import { Routes, Route, Navigate } from "react-router-dom"
 import AdminWelcome from "./AdminWelcome"
-import AdminProcess from "./AdminProcess"
 import DriverWelcome from "./DriverWelcome"
 import UploadPage from "./UploadPage"
 import StatusPage from "./StatusPage"
@@ -91,7 +90,7 @@ export default function TicketWorkflow() {
                     path="upload"
                     element={
                         isUploading === null ? (
-                            <UploadPage />
+                            <UploadPage isUploading={isUploading} setIsUploading={setIsUploading} />
                         ) : (
                             <Navigate to="../status" replace />
                         )
@@ -133,7 +132,7 @@ export default function TicketWorkflow() {
                     path="upload"
                     element={
                         isUploading === null ? (
-                            <UploadPage />
+                            <UploadPage isUploading={isUploading} setIsUploading={setIsUploading}/>
                         ) : (
                             <Navigate to="../status" replace />
                         )

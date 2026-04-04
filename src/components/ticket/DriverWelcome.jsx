@@ -3,7 +3,7 @@ import "./driverWelcome.css"
 import { useAuth } from "../../auth/AuthContext"
 import { useNavigate } from "react-router-dom"
 
-const DriverWelcome = (props) => {
+const DriverWelcome = () => {
     const spanRef = useRef(null)
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -27,7 +27,7 @@ const DriverWelcome = (props) => {
         }, 2000)
     }, [])
 
-    const { dbTicket, setDbTicket } = props
+    // const { dbTicket, setDbTicket } = props
     const { user } = useAuth()
     const navigate = useNavigate()
 

@@ -1,11 +1,8 @@
 import { useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import "./adminWelcome.css"
-import UploadPage from "./UploadPage"
-import StatusPage from "./StatusPage"
-import ReviewPage from "./ReviewPage"
 
-const AdminWelcome = (props) => {
+const AdminWelcome = () => {
     const spanRef = useRef(null)
     useEffect(() => {
         const timer = setTimeout(() => {

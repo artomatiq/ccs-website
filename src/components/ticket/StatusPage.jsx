@@ -41,7 +41,7 @@ export default function StatusPage({ dbTicket, setDbTicket }) {
         }, 2000)
 
         return () => clearInterval(interval)
-    }, [dbTicket.id, setDbTicket])
+    }, [dbTicket.id, setDbTicket, token])
 
     return <div>the status is {dbTicket.status}</div>
 }

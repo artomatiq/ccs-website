@@ -20,8 +20,8 @@ const Ticket = () => {
             }
         }
     }, [])
-    const isMobile = true ///Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    const { isAuthenticated, user, isAdmin } = useAuth()
+    // const isMobile = true ///Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const { isAuthenticated } = useAuth()
     const navigate = useNavigate()
     const location = useLocation()
 

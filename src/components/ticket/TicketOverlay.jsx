@@ -25,7 +25,7 @@ export default function TicketOverlay(props) {
             }
         }
         setFocused(null)
-    }, [reviewForm, touched])
+    }, [reviewForm, touched, fieldOrder])
 
     useEffect(() => {
         const form = Object.fromEntries(
@@ -40,7 +40,7 @@ export default function TicketOverlay(props) {
                 ]),
         )
         setReviewForm(form)
-    }, [dbTicket])
+    }, [dbTicket.text, dbTicket.confidence, dbTicket.corners, setReviewForm])
 
     const handleChange = (e) => {
         const { name, value } = e.target
