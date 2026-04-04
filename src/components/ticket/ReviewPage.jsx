@@ -5,8 +5,8 @@ import imgUrl from "../../assets/60b65df1-392f-401f-91b9-dea5173562df.png"
 import TicketOverlay from "./TicketOverlay"
 import Swal from "sweetalert2"
 
-export default function ReviewPage({ dbTicket, setDbTicket }) {
-    const { token, setToken } = useAuth()
+export default function ReviewPage(props) {
+    const { token, setToken, isAdmin } = useAuth()
     const [imgLoaded, setImgLoaded] = useState(true)
     const [imgError, setImgError] = useState(false)
     const [reviewForm, setReviewForm] = useState({})
@@ -20,6 +20,7 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
         start: false,
         stop: false,
     })
+    const { dbTicket, setDbTicket, setView } = props
     const handleFinalize = async () => {
         const cleanedForm = Object.fromEntries(
             Object.entries(reviewForm).map(([key, obj]) => [
@@ -89,7 +90,8 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
 
         //API CALL
         const confirmUrl =
-            process.env.REACT_APP_API_BASE_URL + `/confirm-ticket/${dbTicket.id}`
+            process.env.REACT_APP_API_BASE_URL +
+            `/confirm-ticket/${dbTicket.id}`
         const res = await fetch(confirmUrl, {
             method: "POST",
             headers: {
@@ -111,8 +113,13 @@ export default function ReviewPage({ dbTicket, setDbTicket }) {
             icon: "success",
         })
         setTimeout(() => {
-            sessionStorage.removeItem("driverToken")
-            setToken(null)
+            if (isAdmin) {
+                setDbTicket({ status: "idle" })
+                setView('home')
+            } else {
+                sessionStorage.removeItem("userToken")
+                setToken(null)
+            }
         }, 3000)
     }
 

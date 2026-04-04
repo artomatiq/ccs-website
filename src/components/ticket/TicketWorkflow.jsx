@@ -80,7 +80,7 @@ export default function TicketWorkflow() {
         if (dbTicket.status === "idle") {
             content = <UploadPage setDbTicket={setDbTicket} />
         } else if (dbTicket.status === "extracted") {
-            content = <ReviewPage dbTicket={dbTicket} />
+            content = <ReviewPage dbTicket={dbTicket} setView={setView} />
         } else {
             content = (
                 <StatusPage dbTicket={dbTicket} setDbTicket={setDbTicket} />
