@@ -54,7 +54,7 @@ export default function TicketWorkflow() {
     //   });
 
     const { isAdmin } = useAuth()
-    const [isUploading, setIsUploading] = useState(false)
+    const [isUploading, setIsUploading] = useState(null)
     const [dbTicket, setDbTicket] = useState(testTicket)
 
     // useEffect(() => {
@@ -77,16 +77,92 @@ export default function TicketWorkflow() {
                 }
             />
             <Route path="admin">
-                <Route path="welcome" element={isAdmin ? <AdminWelcome /> : <Navigate to="../" />} />
-                <Route path="upload" element={<UploadPage />} />
-                <Route path="review" element={<ReviewPage />} />
-                <Route path="status" element={<StatusPage />} />
+                <Route
+                    path="welcome"
+                    element={
+                        isAdmin ? (
+                            <AdminWelcome />
+                        ) : (
+                            <Navigate to="/ticket/login" />
+                        )
+                    }
+                />
+                <Route
+                    path="upload"
+                    element={
+                        isUploading === null ? (
+                            <UploadPage />
+                        ) : (
+                            <Navigate to="../status" replace />
+                        )
+                    }
+                />
+                <Route
+                    path="status"
+                    element={
+                        isUploading === true ? (
+                            <StatusPage />
+                        ) : isUploading === null ? (
+                            <Navigate to="../upload" replace />
+                        ) : (
+                            <Navigate to="../review" replace />
+                        )
+                    }
+                />
+                <Route
+                    path="review"
+                    element={
+                        isUploading === false ? (
+                            <ReviewPage />
+                        ) : isUploading === null ? (
+                            <Navigate to="../upload" replace />
+                        ) : (
+                            <Navigate to="../status" replace />
+                        )
+                    }
+                />
             </Route>
             <Route path="driver">
-                <Route path="welcome" element={!isAdmin ? <DriverWelcome /> : <Navigate to="../" />} />
-                <Route path="upload" element={<UploadPage />} />
-                <Route path="review" element={<ReviewPage />} />
-                <Route path="status" element={<StatusPage />} />
+                <Route
+                    path="welcome"
+                    element={
+                        !isAdmin ? <DriverWelcome /> : <Navigate to="../" />
+                    }
+                />
+                <Route
+                    path="upload"
+                    element={
+                        isUploading === null ? (
+                            <UploadPage />
+                        ) : (
+                            <Navigate to="../status" replace />
+                        )
+                    }
+                />
+                <Route
+                    path="status"
+                    element={
+                        isUploading === true ? (
+                            <StatusPage />
+                        ) : isUploading === null ? (
+                            <Navigate to="../upload" replace />
+                        ) : (
+                            <Navigate to="../review" replace />
+                        )
+                    }
+                />
+                <Route
+                    path="review"
+                    element={
+                        isUploading === false ? (
+                            <ReviewPage />
+                        ) : isUploading === null ? (
+                            <Navigate to="../upload" replace />
+                        ) : (
+                            <Navigate to="../status" replace />
+                        )
+                    }
+                />
             </Route>
         </Routes>
     )
