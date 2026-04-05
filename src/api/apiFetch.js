@@ -15,7 +15,7 @@ export async function apiFetch(url, options = {}, setToken) {
         sessionStorage.removeItem("userToken")
         setToken(null)
         console.log(res);
-        throw new Error("Session expired. Please log in.")
+        throw new Error("response status: ", res.status)
     }
     if (!res.ok) {
         const text = await res.text()

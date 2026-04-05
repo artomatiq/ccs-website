@@ -53,7 +53,7 @@ export default function TicketWorkflow() {
     //   });
 
     const { isAdmin } = useAuth()
-    const [isUploading, setIsUploading] = useState(false)
+    const [isUploading, setIsUploading] = useState(null)
     const [dbTicket, setDbTicket] = useState(testTicket)
 
     // useEffect(() => {
@@ -90,7 +90,10 @@ export default function TicketWorkflow() {
                     path="upload"
                     element={
                         isUploading === null ? (
-                            <UploadPage isUploading={isUploading} setIsUploading={setIsUploading} />
+                            <UploadPage
+                                isUploading={isUploading}
+                                setIsUploading={setIsUploading}
+                            />
                         ) : (
                             <Navigate to="../status" replace />
                         )
@@ -100,7 +103,12 @@ export default function TicketWorkflow() {
                     path="status"
                     element={
                         isUploading === true ? (
-                            <StatusPage />
+                            <StatusPage
+                                dbTicket={dbTicket}
+                                setDbTicket={setDbTicket}
+                                isUploading={isUploading}
+                                setIsUploading={setIsUploading}
+                            />
                         ) : isUploading === null ? (
                             <Navigate to="../upload" replace />
                         ) : (
@@ -112,7 +120,10 @@ export default function TicketWorkflow() {
                     path="review"
                     element={
                         isUploading === false ? (
-                            <ReviewPage dbTicket={dbTicket} setDbTicket={setDbTicket} />
+                            <ReviewPage
+                                dbTicket={dbTicket}
+                                setDbTicket={setDbTicket}
+                            />
                         ) : isUploading === null ? (
                             <Navigate to="../upload" replace />
                         ) : (
@@ -132,7 +143,10 @@ export default function TicketWorkflow() {
                     path="upload"
                     element={
                         isUploading === null ? (
-                            <UploadPage isUploading={isUploading} setIsUploading={setIsUploading}/>
+                            <UploadPage
+                                isUploading={isUploading}
+                                setIsUploading={setIsUploading}
+                            />
                         ) : (
                             <Navigate to="../status" replace />
                         )
@@ -142,7 +156,12 @@ export default function TicketWorkflow() {
                     path="status"
                     element={
                         isUploading === true ? (
-                            <StatusPage />
+                            <StatusPage
+                                dbTicket={dbTicket}
+                                setDbTicket={setDbTicket}
+                                isUploading={isUploading}
+                                setIsUploading={setIsUploading}
+                            />
                         ) : isUploading === null ? (
                             <Navigate to="../upload" replace />
                         ) : (
@@ -154,7 +173,10 @@ export default function TicketWorkflow() {
                     path="review"
                     element={
                         isUploading === false ? (
-                            <ReviewPage dbTicket={dbTicket} setDbTicket={setDbTicket} />
+                            <ReviewPage
+                                dbTicket={dbTicket}
+                                setDbTicket={setDbTicket}
+                            />
                         ) : isUploading === null ? (
                             <Navigate to="../upload" replace />
                         ) : (

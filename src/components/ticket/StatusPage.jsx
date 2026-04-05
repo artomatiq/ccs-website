@@ -1,10 +1,15 @@
 import { useEffect } from "react"
 import { useAuth } from "../../auth/AuthContext"
 
-export default function StatusPage({ dbTicket, setDbTicket }) {
+export default function StatusPage({
+    dbTicket,
+    setDbTicket,
+    isUploading,
+    setIsUploading,
+}) {
     const { token } = useAuth()
     useEffect(() => {
-        if (!dbTicket?.id) return
+        if (!isUploading) return
         const interval = setInterval(async () => {
             const url =
                 process.env.REACT_APP_API_BASE_URL +
@@ -26,22 +31,19 @@ export default function StatusPage({ dbTicket, setDbTicket }) {
                     corners: data.extractionApex,
                     downloadUrl: data.presignedUrl,
                 }))
-
-                if (
-                    data.status === "extracted" ||
-                    data.status === "rejected" ||
-                    data.status === "failed"
-                ) {
+                if (["extracted", "rejected", "failed"].includes(data.status)) {
                     clearInterval(interval)
+                    setIsUploading(false)
                 }
             } catch (err) {
                 console.error("Polling error:", err)
                 clearInterval(interval)
+                setIsUploading(false)
             }
         }, 2000)
 
         return () => clearInterval(interval)
-    }, [dbTicket.id, setDbTicket, token])
+    }, [isUploading, dbTicket.id, setDbTicket, token, setIsUploading])
 
     return <div>the status is {dbTicket.status}</div>
 }
