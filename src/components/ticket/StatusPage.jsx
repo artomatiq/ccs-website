@@ -15,9 +15,14 @@ export default function StatusPage({
                 process.env.REACT_APP_API_BASE_URL +
                 `/get-ticket/${dbTicket.id}`
             try {
+                console.log("Polling token:", token)
                 const res = await fetch(url, {
                     headers: { Authorization: `Bearer ${token}` },
                 })
+                if (res.status === 404) {
+                    console.log("Ticket not in DB yet, continuing polling...")
+                    return
+                }
                 const data = await res.json()
                 if (!res.ok) {
                     clearInterval(interval)

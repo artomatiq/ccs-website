@@ -13,6 +13,7 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
     const fileInputRef = useRef(null)
     const [imageSrc, setImageSrc] = useState(null)
     const [portrait, setPortrait] = useState(null)
+    const [isSubmitting, setIsSubmitting] = useState(false)
     useEffect(() => {
         const element = document.querySelector(".ticket-container")
         const scroll = () => window.scrollTo(0, element.offsetTop)
@@ -44,6 +45,7 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
             return
         }
         try {
+            setIsSubmitting(true)
             const { key, ticketId } = await uploadToS3(imageSrc, setToken)
             // Swal.fire({
             //     title: "Upload Successful!",
@@ -61,6 +63,8 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
             // setImageSrc(null)
             // setPortrait(null)
             // fileInputRef.current.value = ""
+            // console.log("setDbTicket type:", typeof setDbTicket)
+            // console.log("setIsUploading type:", typeof setIsUploading)
             setDbTicket({
                 status: "uploading",
                 id: ticketId,
@@ -123,10 +127,10 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
                             type="button"
                             onClick={handleSubmit}
                             className="button"
-                            disabled={!attachment}
+                            disabled={!attachment || isSubmitting}
                             hidden={!attachment}
                         >
-                            Submit
+                            {isSubmitting ? "Uploading..." : "Submit"}
                         </button>
                     </div>
                     <button

@@ -28,6 +28,8 @@ export default function TicketOverlay(props) {
     }, [reviewForm, touched])
 
     useEffect(() => {
+        if (!dbTicket?.text) return
+
         const form = Object.fromEntries(
             Object.keys(dbTicket.text).map((field) => [
                 field,
@@ -38,6 +40,7 @@ export default function TicketOverlay(props) {
                 },
             ]),
         )
+
         setReviewForm(form)
     }, [dbTicket.text, dbTicket.confidence, dbTicket.corners, setReviewForm])
 

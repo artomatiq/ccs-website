@@ -47,14 +47,12 @@ export default function TicketWorkflow() {
             "https://ccs-ticket-app.s3.us-east-1.amazonaws.com/raw/VV02/6eb90f94-b762-408e-9d54-5bc222f1e34b?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIATTJC4ITVPYJPHIIM%2F20260323%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260323T230847Z&X-Amz-Expires=300&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMD%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCIC5m1t8xQdZUfE3ImmmGC8r1zk3Jr4abo%2FJ%2FUMFrvrb6AiAnsVEE8X2%2BIrCBvDYMT8ee5y17b3oCCjcxbvCIz6rNKyrsAwiI%2F%2F%2F%2...",
     }
 
-    //   const [dbTicket, setDbTicket] = useState({
-    //     status: "idle",
-    //     extractedData: null,
-    //   });
-
+      const [dbTicket, setDbTicket] = useState({
+        status: "idle",
+        extractedData: null,
+      });
     const { isAdmin } = useAuth()
     const [isUploading, setIsUploading] = useState(null)
-    const [dbTicket, setDbTicket] = useState(testTicket)
 
     // useEffect(() => {
     //     const timer = setTimeout(() => {
@@ -93,6 +91,7 @@ export default function TicketWorkflow() {
                             <UploadPage
                                 isUploading={isUploading}
                                 setIsUploading={setIsUploading}
+                                setDbTicket={setDbTicket}
                             />
                         ) : (
                             <Navigate to="../status" replace />
@@ -146,6 +145,7 @@ export default function TicketWorkflow() {
                             <UploadPage
                                 isUploading={isUploading}
                                 setIsUploading={setIsUploading}
+                                setDbTicket={setDbTicket}
                             />
                         ) : (
                             <Navigate to="../status" replace />
