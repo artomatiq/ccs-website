@@ -20,7 +20,7 @@ export default function ReviewPage(props) {
         start: false,
         stop: false,
     })
-    const { dbTicket, setDbTicket, setView } = props
+    const { dbTicket, setDbTicket } = props
     const handleFinalize = async () => {
         const cleanedForm = Object.fromEntries(
             Object.entries(reviewForm).map(([key, obj]) => [
@@ -115,7 +115,6 @@ export default function ReviewPage(props) {
         setTimeout(() => {
             if (isAdmin) {
                 setDbTicket({ status: "idle" })
-                setView('home')
             } else {
                 sessionStorage.removeItem("userToken")
                 setToken(null)
