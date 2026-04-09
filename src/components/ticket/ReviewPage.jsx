@@ -2,10 +2,11 @@ import { useState, useEffect } from "react"
 import { useAuth } from "../../auth/AuthContext"
 import "./reviewPage.css"
 import TicketOverlay from "./TicketOverlay"
+import { useNavigate } from "react-router-dom"
 import Swal from "sweetalert2"
 
 export default function ReviewPage(props) {
-    const { token, setToken, isAdmin } = useAuth()
+    const { token, setToken, isAdmin, user } = useAuth()
 
     const [imgLoaded, setImgLoaded] = useState(false)
     const [imgError, setImgError] = useState(false)
@@ -22,6 +23,7 @@ export default function ReviewPage(props) {
         stop: false,
     })
     const { dbTicket, setDbTicket } = props
+    const navigate = useNavigate()
 
     const handleFinalize = async () => {
         const cleanedForm = Object.fromEntries(
@@ -121,18 +123,18 @@ export default function ReviewPage(props) {
             return
         }
         const data = await res.json()
-        Swal.fire({
+        const result = await Swal.fire({
             text: data.message || "Ticket successfully processed.",
             icon: "success",
+            confirmButtonText: "OK",
         })
-        setTimeout(() => {
-            if (isAdmin) {
-                setDbTicket({ status: "idle" })
-            } else {
+        if (result.isConfirmed) {
+            if (!isAdmin) {
                 sessionStorage.removeItem("userToken")
                 setToken(null)
             }
-        }, 3000)
+            navigate(`/ticket/${user}/welcome`)
+        }
     }
 
     // Reset loading state when new image arrives
