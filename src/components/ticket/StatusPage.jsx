@@ -93,7 +93,7 @@ export default function StatusPage({
         }, 2000)
 
         return () => clearInterval(interval)
-    }, [isUploading, dbTicket.id, setDbTicket, token, setIsUploading])
+    }, [isUploading, dbTicket.id, setDbTicket, token, setIsUploading, navigate])
 
     return <div>the status is {dbTicket.status}</div>
 }
