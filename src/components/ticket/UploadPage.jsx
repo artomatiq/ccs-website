@@ -1,7 +1,6 @@
 import "./ticket.css"
 import { useState, useEffect, useRef } from "react"
 import handleFileChange from "../../utils/ticket/handleFileChange"
-// import axios from 'axios';
 import Swal from "sweetalert2"
 import ImagePreview from "./ImagePreview"
 import uploadToS3 from "../../api/uploadToS3"

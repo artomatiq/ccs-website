@@ -1,5 +1,7 @@
 import { useEffect } from "react"
 import { useAuth } from "../../auth/AuthContext"
+import { useNavigate } from "react-router-dom"
+import Swal from "sweetalert2"
 
 export default function StatusPage({
     dbTicket,
@@ -8,6 +10,7 @@ export default function StatusPage({
     setIsUploading,
 }) {
     const { token } = useAuth()
+    const navigate = useNavigate()
     useEffect(() => {
         if (!isUploading) return
         const interval = setInterval(async () => {
@@ -28,6 +31,52 @@ export default function StatusPage({
                     clearInterval(interval)
                     throw new Error(`HTTP error: ${res.status}`)
                 }
+                if (data.status === "rejected") {
+                    clearInterval(interval)
+                    Swal.fire({
+                        title: "Ticket Rejected",
+                        text: "This ticket may be a duplicate or unreadable.",
+                        icon: "warning",
+                        confirmButtonText: "OK",
+                        customClass: {
+                            container: "swal-container",
+                            popup: "swal-popup",
+                            title: "swal-title",
+                            content: "swal-content",
+                            confirmButton: "swal-confirm-button",
+                        },
+                    }).then(() => {
+                        setDbTicket({ status: "idle" })
+                        setIsUploading(null)
+                        navigate("../welcome", { replace: true })
+                    })
+                    return
+                }
+                if (data.status === "failed") {
+                    clearInterval(interval)
+                    Swal.fire({
+                        title: "Processing Failed",
+                        text: "Something went wrong. Please try again.",
+                        icon: "error",
+                        confirmButtonText: "OK",
+                        customClass: {
+                            container: "swal-container",
+                            popup: "swal-popup",
+                            title: "swal-title",
+                            content: "swal-content",
+                            confirmButton: "swal-confirm-button",
+                        },
+                    }).then(() => {
+                        setDbTicket({ status: "idle" })
+                        setIsUploading(null)
+                        navigate("../welcome", { replace: true })
+                    })
+                    return
+                }
+                if (data.status === "extracted") {
+                    clearInterval(interval)
+                    setIsUploading(false)
+                }
                 setDbTicket((prev) => ({
                     ...prev,
                     status: data.status,
@@ -36,10 +85,6 @@ export default function StatusPage({
                     corners: data.extractionApex,
                     downloadUrl: data.presignedUrl,
                 }))
-                if (["extracted", "rejected", "failed"].includes(data.status)) {
-                    clearInterval(interval)
-                    setIsUploading(false)
-                }
             } catch (err) {
                 console.error("Polling error:", err)
                 clearInterval(interval)
