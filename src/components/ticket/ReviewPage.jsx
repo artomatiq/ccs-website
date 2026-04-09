@@ -28,22 +28,27 @@ export default function ReviewPage(props) {
             Object.entries(reviewForm).map(([key, obj]) => [
                 key,
                 obj?.value ?? null,
-            ])
+            ]),
         )
 
         const errors = []
 
         // DATE VALIDATION
         if (cleanedForm.date) {
-            const today = new Date().toISOString().slice(0, 10)
+            const inputDate = new Date(cleanedForm.date)
+            const today = new Date()
             const pastLimit = new Date()
-            pastLimit.setDate(pastLimit.getDate() - 7)
-            const minDate = pastLimit.toISOString().slice(0, 10)
+            pastLimit.setDate(today.getDate() - 7)
 
-            if (cleanedForm.date > today) {
+            // normalize time
+            inputDate.setHours(0, 0, 0, 0)
+            today.setHours(0, 0, 0, 0)
+            pastLimit.setHours(0, 0, 0, 0)
+
+            if (inputDate > today) {
                 errors.push("Date cannot be in the future.")
                 cleanedForm.date = null
-            } else if (cleanedForm.date < minDate) {
+            } else if (inputDate < pastLimit) {
                 errors.push("Ticket must be dated within the past week.")
                 cleanedForm.date = null
             }
