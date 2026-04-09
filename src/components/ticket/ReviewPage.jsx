@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react"
 import { useAuth } from "../../auth/AuthContext"
 import "./reviewPage.css"
-import imgUrl from "../../assets/60b65df1-392f-401f-91b9-dea5173562df.png"
 import TicketOverlay from "./TicketOverlay"
 import Swal from "sweetalert2"
 
 export default function ReviewPage(props) {
     const { token, setToken, isAdmin } = useAuth()
-    const [imgLoaded, setImgLoaded] = useState(true)
+
+    const [imgLoaded, setImgLoaded] = useState(false)
     const [imgError, setImgError] = useState(false)
+
     const [reviewForm, setReviewForm] = useState({})
     const [touched, setTouched] = useState({
         date: false,
@@ -21,20 +22,24 @@ export default function ReviewPage(props) {
         stop: false,
     })
     const { dbTicket, setDbTicket } = props
+
     const handleFinalize = async () => {
         const cleanedForm = Object.fromEntries(
             Object.entries(reviewForm).map(([key, obj]) => [
                 key,
                 obj?.value ?? null,
-            ]),
+            ])
         )
+
         const errors = []
-        //DATE VALIDATION
+
+        // DATE VALIDATION
         if (cleanedForm.date) {
             const today = new Date().toISOString().slice(0, 10)
             const pastLimit = new Date()
             pastLimit.setDate(pastLimit.getDate() - 7)
             const minDate = pastLimit.toISOString().slice(0, 10)
+
             if (cleanedForm.date > today) {
                 errors.push("Date cannot be in the future.")
                 cleanedForm.date = null
@@ -43,7 +48,8 @@ export default function ReviewPage(props) {
                 cleanedForm.date = null
             }
         }
-        //TIME VALIDATION
+
+        // TIME VALIDATION
         if (cleanedForm.start && cleanedForm.stop) {
             if (cleanedForm.start >= cleanedForm.stop) {
                 errors.push("Start time must be earlier than stop time.")
@@ -51,7 +57,8 @@ export default function ReviewPage(props) {
                 cleanedForm.stop = null
             }
         }
-        //HANDLE ERRORS
+
+        // HANDLE ERRORS
         if (errors.length > 0) {
             Swal.fire({
                 html: errors.join("<br>"),
@@ -85,10 +92,11 @@ export default function ReviewPage(props) {
                 })
                 return updated
             })
+
             return
         }
 
-        //API CALL
+        // API CALL
         const confirmUrl =
             process.env.REACT_APP_API_BASE_URL +
             `/confirm-ticket/${dbTicket.id}`
@@ -122,63 +130,78 @@ export default function ReviewPage(props) {
         }, 3000)
     }
 
+    // Reset loading state when new image arrives
+    useEffect(() => {
+        if (dbTicket?.downloadUrl) {
+            setImgLoaded(false)
+            setImgError(false)
+        }
+    }, [dbTicket?.downloadUrl])
+
+    // Scroll
     useEffect(() => {
         setTimeout(() => {
             const review = document.querySelector(".review-wrapper")
             const header = document.querySelector(".header-container")
             if (!review || !header) return
+
             const reviewTop =
                 review.getBoundingClientRect().top + window.scrollY
             const headerHeight = header.offsetHeight
-            const scrollTo = reviewTop - headerHeight
+
             window.scrollTo({
-                top: scrollTo,
+                top: reviewTop - headerHeight,
                 behavior: "smooth",
             })
         }, 2000)
     }, [])
 
+    //GUARDS
+    if (!dbTicket?.downloadUrl) {
+        return <div>Fetching ticket...</div>
+    }
+
     if (imgError) {
         return <div>Failed to load image.</div>
     }
+
     return (
         <div className="review-wrapper">
-            {imgLoaded ? (
-                <>
-                    <div className="ticket-wrapper">
-                        <div className="ticket-number">
-                            Ticket {dbTicket?.text?.ticketNumber}
-                        </div>
-                        <div className="ticket-box">
-                            <img
-                                src={imgUrl}
-                                alt="ValidTicketImg"
-                                className="ticket-image"
-                                onLoad={() => setImgLoaded(true)}
-                                onError={() => setImgError(true)}
-                            />
-                            <TicketOverlay
-                                dbTicket={dbTicket}
-                                reviewForm={reviewForm}
-                                setReviewForm={setReviewForm}
-                                touched={touched}
-                                setTouched={setTouched}
-                            />
-                        </div>
-                    </div>
-                    <button
-                        type="button"
-                        onClick={handleFinalize}
-                        className="button"
-                        id="finalize-button"
-                        disabled={!Object.values(touched).every(Boolean)}
-                    >
-                        Finalize
-                    </button>
-                </>
-            ) : (
-                <div>Fetching ticket...</div>
-            )}
+            {!imgLoaded && <div>Loading image...</div>}
+
+            <div className="ticket-wrapper">
+                <div className="ticket-number">
+                    Ticket {dbTicket?.text?.ticketNumber}
+                </div>
+
+                <div className="ticket-box">
+                    <img
+                        src={dbTicket.downloadUrl}
+                        alt="ValidTicketImg"
+                        className="ticket-image"
+                        onLoad={() => setImgLoaded(true)}
+                        onError={() => setImgError(true)}
+                    />
+
+                    <TicketOverlay
+                        dbTicket={dbTicket}
+                        reviewForm={reviewForm}
+                        setReviewForm={setReviewForm}
+                        touched={touched}
+                        setTouched={setTouched}
+                    />
+                </div>
+            </div>
+
+            <button
+                type="button"
+                onClick={handleFinalize}
+                className="button"
+                id="finalize-button"
+                disabled={!Object.values(touched).every(Boolean)}
+            >
+                Finalize
+            </button>
         </div>
     )
 }
