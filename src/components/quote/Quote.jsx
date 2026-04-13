@@ -7,6 +7,8 @@ import sendEmail from "../../utils/quote/Emailjs"
 import handleAppointmentClick from "../../utils/quote/handleAppointmentClick"
 import { LoadScript } from "@react-google-maps/api"
 
+const libraries = ["places"]
+
 const Quote = () => {
     useEffect(() => {
         const button = document.querySelector(".quote-button.nav-button")
@@ -24,7 +26,6 @@ const Quote = () => {
         }
     }, [])
 
-    const libraries = ["places"]
     const googleMapsPublicKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
 
     const initialState = {
