@@ -1,0 +1,13 @@
+#passcode-input {
+    min-width: 50vw;
+    align-self: center;
+}
+
+@media (min-width: 600px) and (max-width: 900px) {
+}
+
+@media (max-width: 600px) {
+    #passcode-input {
+        font-size: small;
+    }
+}
