@@ -5,9 +5,6 @@ import { Autocomplete } from "@react-google-maps/api"
 import handleDateBlur from "../../utils/quote/DateValidation"
 import sendEmail from "../../utils/quote/Emailjs"
 import handleAppointmentClick from "../../utils/quote/handleAppointmentClick"
-import { LoadScript } from "@react-google-maps/api"
-
-const libraries = ["places"]
 
 const Quote = () => {
     useEffect(() => {
@@ -25,8 +22,6 @@ const Quote = () => {
             }
         }
     }, [])
-
-    const googleMapsPublicKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
 
     const initialState = {
         origin: "",
@@ -130,11 +125,7 @@ const Quote = () => {
     }
 
     return (
-        <LoadScript
-            googleMapsApiKey={googleMapsPublicKey}
-            libraries={libraries}
-            loadingElement={<></>}
-        >
+
             <div className="quote-container section" id="quote-id">
                 <div className="title section segment">
                     <span className="hide">Request Quote</span>
@@ -509,7 +500,6 @@ const Quote = () => {
                     </div>
                 </form>
             </div>
-        </LoadScript>
     )
 }
 

@@ -46,7 +46,7 @@ const Header = () => {
             </span>
 
             <span className='quote-button nav-button'>
-                <Link to='quote'>
+                <Link to='quote' >
                     Get Free Quote
                 </Link>
             </span>
