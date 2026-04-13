@@ -1,5 +1,5 @@
 import "./ticket.css"
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import Swal from "sweetalert2"
 import loginUser from "../../api/userLogin"
 import { useAuth } from "../../auth/AuthContext"
@@ -13,6 +13,14 @@ const PasscodePage = () => {
         const { value } = e.target
         setPasscode(value)
     }
+    const spanRef = useRef(null)
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            spanRef.current?.classList.add("show")
+        }, 300)
+
+        return () => clearTimeout(timer)
+    }, [])
     const handleLogin = async (e) => {
         e.preventDefault()
         try {
@@ -42,6 +50,11 @@ const PasscodePage = () => {
             className="quote-container ticket-container section"
             id="ticket-login-id"
         >
+            <div className="title section segment">
+                <span ref={spanRef} className="hide">
+                    Login
+                </span>
+            </div>
             <form className="ticket__form quote__form">
                 <div className="passcode input segment" id="passcode-input">
                     <div className="form-div passcode">
