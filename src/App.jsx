@@ -59,7 +59,7 @@ function App() {
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
-                    const title = entry.target.querySelector(".title span")
+                    const title = entry.target.querySelector("span")
                     if (entry.isIntersecting) {
                         title?.classList.add("show")
                     } else {
