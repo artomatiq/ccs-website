@@ -18,7 +18,7 @@ const PreLoader = () => {
     return (
         <div className="preloader-container">
             <div>Carolinas Courier Services</div>
-            <img src={symbol} id="symbol-png" />
+            <img src={symbol} id="symbol-png" alt="Company logo"/>
         </div>
     )
 }
