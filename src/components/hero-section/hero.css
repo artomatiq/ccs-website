@@ -6,7 +6,9 @@
     opacity: 0;
     filter: blur(10px);
 
-    transition: transform 2s ease;
+    transition:
+        opacity 2s ease,
+        transform 2s ease;
     overflow: hidden;
     will-change: opacity, transform;
 
@@ -23,7 +25,8 @@
     font-size: 6vw;
     background:
         linear-gradient(to bottom, rgba(255, 255, 255, 0), rgb(0, 0, 0)),
-        url('../../assets/skyline-downtown-charlotte-north-carolina.jpg') center center/cover;
+        url("../../assets/skyline-downtown-charlotte-north-carolina.jpg") center
+            center/cover;
     background-position: top;
 
     position: relative;
@@ -35,7 +38,7 @@
 }
 
 .hero-container::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -44,13 +47,13 @@
 
     background:
         linear-gradient(to bottom, rgba(255, 255, 255, 0), rgb(0, 0, 0)),
-        url('../../assets/skyline-downtown-charlotte-north-carolina.jpg') center center/cover;
+        url("../../assets/skyline-downtown-charlotte-north-carolina.jpg") center
+            center/cover;
     filter: blur(2.75px);
     z-index: -1;
 }
 
 .company-name {
-
     font-size: clamp(1vw, 5vw, 60px);
 
     transform: translateX(-200%);
@@ -78,7 +81,6 @@
     font-size: clamp(1vw, 5vw, 60px);
     font-style: italic;
 
-    
     padding: 10px;
     border-radius: 15px;
 
@@ -98,38 +100,37 @@
     transform: translateX(0);
 }
 
-@media screen and (max-width: 550px){
-    .hero-container.show {    
+@media screen and (max-width: 550px) {
+    .hero-container.show {
         flex-direction: column;
         justify-content: space-evenly;
-    
+
         height: 100vh;
         font-size: 6vw;
     }
 
     .company-name {
-
         font-size: clamp(30px, 50px, 60px);
         text-align: center;
 
         transition: transform 1.5s ease-out;
-        
+
         .two {
             display: flex;
             flex-direction: row;
             align-items: center;
         }
-    
+
         .fa-truck-fast {
             margin-right: 1rem;
         }
     }
-    
+
     .hero-slogan {
-        font-size: clamp(20px, 35px, 45px);  
-        
+        font-size: clamp(20px, 35px, 45px);
+
         transition: transform 2s ease-out;
-    
+
         &:hover {
             border: none;
             padding: none;
