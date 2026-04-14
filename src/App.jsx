@@ -38,27 +38,6 @@ function App() {
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        const timeout = setTimeout(() => {
-            setIsLoading(false)
-            document
-                .querySelector(".preloader-container")
-                ?.classList.add("hide")
-            document.querySelector(".hero-container")?.classList.add("show")
-            document.querySelector(".header-container")?.classList.add("show")
-        }, 4000)
-
-        const titleTimeout = setTimeout(() => {
-            document.querySelector(".company-name")?.classList.add("show")
-            document.querySelector(".hero-slogan")?.classList.add("show")
-        }, 5500)
-
-        return () => {
-            clearTimeout(timeout)
-            clearTimeout(titleTimeout)
-        }
-    }, [])
-
-    useEffect(() => {
         const disableScroll = (event) => event.preventDefault()
 
         if (isLoading) {
@@ -107,9 +86,9 @@ function App() {
             loadingElement={<></>}
         >
             <div className="app-container">
-                <PreLoader />
+                <PreLoader isLoading={isLoading} />
                 <Header />
-                <Hero />
+                <Hero isLoading={isLoading} setIsLoading={setIsLoading} />
                 <Routes>
                     <Route path="/ticket/*" element={<Ticket />} />
                     <Route path="/quote" element={<Quote />} />

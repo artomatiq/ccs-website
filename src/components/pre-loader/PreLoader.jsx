@@ -1,24 +1,30 @@
 import "./pre-loader.css"
-import { useEffect } from "react"
-
+import { useEffect, useState } from "react"
 import symbol from "../../assets/eternity.png"
 
-const PreLoader = () => {
+const PreLoader = ({ isLoading }) => {
+    const [showContent, setShowContent] = useState(false)
+
     useEffect(() => {
         const timeout = setTimeout(() => {
-            document
-                .querySelector(".preloader-container div")
-                ?.classList.add("show")
-            document.querySelector("#symbol-png")?.classList.add("show")
+            setShowContent(true)
         }, 700)
 
         return () => clearTimeout(timeout)
     }, [])
 
     return (
-        <div className="preloader-container">
-            <div>Carolinas Courier Services</div>
-            <img src={symbol} id="symbol-png" alt="Company logo"/>
+        <div className={`preloader-container ${isLoading ? "" : "hide"}`}>
+            <div className={showContent ? "show" : ""}>
+                Carolinas Courier Services
+            </div>
+
+            <img
+                src={symbol}
+                id="symbol-png"
+                className={showContent ? "show" : ""}
+                alt="Company logo"
+            />
         </div>
     )
 }
