@@ -79,7 +79,7 @@ const PasscodePage = () => {
                             className="button"
                             disabled={passcode.length < 4}
                         >
-                            Login
+                            Sign in
                         </button>
                     </div>
                 </div>
