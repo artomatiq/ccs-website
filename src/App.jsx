@@ -87,7 +87,7 @@ function App() {
         >
             <div className="app-container">
                 <PreLoader isLoading={isLoading} />
-                <Header />
+                <Header isLoading={isLoading}/>
                 <Hero isLoading={isLoading} setIsLoading={setIsLoading} />
                 <Routes>
                     <Route path="/ticket/*" element={<Ticket />} />
