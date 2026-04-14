@@ -30,27 +30,6 @@
     z-index: 1;
 }
 
-.hero-container.hide {
-    /* opacity: 0;
-    filter: none;
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-
-    height: 100vh;
-    color: white;
-    font-size: 6vw;
-    background:
-        linear-gradient(to bottom, rgba(255, 255, 255, 0), rgb(0, 0, 0)),
-        url('../../assets/skyline-downtown-charlotte-north-carolina.jpg') center center/cover;
-    background-position: top;
-
-    position: relative;
-    z-index: 1; */
-}
-
 .hero-container.show {
     opacity: 1;
 }
