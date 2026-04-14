@@ -5,7 +5,7 @@ const PreLoader = () => {
 
     useEffect(() => {
         const timeout = setTimeout(() => {
-            document.querySelector('.preloader-container div').classList.add('show')
+            document.querySelector('.preloader-container div')?.classList.add('show')
         }, 700);
 
         return () => clearTimeout(timeout)

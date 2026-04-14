@@ -8,22 +8,35 @@ import { useLocation } from "react-router-dom"
 import { Routes, Route } from "react-router-dom"
 
 const Ticket = () => {
-    useEffect(() => {
-        const button = document.querySelector(".ticket-button.nav-button")
-        const element = document.querySelector(".ticket-container")
-        const scroll = () => window.scrollTo(0, element.offsetTop)
-        if (element) {
-            scroll()
-            if (button) button.addEventListener("click", scroll)
-            return () => {
-                if (button) button.removeEventListener("click", scroll)
-            }
-        }
-    }, [])
+    // useEffect(() => {
+    //     const button = document.querySelector(".ticket-button.nav-button")
+    //     const element = document.querySelector(".ticket-container")
+    //     const scroll = () => window.scrollTo(0, element.offsetTop)
+    //     if (element) {
+    //         scroll()
+    //         if (button) button.addEventListener("click", scroll)
+    //         return () => {
+    //             if (button) button.removeEventListener("click", scroll)
+    //         }
+    //     }
+    // }, [])
+
     // const isMobile = true ///Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     const { isAuthenticated } = useAuth()
     const navigate = useNavigate()
     const location = useLocation()
+
+    useEffect(() => {
+        const scroll = () => {
+            const footer = document.querySelector(".footer-container")
+            if (!footer) return
+            const footerTop =
+                footer.getBoundingClientRect().top + window.scrollY
+            const scrollTo = Math.max(0, footerTop - window.innerHeight)
+            window.scrollTo({ top: scrollTo })
+        }
+        requestAnimationFrame(scroll)
+    }, [location.pathname])
 
     useEffect(() => {
         if (!isAuthenticated && location.pathname !== "/ticket/login") {

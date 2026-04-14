@@ -7,10 +7,10 @@ const Contact = () => {
 
     const handleEmailClick = () => {
         if (!showEmail) setShowEmail(true)
-        document.querySelector('.our-email-button').classList.add('show')
+        document.querySelector('.our-email-button')?.classList.add('show')
 
         setTimeout(() => {
-            document.querySelector('.our-email-button').classList.remove('show')
+            document.querySelector('.our-email-button')?.classList.remove('show')
             setShowEmail(false)
         }, 8000);
     }

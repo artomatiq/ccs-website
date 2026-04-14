@@ -40,14 +40,16 @@ function App() {
     useEffect(() => {
         const timeout = setTimeout(() => {
             setIsLoading(false)
-            document.querySelector(".preloader-container").classList.add("hide")
-            document.querySelector(".hero-container").classList.add("show")
-            document.querySelector(".header-container").classList.add("show")
+            document
+                .querySelector(".preloader-container")
+                ?.classList.add("hide")
+            document.querySelector(".hero-container")?.classList.add("show")
+            document.querySelector(".header-container")?.classList.add("show")
         }, 4000)
 
         const titleTimeout = setTimeout(() => {
-            document.querySelector(".company-name").classList.add("show")
-            document.querySelector(".hero-slogan").classList.add("show")
+            document.querySelector(".company-name")?.classList.add("show")
+            document.querySelector(".hero-slogan")?.classList.add("show")
         }, 5500)
 
         return () => {
@@ -80,9 +82,9 @@ function App() {
                 entries.forEach((entry) => {
                     const title = entry.target.querySelector(".title span")
                     if (entry.isIntersecting) {
-                        title.classList.add("show")
+                        title?.classList.add("show")
                     } else {
-                        title.classList.remove("show")
+                        title?.classList.remove("show")
                     }
                 })
             },
