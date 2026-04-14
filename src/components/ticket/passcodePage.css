@@ -10,4 +10,8 @@
     #passcode-input {
         font-size: small;
     }
+
+    #ticket-login {
+        margin-bottom: 20rem;
+    }
 }
