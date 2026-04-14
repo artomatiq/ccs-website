@@ -26,6 +26,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
 
+    text-align: center;
+
     transition: all 3s ease;
     filter: blur(5px);
 }
@@ -44,15 +46,16 @@
     position: absolute;
     top: 75%;
     left: 50%;
-    transform: translate(-50%, -50%);
 
     width: 4rem;
 
-    color: var(--primary-color);
+    transform: translate(-50%, -50%) scale(0.05) rotate(0deg);
 
-    transition: all 3s ease;
+    transition: transform 2.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+    will-change: transform;
 }
 
 #symbol-png.show {
-    transform: translate(-50%, -50%) scale(1.2);
+    transform: translate(-50%, -50%) scale(1.2) rotate(720deg);
 }
