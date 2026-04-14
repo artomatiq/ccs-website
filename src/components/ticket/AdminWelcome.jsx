@@ -13,17 +13,32 @@ const AdminWelcome = () => {
     }, [])
 
     useEffect(() => {
-        setTimeout(() => {
-            const dashabord = document.querySelector(".admin-dashboard")
-            // const header = document.querySelector(".header-container")
-            if (!dashabord) return
-            const dashboardTop =
-                dashabord.getBoundingClientRect().top + window.scrollY
+        const welcome = spanRef.current
+        const dashboard = document.querySelector(".admin-dashboard")
+        if (!welcome || !dashboard) return
+        // Step 1: center Welcome in viewport
+        requestAnimationFrame(() => {
+            const rect = welcome.getBoundingClientRect()
+            const scrollTo =
+                rect.top +
+                window.scrollY -
+                window.innerHeight / 2 +
+                rect.height / 2
             window.scrollTo({
-                top: dashboardTop,
+                top: scrollTo,
                 behavior: "smooth",
             })
-        }, 2000)
+            // Step 2: then scroll to dashboard
+            const timer = setTimeout(() => {
+                const dashboardTop =
+                    dashboard.getBoundingClientRect().top + window.scrollY
+                window.scrollTo({
+                    top: dashboardTop,
+                    behavior: "smooth",
+                })
+            }, 2000)
+            return () => clearTimeout(timer)
+        })
     }, [])
 
     const navigate = useNavigate()
@@ -37,10 +52,20 @@ const AdminWelcome = () => {
             </div>
             <div className="admin-dashboard">
                 <div className="process-section">
-                    <button name="process" onClick={() => navigate("/ticket/admin/process")} >Process Tickets</button>
+                    <button
+                        name="process"
+                        onClick={() => navigate("/ticket/admin/process")}
+                    >
+                        Process Tickets
+                    </button>
                 </div>
                 <div className="upload-section">
-                    <button name="upload" onClick={() => navigate("/ticket/admin/upload")} >Upload Tickets</button>
+                    <button
+                        name="upload"
+                        onClick={() => navigate("/ticket/admin/upload")}
+                    >
+                        Upload Tickets
+                    </button>
                 </div>
             </div>
         </>

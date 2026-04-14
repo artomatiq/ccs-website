@@ -13,6 +13,7 @@ const Ticket = () => {
     const location = useLocation()
 
     useEffect(() => {
+        if (location.pathname !== "/ticket/login") return
         const scroll = () => {
             const footer = document.querySelector(".footer-container")
             if (!footer) return

@@ -14,9 +14,18 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
     const [portrait, setPortrait] = useState(null)
     const [isSubmitting, setIsSubmitting] = useState(false)
     useEffect(() => {
-        const element = document.querySelector(".ticket-container")
-        const scroll = () => window.scrollTo(0, element.offsetTop)
-        if (element) scroll()
+        const timer = setTimeout(() => {
+            const scroll = () => {
+                const footer = document.querySelector(".footer-container")
+                if (!footer) return
+                const footerTop =
+                    footer.getBoundingClientRect().top + window.scrollY
+                const scrollTo = Math.max(0, footerTop - window.innerHeight)
+                window.scrollTo({ top: scrollTo })
+            }
+            requestAnimationFrame(scroll)
+        }, 800)
+        return () => clearTimeout(timer)
     }, [])
     const handleCapture = (e) => {
         e.preventDefault()
