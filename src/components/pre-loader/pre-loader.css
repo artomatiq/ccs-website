@@ -51,7 +51,7 @@
 
     width: 4rem;
 
-    transform: translate(-50%, -50%) scale(0.001) rotate(0deg);
+    transform: translate(-50%, -50%) scale(0.01) rotate(0deg);
 
     transition: transform 2.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 
