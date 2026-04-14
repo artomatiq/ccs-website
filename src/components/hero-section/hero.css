@@ -1,7 +1,3 @@
-.hero-precontainer {
-    background: black;
-}
-
 .hero-container {
     opacity: 0;
     transition:

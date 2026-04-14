@@ -22,7 +22,7 @@ const Hero = ({ isLoading, setIsLoading }) => {
     }, [])
 
     return (
-        <div className="hero-precontainer">
+        // <div className="hero-precontainer">
             <div className={`hero-container ${showHero ? "show" : ""}`} id="home-id">
                 <div className={`company-name ${showTitles ? "show" : ""}`}>
                     <div className="one">Carolinas</div>
@@ -34,7 +34,7 @@ const Hero = ({ isLoading, setIsLoading }) => {
                 </div>
                 <div className={`hero-slogan ${showTitles ? "show" : ""}`}>Driven to deliver.</div>
             </div>
-        </div>
+        // </div>
     )
 }
 

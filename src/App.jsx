@@ -56,27 +56,28 @@ function App() {
     }, [isLoading])
 
     useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    const title = entry.target.querySelector("span")
-                    if (entry.isIntersecting) {
-                        title?.classList.add("show")
-                    } else {
-                        title?.classList.remove("show")
-                    }
-                })
-            },
-            { threshold: 0.3 },
-        )
-        const sections = [...document.querySelectorAll(".section .title")]
-        sections.forEach((section) => {
-            if (section === null) console.log(section)
-            observer.observe(section)
-        })
-        return () => {
-            sections.forEach((section) => observer.unobserve(section))
-        }
+        const timeout = setTimeout(() => {
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        const title = entry.target.querySelector("span")
+                        if (entry.isIntersecting) {
+                            title?.classList.add("show")
+                        } else {
+                            title?.classList.remove("show")
+                        }
+                    })
+                },
+                { threshold: 0.3 },
+            )
+            const sections = document.querySelectorAll(".section .title")
+            sections.forEach((section) => observer.observe(section))
+            return () => {
+                sections.forEach((section) => observer.unobserve(section))
+            }
+        }, 100)
+
+        return () => clearTimeout(timeout)
     }, [location.pathname])
 
     return (
@@ -87,7 +88,7 @@ function App() {
         >
             <div className="app-container">
                 <PreLoader isLoading={isLoading} />
-                <Header isLoading={isLoading}/>
+                <Header isLoading={isLoading} />
                 <Hero isLoading={isLoading} setIsLoading={setIsLoading} />
                 <Routes>
                     <Route path="/ticket/*" element={<Ticket />} />
