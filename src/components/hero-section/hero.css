@@ -4,7 +4,6 @@
         opacity 2s ease,
         transform 2s ease;
     overflow: hidden;
-    will-change: opacity, transform;
 
     opacity: 0;
     filter: none;
@@ -38,8 +37,6 @@
 
     transition: transform 2s ease-out;
 
-    will-change: transform;
-
     .two {
         display: flex;
         flex-direction: row;
@@ -65,8 +62,6 @@
     transform: translateX(200%);
 
     transition: transform 2s ease-out;
-
-    will-change: transform;
 
     &:hover {
         border: 1px solid rgb(242, 136, 55);
