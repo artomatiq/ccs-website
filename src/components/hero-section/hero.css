@@ -18,8 +18,8 @@
     font-size: 6vw;
     background:
         linear-gradient(to bottom, rgba(255, 255, 255, 0), rgb(0, 0, 0)),
-        url("../../assets/skyline-downtown-charlotte-north-carolina\ .jpg") center
-            center/cover;
+        url("../../assets/skyline-downtown-charlotte-north-carolina\ .jpg")
+            center center/cover;
     background-position: top;
 
     position: relative;
@@ -32,17 +32,17 @@
 
 .company-name {
     font-size: clamp(1vw, 5vw, 60px);
-
-    transform: translateX(-200%);
-
-    transition: transform 2s ease-out;
-
+    transform: translateX(-120px);
+    opacity: 0;
+    transition:
+        transform 1s ease-out,
+        opacity 1s ease-out;
+    will-change: transform, opacity;
     .two {
         display: flex;
         flex-direction: row;
         align-items: center;
     }
-
     .fa-truck-fast {
         margin-right: 1rem;
     }
@@ -50,19 +50,20 @@
 
 .company-name.show {
     transform: translateX(0);
+    opacity: 1;
 }
 
 .hero-slogan {
     font-size: clamp(1vw, 5vw, 60px);
     font-style: italic;
-
     padding: 10px;
     border-radius: 15px;
-
-    transform: translateX(200%);
-
-    transition: transform 2s ease-out;
-
+    transform: translateX(120px);
+    opacity: 0;
+    transition:
+        transform 1s ease-out,
+        opacity 1s ease-out;
+    will-change: transform, opacity;
     &:hover {
         border: 1px solid rgb(242, 136, 55);
         padding: 9px;
@@ -71,13 +72,13 @@
 
 .hero-slogan.show {
     transform: translateX(0);
+    opacity: 1;
 }
 
 @media screen and (max-width: 550px) {
     .hero-container.show {
         flex-direction: column;
         justify-content: space-evenly;
-
         height: 100vh;
         font-size: 6vw;
     }
@@ -85,33 +86,31 @@
     .company-name {
         font-size: clamp(30px, 50px, 60px);
         text-align: center;
-
+        transform: translateX(-200%);
+        opacity: 1;
         transition: transform 1.5s ease-out;
+    }
 
-        .two {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-
-        .fa-truck-fast {
-            margin-right: 1rem;
-        }
+    .company-name.show {
+        transform: translateX(0);
     }
 
     .hero-slogan {
         font-size: clamp(20px, 35px, 45px);
-
+        transform: translateX(200%);
+        opacity: 1;
         transition: transform 2s ease-out;
-
         &:hover {
             border: none;
             padding: none;
         }
-
         &:active {
             border: 1px solid rgb(242, 136, 55);
             padding: 9px;
         }
+    }
+
+    .hero-slogan.show {
+        transform: translateX(0);
     }
 }
