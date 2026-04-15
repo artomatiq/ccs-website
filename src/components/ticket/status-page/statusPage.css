@@ -1,0 +1,45 @@
+.status-section {
+    height: 100vh;
+    width: 100vw;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.status-row {
+    font-size: 1.2rem;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: monospace;
+    padding: 1rem;
+}
+
+.loader {
+    width: 12px;
+    height: 12px;
+    border: 2px solid gray;
+    border-top: 2px solid black;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+.check {
+    color: green;
+    font-weight: bold;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (min-width: 600px) and (max-width: 900px) {
+}
+
+@media screen and (max-width: 600px) {
+}

@@ -1,4 +1,5 @@
-import { useEffect } from "react"
+import "./statusPage.css"
+import { useEffect, useState } from "react"
 import { useAuth } from "../../../auth/AuthContext"
 import { useNavigate } from "react-router-dom"
 import Swal from "sweetalert2"
@@ -13,6 +14,7 @@ export default function StatusPage({
     const navigate = useNavigate()
     useEffect(() => {
         if (!isUploading) return
+        return
         const interval = setInterval(async () => {
             const url =
                 process.env.REACT_APP_API_BASE_URL +
@@ -46,9 +48,11 @@ export default function StatusPage({
                             confirmButton: "swal-confirm-button",
                         },
                     }).then(() => {
-                        setDbTicket({ status: "idle" })
-                        setIsUploading(null)
-                        navigate("../welcome", { replace: true })
+                        setTimeout(() => {
+                            setDbTicket({ status: "idle" })
+                            setIsUploading(null)
+                            navigate("../welcome", { replace: true })
+                        }, 2000)
                     })
                     return
                 }
@@ -67,15 +71,19 @@ export default function StatusPage({
                             confirmButton: "swal-confirm-button",
                         },
                     }).then(() => {
-                        setDbTicket({ status: "idle" })
-                        setIsUploading(null)
-                        navigate("../welcome", { replace: true })
+                        setTimeout(() => {
+                            setDbTicket({ status: "idle" })
+                            setIsUploading(null)
+                            navigate("../welcome", { replace: true })
+                        }, 2000)
                     })
                     return
                 }
                 if (data.status === "extracted") {
                     clearInterval(interval)
-                    setIsUploading(false)
+                    setTimeout(() => {
+                        setIsUploading(false)
+                    }, 2000);
                 }
                 setDbTicket((prev) => ({
                     ...prev,
@@ -95,22 +103,70 @@ export default function StatusPage({
         return () => clearInterval(interval)
     }, [isUploading, dbTicket.id, setDbTicket, token, setIsUploading, navigate])
 
-    const statusArray = ['uploading', 'uploaded', 'validating', 'validated', 'extracting', 'extracted']
+    const steps = [
+        { key: "uploading", doneAt: "uploaded", label: "uploading..." },
+        { key: "validating", doneAt: "validated", label: "validating..." },
+        { key: "extracting", doneAt: "extracted", label: "extracting..." },
+    ]
+
+    const statusOrder = [
+        "awaiting-upload",
+        "uploaded",
+        "validating",
+        "validated",
+        "extracting",
+        "extracted",
+    ]
+
+    const [visibleSteps, setVisibleSteps] = useState([])
+
+    useEffect(() => {
+        let cancelled = false
+        const run = async () => {
+            const newSteps = []
+            const currentIndex = statusOrder.indexOf(dbTicket.status)
+
+            for (let i = 0; i < steps.length; i++) {
+                newSteps.push({ ...steps[i], state: "loading" })
+                setVisibleSteps([...newSteps])
+                // minimum loader time
+                await new Promise((r) => setTimeout(r, 1000))
+                if (cancelled) return
+                const requiredIndex = statusOrder.indexOf(steps[i].doneAt)
+                if (currentIndex >= requiredIndex) {
+                    newSteps[i].state = "done"
+                } else {
+                    newSteps[i].state = "pending"
+                    setVisibleSteps([...newSteps])
+                    return
+                }
+                setVisibleSteps([...newSteps])
+                // pause before next step
+                await new Promise((r) => setTimeout(r, 1000))
+                if (cancelled) return
+            }
+        }
+        run()
+        return () => {
+            cancelled = true
+        }
+    }, [dbTicket.status])
 
     return (
-        <div className="status-section">
-            {/* <div className="status-box">
-                <div className="uploading">
-                    uploading...
-                </div>
-                <div className="validating">
-                    validating...
-                </div>
-                <div className="extracting">
-                    extracting...
-                </div>
-            </div> */}
-            <div>the status is {dbTicket.status}</div>
+        <div className="status-section" id="status-section">
+            <div className="status-box">
+                {visibleSteps.map((step, i) => (
+                    <div key={i} className="status-row">
+                        <span>{step.label}</span>
+                        {step.state === "loading" && (
+                            <span className="loader" />
+                        )}
+                        {step.state === "done" && (
+                            <span className="check">✔</span>
+                        )}
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }
