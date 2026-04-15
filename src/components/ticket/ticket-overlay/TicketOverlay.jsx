@@ -85,7 +85,7 @@ export default function TicketOverlay(props) {
                 behavior: "smooth",
                 block: "center",
             })
-        }, 500)
+        }, 750)
     }
 
     return (
