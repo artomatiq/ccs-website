@@ -1,0 +1,13 @@
+input.review-input.long {
+    transition:
+        transform 0.6s ease,
+        left 0.3s ease,
+        top 0.3s ease,
+        width 0.3s ease;
+    will-change: transform;
+    transition-delay: 0.25s;
+}
+
+.review-input.focused.long:focus {
+    transform: translateY(-100%) translateX(10%);
+}

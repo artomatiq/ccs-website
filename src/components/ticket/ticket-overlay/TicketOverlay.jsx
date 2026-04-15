@@ -140,7 +140,11 @@ export default function TicketOverlay(props) {
             {/* CUSTOMER NAME */}
             <input
                 name="customerName"
-                className={`review-input ${!touched.customerName ? "unconfirmed" : ""} ${focused === "customerName" ? "focused" : ""}`}
+                className={`review-input 
+                    ${!touched.customerName ? "unconfirmed" : ""} 
+                    ${focused === "customerName" ? "focused" : ""} 
+                    ${(reviewForm.customerName?.value || "").length >= 12 ? "long" : ""}
+                `}
                 type="text"
                 value={reviewForm.customerName?.value ?? ""}
                 onChange={handleChange}
@@ -149,22 +153,26 @@ export default function TicketOverlay(props) {
                     position: "absolute",
                     left:
                         window.innerWidth < 600 &&
-                        (reviewForm.customerName?.value || "").length > 12
-                            ? "50%"
+                        (reviewForm.customerName?.value || "").length >= 12
+                            ? "25%"
                             : `${reviewForm.customerName?.corner?.[0] * 100 + 3}%`,
                     top:
                         window.innerWidth < 600 &&
-                        (reviewForm.customerName?.value || "").length > 12
-                            ? `calc(${reviewForm.customerName?.corner?.[1] * 100}% - 1.5rem)`
+                        (reviewForm.customerName?.value || "").length >= 12
+                            ? `calc(${reviewForm.customerName?.corner?.[1] * 100}%)`
                             : `${reviewForm.customerName?.corner?.[1] * 100}%`,
-                    width: `${Math.max((reviewForm.customerName?.value || "").length + ((reviewForm.customerName?.value || "").length > 12 ? 6 : 4), 4)}ch`,
+                    width: `${Math.max((reviewForm.customerName?.value || "").length + ((reviewForm.customerName?.value || "").length >= 12 ? 5 : 4), 4)}ch`,
                 }}
             />
 
             {/* JOB NAME */}
             <input
                 name="jobName"
-                className={`review-input ${!touched.jobName ? "unconfirmed" : ""} ${focused === "jobName" ? "focused" : ""}`}
+                className={`review-input 
+                    ${!touched.jobName ? "unconfirmed" : ""} 
+                    ${focused === "jobName" ? "focused" : ""} 
+                    ${(reviewForm.jobName?.value || "").length >= 12 ? "long" : ""}
+                `}
                 type="text"
                 value={reviewForm.jobName?.value ?? ""}
                 onChange={handleChange}
@@ -173,15 +181,15 @@ export default function TicketOverlay(props) {
                     position: "absolute",
                     left:
                         window.innerWidth < 600 &&
-                        (reviewForm.jobName?.value || "").length > 12
-                            ? "50%"
+                        (reviewForm.jobName?.value || "").length >= 12
+                            ? "25%"
                             : `${reviewForm.jobName?.corner?.[0] * 100 + 3}%`,
                     top:
                         window.innerWidth < 600 &&
-                        (reviewForm.jobName?.value || "").length > 12
-                            ? `calc(${reviewForm.jobName?.corner?.[1] * 100}% - 1.5rem)`
+                        (reviewForm.jobName?.value || "").length >= 12
+                            ? `calc(${reviewForm.jobName?.corner?.[1] * 100}%)`
                             : `${reviewForm.jobName?.corner?.[1] * 100}%`,
-                    width: `${Math.max((reviewForm.jobName?.value || "").length + ((reviewForm.jobName?.value || "").length > 12 ? 6 : 4), 4)}ch`,
+                    width: `${Math.max((reviewForm.jobName?.value || "").length + ((reviewForm.jobName?.value || "").length >= 12 ? 5 : 4), 4)}ch`,
                 }}
             />
 
