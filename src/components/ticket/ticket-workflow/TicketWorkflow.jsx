@@ -6,7 +6,7 @@ import DriverWelcome from "../driver-welcome/DriverWelcome"
 import UploadPage from "../upload-page/UploadPage"
 import StatusPage from "../status-page/StatusPage"
 import ReviewPage from "../review-page/ReviewPage"
-import testTicketImg from '../../../assets/60b65df1-392f-401f-91b9-dea5173562df.png'
+import testTicketImg from "../../../assets/60b65df1-392f-401f-91b9-dea5173562df.png"
 
 export default function TicketWorkflow() {
     const testTicket = {
@@ -44,16 +44,17 @@ export default function TicketWorkflow() {
             day: [0.48, 0.06],
             customerName: [0.73, 0.23],
         },
-        downloadUrl: testTicketImg
+        downloadUrl: testTicketImg,
     }
 
-    // const [dbTicket, setDbTicket] = useState({
-    //     status: "idle",
-    //     extractedData: null,
-    // })
-    const [dbTicket, setDbTicket] = useState(testTicket)
+    const [dbTicket, setDbTicket] = useState({
+        status: "idle",
+        extractedData: null,
+    })
+    // const [dbTicket, setDbTicket] = useState(testTicket)
     const { isAdmin } = useAuth()
-    const [isUploading, setIsUploading] = useState(true)
+    const [isUploading, setIsUploading] = useState(null)
+    // const [isUploading, setIsUploading] = useState(true)
 
     return (
         <Routes>

@@ -14,7 +14,7 @@ export default function StatusPage({
     const navigate = useNavigate()
     useEffect(() => {
         if (!isUploading) return
-        return
+        // return
         const interval = setInterval(async () => {
             const url =
                 process.env.REACT_APP_API_BASE_URL +
