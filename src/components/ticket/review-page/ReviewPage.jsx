@@ -10,7 +10,7 @@ export default function ReviewPage(props) {
 
     const [imgLoaded, setImgLoaded] = useState(false)
     const [imgError, setImgError] = useState(false)
-
+    const [isSubmitting, setIsSubmitting] = useState(false)
     const [reviewForm, setReviewForm] = useState({})
     const [touched, setTouched] = useState({
         date: false,
@@ -26,6 +26,8 @@ export default function ReviewPage(props) {
     const navigate = useNavigate()
 
     const handleFinalize = async () => {
+        if (isSubmitting) return
+        setIsSubmitting(true)
         const cleanedForm = Object.fromEntries(
             Object.entries(reviewForm).map(([key, obj]) => [
                 key,
@@ -99,7 +101,7 @@ export default function ReviewPage(props) {
                 })
                 return updated
             })
-
+            setIsSubmitting(false)
             return
         }
 
@@ -206,7 +208,7 @@ export default function ReviewPage(props) {
                 onClick={handleFinalize}
                 className="button"
                 id="finalize-button"
-                disabled={!Object.values(touched).every(Boolean)}
+                disabled={!Object.values(touched).every(Boolean) || isSubmitting}
             >
                 Finalize
             </button>
