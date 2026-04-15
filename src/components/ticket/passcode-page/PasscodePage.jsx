@@ -1,9 +1,9 @@
-import "./ticket.css"
+import "../ticket/ticket.css"
 import "./passcodePage.css"
 import { useState, useRef, useEffect } from "react"
 import Swal from "sweetalert2"
-import loginUser from "../../api/userLogin"
-import { useAuth } from "../../auth/AuthContext"
+import loginUser from "../../../api/userLogin"
+import { useAuth } from "../../../auth/AuthContext"
 import { useNavigate } from "react-router-dom"
 
 const PasscodePage = () => {

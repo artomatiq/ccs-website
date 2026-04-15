@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { useAuth } from "../../auth/AuthContext"
+import { useAuth } from "../../../auth/AuthContext"
 import { useNavigate } from "react-router-dom"
 import Swal from "sweetalert2"
 
@@ -95,5 +95,22 @@ export default function StatusPage({
         return () => clearInterval(interval)
     }, [isUploading, dbTicket.id, setDbTicket, token, setIsUploading, navigate])
 
-    return <div>the status is {dbTicket.status}</div>
+    const statusArray = ['uploading', 'uploaded', 'validating', 'validated', 'extracting', 'extracted']
+
+    return (
+        <div className="status-section">
+            {/* <div className="status-box">
+                <div className="uploading">
+                    uploading...
+                </div>
+                <div className="validating">
+                    validating...
+                </div>
+                <div className="extracting">
+                    extracting...
+                </div>
+            </div> */}
+            <div>the status is {dbTicket.status}</div>
+        </div>
+    )
 }

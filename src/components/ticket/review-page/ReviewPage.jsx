@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
-import { useAuth } from "../../auth/AuthContext"
+import { useAuth } from "../../../auth/AuthContext"
 import "./reviewPage.css"
-import TicketOverlay from "./TicketOverlay"
+import TicketOverlay from "../ticket-overlay/TicketOverlay"
 import { useNavigate } from "react-router-dom"
 import Swal from "sweetalert2"
 

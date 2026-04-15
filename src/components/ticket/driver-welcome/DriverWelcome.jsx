@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
 import "./driverWelcome.css"
-import { useAuth } from "../../auth/AuthContext"
+import { useAuth } from "../../../auth/AuthContext"
 import { useNavigate } from "react-router-dom"
 
 const DriverWelcome = () => {

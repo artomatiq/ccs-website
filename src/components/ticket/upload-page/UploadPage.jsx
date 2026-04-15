@@ -1,10 +1,10 @@
-import "./ticket.css"
+import "../ticket/ticket.css"
 import { useState, useEffect, useRef } from "react"
-import handleFileChange from "../../utils/ticket/handleFileChange"
+import handleFileChange from "../../../utils/ticket/handleFileChange"
 import Swal from "sweetalert2"
-import ImagePreview from "./ImagePreview"
-import uploadToS3 from "../../api/uploadToS3"
-import { useAuth } from "../../auth/AuthContext"
+import ImagePreview from "../image-preview/ImagePreview"
+import uploadToS3 from "../../../api/uploadToS3"
+import { useAuth } from "../../../auth/AuthContext"
 
 const UploadPage = ({ setDbTicket, setIsUploading }) => {
     const { setToken } = useAuth()
