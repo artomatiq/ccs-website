@@ -6,7 +6,7 @@ import DriverWelcome from "../driver-welcome/DriverWelcome"
 import UploadPage from "../upload-page/UploadPage"
 import StatusPage from "../status-page/StatusPage"
 import ReviewPage from "../review-page/ReviewPage"
-import testTicketImg from "../../../assets/60b65df1-392f-401f-91b9-dea5173562df.png"
+// import testTicketImg from "../../../assets/60b65df1-392f-401f-91b9-dea5173562df.png"
 
 export default function TicketWorkflow() {
     // const testTicket = {
