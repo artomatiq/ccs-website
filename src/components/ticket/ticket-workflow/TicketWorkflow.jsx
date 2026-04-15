@@ -9,43 +9,43 @@ import ReviewPage from "../review-page/ReviewPage"
 import testTicketImg from "../../../assets/60b65df1-392f-401f-91b9-dea5173562df.png"
 
 export default function TicketWorkflow() {
-    const testTicket = {
-        status: "extracted",
-        id: "6eb90f94-b762-408e-9d54-5bc222f1e34b",
-        text: {
-            date: "01/14/2026",
-            jobName: "# 9566",
-            ticketNumber: "3893",
-            stop: "",
-            city: "Huntersville",
-            start: "07:00",
-            truckNo: "VV01",
-            day: "Wednesday",
-            customerName: "Faulconer",
-        },
-        confidence: {
-            date: 93,
-            jobName: 91,
-            ticketNumber: 96,
-            stop: 0,
-            city: 95,
-            start: 92,
-            truckNo: 94,
-            day: 94,
-            customerName: 94,
-        },
-        corners: {
-            date: [0.48, 0.03],
-            jobName: [0.58, 0.27],
-            stop: null,
-            city: [0.73, 0.32],
-            start: [0.52, 0.83],
-            truckNo: [0.4, 0.37],
-            day: [0.48, 0.06],
-            customerName: [0.73, 0.23],
-        },
-        downloadUrl: testTicketImg,
-    }
+    // const testTicket = {
+    //     status: "extracted",
+    //     id: "6eb90f94-b762-408e-9d54-5bc222f1e34b",
+    //     text: {
+    //         date: "01/14/2026",
+    //         jobName: "# 9566",
+    //         ticketNumber: "3893",
+    //         stop: "",
+    //         city: "Huntersville",
+    //         start: "07:00",
+    //         truckNo: "VV01",
+    //         day: "Wednesday",
+    //         customerName: "Faulconer",
+    //     },
+    //     confidence: {
+    //         date: 93,
+    //         jobName: 91,
+    //         ticketNumber: 96,
+    //         stop: 0,
+    //         city: 95,
+    //         start: 92,
+    //         truckNo: 94,
+    //         day: 94,
+    //         customerName: 94,
+    //     },
+    //     corners: {
+    //         date: [0.48, 0.03],
+    //         jobName: [0.58, 0.27],
+    //         stop: null,
+    //         city: [0.73, 0.32],
+    //         start: [0.52, 0.83],
+    //         truckNo: [0.4, 0.37],
+    //         day: [0.48, 0.06],
+    //         customerName: [0.73, 0.23],
+    //     },
+    //     downloadUrl: testTicketImg,
+    // }
 
     const [dbTicket, setDbTicket] = useState({
         status: "idle",
