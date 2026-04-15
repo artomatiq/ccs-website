@@ -40,7 +40,6 @@ const AdminWelcome = () => {
             return () => clearTimeout(timer)
         })
     }, [])
-
     const navigate = useNavigate()
 
     return (

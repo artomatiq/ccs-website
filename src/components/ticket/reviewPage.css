@@ -104,94 +104,35 @@ input.review-input {
 
 @media (min-width: 600px) and (max-width: 900px) {
     .review-wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        gap: 0;
-        align-items: center;
-        gap: 4rem;
         height: 95vh;
         max-width: 100vw;
         overflow: hidden;
     }
 
     .ticket-wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
         position: relative;
-        /* height: 100%; */
-        /* width: 100%; */
     }
 
     .ticket-box {
-        display: flex;
-        position: relative;
         max-height: 70vh;
-        /* margin-left: 10%; */
-    }
-
-    .ticket-image {
-        object-fit: contain;
-        width: 100%;
-    }
-
-    .ticket-overlay {
-        position: absolute;
-        width: 100%;
-        height: 100%;
     }
 }
 
 @media (max-width: 600px) {
     .review-wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
         gap: 10vw;
-        align-items: center;
-        height: 100vh;
-        width: 100vw;
-        overflow: hidden;
     }
 
     .ticket-wrapper {
         justify-self: flex-start;
-        /* display: flex; */
-        /* flex-direction: column; */
-        /* justify-content: center; */
-        /* align-items: center; */
-        /* position: relative; */
-        /* height: 100%; */
-        /* width: 100%; */
     }
 
     .ticket-number {
-        /* align-self: center; */
         margin: 2rem;
-        /* font-size: 1.5rem; */
-        /* font-family: sans-serif; */
-        /* text-shadow: 0 4px 12px rgba(228, 228, 207, 0.25); */
     }
 
     .ticket-box {
-        display: flex;
-        position: relative;
         max-height: 70vh;
         max-width: 60%;
-    }
-
-    input.review-input {
-        text-align: center;
-        color: black;
-        font-weight: bold;
-        background-color: rgb(228, 228, 207);
-        opacity: 100%;
-        padding: 0.1rem;
-        box-shadow: 0 0 3px rgb(22, 129, 10);
-        pointer-events: all;
-
-        height: 1rem;
     }
 }

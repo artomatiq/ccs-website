@@ -137,9 +137,17 @@ export default function TicketOverlay(props) {
                 onBlur={handleBlur}
                 style={{
                     position: "absolute",
-                    left: `${reviewForm.customerName?.corner?.[0] * 100 + 3}%`,
-                    top: `${reviewForm.customerName?.corner?.[1] * 100}%`,
-                    width: `${Math.max((reviewForm.customerName?.value || "").length, 4) + 4}ch`,
+                    left:
+                        window.innerWidth < 600 &&
+                        (reviewForm.customerName?.value || "").length > 12
+                            ? "50%"
+                            : `${reviewForm.customerName?.corner?.[0] * 100 + 3}%`,
+                    top:
+                        window.innerWidth < 600 &&
+                        (reviewForm.customerName?.value || "").length > 12
+                            ? `calc(${reviewForm.customerName?.corner?.[1] * 100}% - 1.5rem)`
+                            : `${reviewForm.customerName?.corner?.[1] * 100}%`,
+                    width: `${Math.max((reviewForm.customerName?.value || "").length + ((reviewForm.customerName?.value || "").length > 12 ? 6 : 4), 4)}ch`,
                 }}
             />
 
