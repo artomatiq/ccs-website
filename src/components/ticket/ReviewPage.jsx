@@ -147,20 +147,21 @@ export default function ReviewPage(props) {
 
     // Scroll
     useEffect(() => {
-        setTimeout(() => {
-            const review = document.querySelector(".review-wrapper")
-            const header = document.querySelector(".header-container")
-            if (!review || !header) return
-
-            const reviewTop =
-                review.getBoundingClientRect().top + window.scrollY
-            const headerHeight = header.offsetHeight
-
-            window.scrollTo({
-                top: reviewTop - headerHeight,
-                behavior: "smooth",
-            })
-        }, 2000)
+        const scroll = () => {
+            setTimeout(() => {
+                const review = document.querySelector(".review-wrapper")
+                const header = document.querySelector(".header-container")
+                if (!review || !header) return
+                const reviewTop =
+                    review.getBoundingClientRect().top + window.scrollY
+                const headerHeight = header.offsetHeight
+                window.scrollTo({
+                    top: reviewTop - headerHeight,
+                    behavior: "smooth",
+                })
+            }, 2000)
+        }
+        scroll()
     }, [])
 
     //GUARDS

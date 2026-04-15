@@ -67,6 +67,15 @@ export default function TicketOverlay(props) {
             ...prev,
             [name]: true,
         }))
+        const meta = document.querySelector("meta[name=viewport]")
+        if (!meta) return
+        meta.setAttribute(
+            "content",
+            "width=device-width, initial-scale=1, maximum-scale=1",
+        )
+        setTimeout(() => {
+            meta.setAttribute("content", "width=device-width, initial-scale=1")
+        }, 50)
     }
 
     return (
