@@ -46,6 +46,29 @@ const PasscodePage = () => {
             })
         }
     }
+    const resetViewport = () => {
+        const meta = document.querySelector("meta[name=viewport]")
+        if (!meta) return
+        meta.setAttribute(
+            "content",
+            "width=device-width, initial-scale=1, maximum-scale=1",
+        )
+        setTimeout(() => {
+            meta.setAttribute("content", "width=device-width, initial-scale=1")
+        }, 50)
+
+        setTimeout(() => {
+            const scroll = () => {
+                const footer = document.querySelector(".footer-container")
+                if (!footer) return
+                const footerTop =
+                    footer.getBoundingClientRect().top + window.scrollY
+                const scrollTo = Math.max(0, footerTop - window.innerHeight)
+                window.scrollTo({ top: scrollTo })
+            }
+            requestAnimationFrame(scroll)
+        }, 800)
+    }
     return (
         <div
             className="quote-container ticket-container section"
@@ -67,6 +90,7 @@ const PasscodePage = () => {
                             placeholder="Enter user passcode"
                             value={passcode}
                             onChange={handleChange}
+                            onBlur={resetViewport}
                         />
                     </div>
                 </div>
