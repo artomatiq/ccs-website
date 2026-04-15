@@ -4,6 +4,21 @@ import { useAuth } from "../../../auth/AuthContext"
 import { useNavigate } from "react-router-dom"
 import Swal from "sweetalert2"
 
+const steps = [
+    { key: "uploading", doneAt: "uploaded", label: "uploading..." },
+    { key: "validating", doneAt: "validated", label: "validating..." },
+    { key: "extracting", doneAt: "extracted", label: "extracting..." },
+]
+
+const statusOrder = [
+    "awaiting-upload",
+    "uploaded",
+    "validating",
+    "validated",
+    "extracting",
+    "extracted",
+]
+
 export default function StatusPage({
     dbTicket,
     setDbTicket,
@@ -83,7 +98,7 @@ export default function StatusPage({
                     clearInterval(interval)
                     setTimeout(() => {
                         setIsUploading(false)
-                    }, 2000);
+                    }, 2000)
                 }
                 setDbTicket((prev) => ({
                     ...prev,
@@ -102,21 +117,6 @@ export default function StatusPage({
 
         return () => clearInterval(interval)
     }, [isUploading, dbTicket.id, setDbTicket, token, setIsUploading, navigate])
-
-    const steps = [
-        { key: "uploading", doneAt: "uploaded", label: "uploading..." },
-        { key: "validating", doneAt: "validated", label: "validating..." },
-        { key: "extracting", doneAt: "extracted", label: "extracting..." },
-    ]
-
-    const statusOrder = [
-        "awaiting-upload",
-        "uploaded",
-        "validating",
-        "validated",
-        "extracting",
-        "extracted",
-    ]
 
     const [visibleSteps, setVisibleSteps] = useState([])
 

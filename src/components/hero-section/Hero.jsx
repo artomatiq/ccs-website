@@ -19,7 +19,7 @@ const Hero = ({ isLoading, setIsLoading }) => {
             clearTimeout(loadingTimer)
             clearTimeout(titleTimer)
         }
-    }, [])
+    }, [setIsLoading])
 
     return (
         // <div className="hero-precontainer">
