@@ -67,6 +67,7 @@ export default function TicketOverlay(props) {
             ...prev,
             [name]: true,
         }))
+        //ZOOM OUT
         const meta = document.querySelector("meta[name=viewport]")
         if (!meta) return
         meta.setAttribute(
@@ -76,6 +77,15 @@ export default function TicketOverlay(props) {
         setTimeout(() => {
             meta.setAttribute("content", "width=device-width, initial-scale=1")
         }, 50)
+        //SCROLL TICKET INTO MIDDLE OF THE PAGE
+        setTimeout(() => {
+            const ticketBox = document.querySelector(".ticket-box")
+            if (!ticketBox) return
+            ticketBox.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+            })
+        }, 500)
     }
 
     return (
