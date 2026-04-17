@@ -136,6 +136,7 @@ export default function ReviewPage(props) {
                 setToken(null)
             }
             setDbTicket(null)
+            setReviewForm(null)
             navigate(`/ticket/${user}/welcome`)
         }
     }
