@@ -22,7 +22,7 @@ export default function ReviewPage(props) {
         start: false,
         stop: false,
     })
-    const { dbTicket } = props
+    const { dbTicket, setDbTicket } = props
     const navigate = useNavigate()
 
     const handleFinalize = async () => {
@@ -135,6 +135,7 @@ export default function ReviewPage(props) {
                 sessionStorage.removeItem("userToken")
                 setToken(null)
             }
+            setDbTicket(null)
             navigate(`/ticket/${user}/welcome`)
         }
     }
