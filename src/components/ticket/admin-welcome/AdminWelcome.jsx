@@ -50,10 +50,10 @@ const AdminWelcome = () => {
                 </span>
             </div>
             <div className="admin-dashboard">
-                <div className="process-section">
+                <div className="dash-section">
                     <button
-                        name="process"
-                        onClick={() => navigate("/ticket/admin/process")}
+                        name="dash"
+                        onClick={() => navigate("/ticket/admin/dash")}
                     >
                         Process Tickets
                     </button>

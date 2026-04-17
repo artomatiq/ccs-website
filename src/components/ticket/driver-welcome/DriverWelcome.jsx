@@ -39,7 +39,7 @@ const DriverWelcome = () => {
                 </span>
             </div>
             <div className="driver-dashboard">
-                {/* <div className="process-section">
+                {/* <div className="dash-section">
                     <button>Process Tickets</button>
                 </div> */}
                 <div className="upload-section">
