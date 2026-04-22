@@ -66,7 +66,7 @@ export default function StatusPage({
                         setTimeout(() => {
                             setDbTicket({ status: "idle" })
                             setIsUploading(null)
-                            navigate("../welcome", { replace: true })
+                            navigate("../dash", { replace: true })
                         }, 2000)
                     })
                     return
@@ -89,7 +89,7 @@ export default function StatusPage({
                         setTimeout(() => {
                             setDbTicket({ status: "idle" })
                             setIsUploading(null)
-                            navigate("../welcome", { replace: true })
+                            navigate("../dash", { replace: true })
                         }, 2000)
                     })
                     return
