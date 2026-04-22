@@ -34,9 +34,9 @@
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
     font-size: 0.95rem;
-    font-weight: 600;
-    color: black;
-    background-color: lightgray;
+    font-weight: 530;
+    color: rgb(242, 136, 55);
+    background-color: transparent;
     cursor: pointer;
     white-space: nowrap;
     transition:
@@ -51,9 +51,9 @@
     background-color: var(--primary-color);
 }
 
-.invoice-date-tab.active {
-    color: black;
-    background: lightgray;
+#date-tab.active {
+    color: var(--primary-color);
+    /* background: lightgray; */
     border-bottom-color: var(--primary-color);
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.04);
 }
