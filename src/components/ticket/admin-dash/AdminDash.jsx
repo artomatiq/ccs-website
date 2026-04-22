@@ -71,13 +71,21 @@ const AdminDash = () => {
                 </span>
             </div>
             <div className="admin-dashboard">
+                <div className="upload-section">
+                    <button
+                        name="upload"
+                        onClick={() => navigate("/ticket/admin/upload")}
+                    >
+                        Submit Tickets
+                    </button>
+                </div>
                 <div className="dash-section">
                     <div className="button-wrapper">
                         <button
                             name="dash"
                             onClick={() => navigate("/ticket/admin/dash")}
                         >
-                            Process Tickets
+                            Invoice Tickets
                         </button>
                         {populatedCount > 0 && (
                             <span
@@ -88,14 +96,6 @@ const AdminDash = () => {
                             </span>
                         )}
                     </div>
-                </div>
-                <div className="upload-section">
-                    <button
-                        name="upload"
-                        onClick={() => navigate("/ticket/admin/upload")}
-                    >
-                        Upload Tickets
-                    </button>
                 </div>
             </div>
         </>
