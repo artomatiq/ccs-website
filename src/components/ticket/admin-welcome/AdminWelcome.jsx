@@ -1,9 +1,13 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useAuth } from "../../../auth/AuthContext"
 import "./adminWelcome.css"
 
 const AdminWelcome = () => {
     const spanRef = useRef(null)
+    const [populatedCount, setPopulatedCount] = useState(0)
+    const navigate = useNavigate()
+    const { token } = useAuth()
     useEffect(() => {
         const timer = setTimeout(() => {
             spanRef.current?.classList.add("show")
@@ -40,7 +44,23 @@ const AdminWelcome = () => {
             return () => clearTimeout(timer)
         })
     }, [])
-    const navigate = useNavigate()
+    useEffect(() => {
+        const fetchPopulatedCount = async () => {
+            try {
+                const url = process.env.REACT_APP_API_BASE_URL
+                const res = await fetch(`${url}/tickets?status=populated`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                })
+                if (!res.ok)
+                    throw new Error("Failed to fetch populated tickets")
+                const data = await res.json()
+                setPopulatedCount(data.tickets?.length ?? 0)
+            } catch (err) {
+                console.error(err)
+            }
+        }
+        fetchPopulatedCount()
+    }, [])
 
     return (
         <>
@@ -51,12 +71,20 @@ const AdminWelcome = () => {
             </div>
             <div className="admin-dashboard">
                 <div className="dash-section">
-                    <button
-                        name="dash"
-                        onClick={() => navigate("/ticket/admin/dash")}
-                    >
-                        Process Tickets
-                    </button>
+                    <div className="button-wrapper">
+                        <button
+                            name="dash"
+                            onClick={() => navigate("/ticket/admin/dash")}
+                        >
+                            Process Tickets
+                        </button>
+                        <span
+                            className="badge"
+                            aria-label={`${populatedCount} unprocessed tickets`}
+                        >
+                            {populatedCount > 99 ? "99+" : populatedCount}
+                        </span>
+                    </div>
                 </div>
                 <div className="upload-section">
                     <button
