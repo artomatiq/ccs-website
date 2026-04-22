@@ -10,7 +10,7 @@ export default function TicketOverlay(props) {
             "day",
             "customerName",
             "jobName",
-            "city",
+            // "city",
             "truckNo",
             "start",
             "stop",
@@ -194,7 +194,7 @@ export default function TicketOverlay(props) {
             />
 
             {/* CITY */}
-            <input
+            {/* <input
                 name="city"
                 className={`review-input ${!touched.city ? "unconfirmed" : ""} ${focused === "city" ? "focused" : ""}`}
                 type="text"
@@ -208,7 +208,7 @@ export default function TicketOverlay(props) {
                     height: `1rem`,
                     width: `${Math.max((reviewForm.city?.value || "").length, 4) + 4}ch`,
                 }}
-            />
+            /> */}
 
             {/* TRUCK NUMBER */}
             <input

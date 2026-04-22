@@ -17,7 +17,7 @@ export default function ReviewPage(props) {
         day: false,
         customerName: false,
         jobName: false,
-        city: false,
+        // city: false,
         truckNo: false,
         start: false,
         stop: false,
