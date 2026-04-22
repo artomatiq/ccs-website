@@ -83,7 +83,7 @@ const AdminDash = () => {
                     <div className="button-wrapper">
                         <button
                             name="dash"
-                            onClick={() => navigate("/ticket/admin/dash")}
+                            onClick={() => navigate("/ticket/admin/invoice")}
                         >
                             Invoice Tickets
                         </button>
