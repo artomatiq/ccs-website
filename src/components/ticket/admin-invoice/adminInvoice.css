@@ -28,15 +28,7 @@
 
 #date-tab {
     position: relative;
-    /* padding-top: 1rem; */
-    /* background: linear-gradient(
-        to top,
-        #fff 0%,
-        rgba(255, 255, 255, 0.6) 40%,
-        rgba(255, 255, 255, 0) 90%
-    ); */
-    border: none;
-    /* border-bottom: 2px solid transparent; */
+    border-bottom: 2px solid rgb(242, 136, 55);
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     border-bottom-left-radius: 0px;
@@ -44,7 +36,7 @@
     font-size: 0.95rem;
     font-weight: 600;
     color: black;
-    background-color: var(--primary-color);
+    background-color: lightgray;
     cursor: pointer;
     white-space: nowrap;
     transition:
@@ -55,9 +47,13 @@
     transform: none;
 }
 
+#date-tab:hover {
+    background-color: var(--primary-color);
+}
+
 .invoice-date-tab.active {
     color: black;
-    background: #fff;
+    background: lightgray;
     border-bottom-color: var(--primary-color);
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.04);
 }

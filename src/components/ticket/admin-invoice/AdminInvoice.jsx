@@ -1,5 +1,5 @@
 // src/ticket/pages/admin-invoice/AdminInvoice.jsx
-import { useEffect, useState, useMemo } from "react"
+import { useEffect, useState, useMemo, useRef } from "react"
 import { useAuth } from "../../../auth/AuthContext"
 import "./adminInvoice.css"
 
@@ -50,6 +50,23 @@ export default function AdminInvoice() {
             }, {}),
         ).sort(([a], [b]) => new Date(a) - new Date(b))
     }, [tickets])
+
+    useEffect(() => {
+        const invoicePage = document.querySelector(".invoice-page")
+        if (!invoicePage) return
+        requestAnimationFrame(() => {
+            // Step 2: then scroll to dashboard
+            const timer = setTimeout(() => {
+                const invoicePageTop =
+                    invoicePage.getBoundingClientRect().top + window.scrollY
+                window.scrollTo({
+                    top: invoicePageTop - 30,
+                    behavior: "smooth",
+                })
+            }, 1000)
+            return () => clearTimeout(timer)
+        })
+    }, [])
 
     const availableDates = groups.map(([date]) => date)
     const earliestDate = availableDates[0]
