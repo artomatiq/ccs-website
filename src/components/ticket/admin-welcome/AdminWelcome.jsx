@@ -78,12 +78,14 @@ const AdminWelcome = () => {
                         >
                             Process Tickets
                         </button>
-                        <span
-                            className="badge"
-                            aria-label={`${populatedCount} unprocessed tickets`}
-                        >
-                            {populatedCount > 99 ? "99+" : populatedCount}
-                        </span>
+                        {populatedCount > 0 && (
+                            <span
+                                className="badge"
+                                aria-label={`${populatedCount} unprocessed tickets`}
+                            >
+                                {populatedCount}
+                            </span>
+                        )}
                     </div>
                 </div>
                 <div className="upload-section">
