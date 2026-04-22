@@ -1,5 +1,5 @@
 // src/ticket/pages/admin-invoice/AdminInvoice.jsx
-import { useEffect, useState, useMemo, useRef } from "react"
+import { useEffect, useState, useMemo } from "react"
 import { useAuth } from "../../../auth/AuthContext"
 import "./adminInvoice.css"
 
@@ -13,6 +13,8 @@ export default function AdminInvoice() {
     const [tickets, setTickets] = useState([])
     const [selectedDate, setSelectedDate] = useState("")
     const [previewTicket, setPreviewTicket] = useState(null)
+    const [isGenerating, setIsGenerating] = useState(false)
+    const [dots, setDots] = useState("")
 
     useEffect(() => {
         const fetchTickets = async () => {
@@ -86,24 +88,41 @@ export default function AdminInvoice() {
         0,
     )
 
+    useEffect(() => {
+        if (!isGenerating) {
+            setDots("")
+            return
+        }
+        const interval = setInterval(() => {
+            setDots((prev) => (prev.length >= 3 ? "" : prev + "."))
+        }, 400)
+        return () => clearInterval(interval)
+    }, [isGenerating])
+
     const isEarliest = selectedDate === earliestDate
 
     const handleGenerate = async () => {
+        setIsGenerating(true)
         try {
-            const url = process.env.REACT_APP_API_BASE_URL
-            const res = await fetch(`${url}/invoices/generate`, {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ date: selectedDate }),
+            // const url = process.env.REACT_APP_API_BASE_URL
+            // const res = await fetch(`${url}/invoices/generate`, {
+            //     method: "POST",
+            //     headers: {
+            //         Authorization: `Bearer ${token}`,
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify({ date: selectedDate }),
+            // })
+            // if (!res.ok) throw new Error("Invoice generation failed")
+            // const data = await res.json()
+            // window.open(data.pdfUrl, "_blank")
+            await new Promise((resolve, reject) => {
+                setTimeout(() => reject(new Error("Test failure")), 4000)
             })
-            if (!res.ok) throw new Error("Invoice generation failed")
-            const data = await res.json()
-            window.open(data.pdfUrl, "_blank")
         } catch (err) {
             console.error(err)
+        } finally {
+            setIsGenerating(false)
         }
     }
 
@@ -158,10 +177,11 @@ export default function AdminInvoice() {
                 className="invoice-generate-btn"
                 id="invoice-generate-button"
                 onClick={handleGenerate}
-                disabled={!isEarliest}
+                disabled={!isEarliest || isGenerating}
             >
-                Generate Invoice
+                {isGenerating ? `Generating${dots}` : "Generate Invoice"}
             </button>
+
             {previewTicket && (
                 <div
                     className="invoice-modal-backdrop"
