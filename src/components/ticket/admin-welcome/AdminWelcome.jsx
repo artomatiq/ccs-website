@@ -55,6 +55,7 @@ const AdminWelcome = () => {
                     throw new Error("Failed to fetch populated tickets")
                 const data = await res.json()
                 setPopulatedCount(data.tickets?.length ?? 0)
+                console.log('there are ', data.tickets?.length, ' populated tickets')
             } catch (err) {
                 console.error(err)
             }
