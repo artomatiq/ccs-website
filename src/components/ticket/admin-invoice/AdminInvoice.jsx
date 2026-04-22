@@ -9,12 +9,29 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
 })
 
 export default function AdminInvoice() {
-    const { token } = useAuth()
+    const { token, logout } = useAuth()
     const [tickets, setTickets] = useState([])
     const [selectedDate, setSelectedDate] = useState("")
     const [previewTicket, setPreviewTicket] = useState(null)
     const [isGenerating, setIsGenerating] = useState(false)
     const [dots, setDots] = useState("")
+    const [pdfUrl, setPdfUrl] = useState(null)
+
+    function InvoicePdfView({ url, onBack }) {
+        const embedUrl = url.replace("/view", "/preview")
+        return (
+            <div className="invoice-pdf-view">
+                <button className="invoice-pdf-back" onClick={logout}>
+                    Logout
+                </button>
+                <iframe
+                    src={embedUrl}
+                    title="Generated Invoice"
+                    className="invoice-pdf-frame"
+                />
+            </div>
+        )
+    }
 
     useEffect(() => {
         const fetchTickets = async () => {
@@ -45,7 +62,7 @@ export default function AdminInvoice() {
     const groups = useMemo(() => {
         return Object.entries(
             tickets.reduce((acc, t) => {
-                const date = t.confirmedData?.date ?? "Unknown"
+                const date = t.ticketDate ?? "Unknown"
                 if (!acc[date]) acc[date] = []
                 acc[date].push(t)
                 return acc
@@ -104,21 +121,19 @@ export default function AdminInvoice() {
     const handleGenerate = async () => {
         setIsGenerating(true)
         try {
-            // const url = process.env.REACT_APP_API_BASE_URL
-            // const res = await fetch(`${url}/invoices/generate`, {
-            //     method: "POST",
-            //     headers: {
-            //         Authorization: `Bearer ${token}`,
-            //         "Content-Type": "application/json",
-            //     },
-            //     body: JSON.stringify({ date: selectedDate }),
-            // })
-            // if (!res.ok) throw new Error("Invoice generation failed")
-            // const data = await res.json()
-            // window.open(data.pdfUrl, "_blank")
-            await new Promise((resolve, reject) => {
-                setTimeout(() => reject(new Error("Test failure")), 4000)
+            console.log(tickets[0].ticketDate, selectedDate)
+            const url = process.env.REACT_APP_API_BASE_URL
+            const res = await fetch(`${url}/invoices/generate`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ date: selectedDate }),
             })
+            if (!res.ok) throw new Error("Invoice generation failed")
+            const data = await res.json()
+            setPdfUrl(data.pdfUrl)
         } catch (err) {
             console.error(err)
         } finally {
@@ -126,6 +141,13 @@ export default function AdminInvoice() {
         }
     }
 
+    if (pdfUrl) {
+        return (
+            <div className="invoice-page">
+                <InvoicePdfView url={pdfUrl} onBack={() => setPdfUrl(null)} />
+            </div>
+        )
+    }
     return (
         <div className="invoice-page">
             <div className="invoice-date-tabs" role="tablist">
@@ -137,7 +159,6 @@ export default function AdminInvoice() {
                         className={`invoice-date-tab ${
                             date === selectedDate ? "active" : ""
                         } ${date === earliestDate ? "earliest" : ""}`}
-                        id="date-tab"
                         onClick={() => setSelectedDate(date)}
                     >
                         {date}
@@ -148,9 +169,8 @@ export default function AdminInvoice() {
             <div className="invoice-previews">
                 {selectedTickets.map((t) => (
                     <button
-                        key={t.ticketId}
+                        key={t.confirmedData.ticketNumber}
                         className="invoice-preview-btn"
-                        id="invoice-preview-button"
                         onClick={() => setPreviewTicket(t)}
                     >
                         <img
@@ -189,7 +209,6 @@ export default function AdminInvoice() {
                 >
                     <button
                         className="invoice-modal-close"
-                        id="invoice-modal-close"
                         onClick={() => setPreviewTicket(null)}
                         aria-label="Close preview"
                     >

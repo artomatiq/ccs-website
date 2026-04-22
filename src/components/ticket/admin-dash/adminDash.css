@@ -147,4 +147,7 @@
 
 
 @media (max-width: 600px) {
+    .admin-dashboard {
+    margin-top: 2rem;
+}
 }
