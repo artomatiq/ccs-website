@@ -68,7 +68,7 @@ const AdminDash = () => {
         <>
             <div className="title section segment">
                 <span ref={spanRef} className="hide">
-                    Welcome Admin
+                    Hello Admin
                 </span>
             </div>
             <div className="admin-dashboard">

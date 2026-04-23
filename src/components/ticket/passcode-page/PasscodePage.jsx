@@ -57,7 +57,7 @@ const PasscodePage = () => {
         >
             <div className="title section segment">
                 <span ref={spanRef} className="hide">
-                    Login
+                    Welcome
                 </span>
             </div>
             <form className="ticket__form quote__form" id="ticket-login">
