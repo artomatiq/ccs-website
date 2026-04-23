@@ -34,9 +34,7 @@ export default function ReviewPage(props) {
                 obj?.value ?? null,
             ]),
         )
-
         const errors = []
-
         // DATE VALIDATION
         if (cleanedForm.date) {
             const inputDate = new Date(cleanedForm.date)
@@ -57,7 +55,6 @@ export default function ReviewPage(props) {
                 cleanedForm.date = null
             }
         }
-
         // TIME VALIDATION
         if (cleanedForm.start && cleanedForm.stop) {
             if (cleanedForm.start >= cleanedForm.stop) {
@@ -66,7 +63,6 @@ export default function ReviewPage(props) {
                 cleanedForm.stop = null
             }
         }
-
         // HANDLE ERRORS
         if (errors.length > 0) {
             Swal.fire({
@@ -104,7 +100,6 @@ export default function ReviewPage(props) {
             setIsSubmitting(false)
             return
         }
-
         // API CALL
         const confirmUrl =
             process.env.REACT_APP_API_BASE_URL +
@@ -129,6 +124,7 @@ export default function ReviewPage(props) {
                     confirmButton: "swal-confirm-button",
                 },
             })
+            setIsSubmitting(false)
             return
         }
         const data = await res.json()
@@ -153,7 +149,6 @@ export default function ReviewPage(props) {
             navigate(`/ticket/${user}/dash`)
         }
     }
-
     // Reset loading state when new image arrives
     useEffect(() => {
         if (dbTicket?.downloadUrl) {
@@ -161,7 +156,6 @@ export default function ReviewPage(props) {
             setImgError(false)
         }
     }, [dbTicket?.downloadUrl])
-
     // Scroll
     useEffect(() => {
         const scroll = () => {
@@ -180,16 +174,13 @@ export default function ReviewPage(props) {
         }
         scroll()
     }, [])
-
     //GUARDS
     if (!dbTicket?.downloadUrl) {
         return <div>Fetching ticket...</div>
     }
-
     if (imgError) {
         return <div>Failed to load image.</div>
     }
-
     return (
         <div className="review-wrapper">
             {!imgLoaded && <div>Loading image...</div>}
