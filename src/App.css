@@ -38,8 +38,12 @@ body {
   transform: translateY(0%);
 }
 
+.swal-confirm-button {
+  background-color: var(--primary-color) !important;
+}
+
 @media screen and (max-width: 550px){
-  
+
 }
 
 @media screen and (orientation: landscape) and (max-width: 768px) {
