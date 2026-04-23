@@ -118,7 +118,7 @@ export default function cropTicketWithCanny(img) {
         const aspect = width > height ? width / height : height / width
 
         const ticketAspect = 2
-        const tolerance = 0.15
+        const tolerance = 0.25
 
         if (Math.abs(aspect - ticketAspect) > ticketAspect * tolerance) {
             docContour.delete()

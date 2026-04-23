@@ -7,7 +7,7 @@ import uploadToS3 from "../../../api/uploadToS3"
 import { useAuth } from "../../../auth/AuthContext"
 
 const UploadPage = ({ setDbTicket, setIsUploading }) => {
-    const { setToken } = useAuth()
+    const { setToken, logout } = useAuth()
     const [attachment, setAttachment] = useState(null)
     const fileInputRef = useRef(null)
     const [imageSrc, setImageSrc] = useState(null)
@@ -34,10 +34,6 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
-        if (!attachment) {
-            alert("there is no attachment")
-            return
-        }
         if (!portrait) {
             Swal.fire({
                 title: "Ticket must be in portrait mode",
@@ -55,24 +51,24 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
         try {
             setIsSubmitting(true)
             const { key, ticketId } = await uploadToS3(imageSrc, setToken)
-            // Swal.fire({
-            //     title: "Upload Successful!",
-            //     icon: 'success',
-            //     customClass: {
-            //         container: 'swal-container',
-            //         popup: 'swal-popup',
-            //         title: 'swal-title',
-            //         content: 'swal-content',
-            //         confirmButton: 'swal-confirm-button'
-            //     }
-            // });
+            Swal.fire({
+                title: "Upload Successful!",
+                icon: 'success',
+                customClass: {
+                    container: 'swal-container',
+                    popup: 'swal-popup',
+                    title: 'swal-title',
+                    content: 'swal-content',
+                    confirmButton: 'swal-confirm-button'
+                }
+            });
             console.log("Uploaded ticket key:", key, "ticketId:", ticketId)
-            // setAttachment(null)
-            // setImageSrc(null)
-            // setPortrait(null)
-            // fileInputRef.current.value = ""
-            // console.log("setDbTicket type:", typeof setDbTicket)
-            // console.log("setIsUploading type:", typeof setIsUploading)
+            setAttachment(null)
+            setImageSrc(null)
+            setPortrait(null)
+            fileInputRef.current.value = ""
+            console.log("setDbTicket type:", typeof setDbTicket)
+            console.log("setIsUploading type:", typeof setIsUploading)
             setDbTicket({
                 status: "uploading",
                 id: ticketId,
@@ -80,23 +76,21 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
             setIsUploading(true)
         } catch (error) {
             console.log(error, error.stack)
-            // Swal.fire({
-            //     title: error.status,
-            //     text: error.message,
-            //     icon: 'error',
-            //     customClass: {
-            //         container: 'swal-container',
-            //         popup: 'swal-popup',
-            //         title: 'swal-title',
-            //         content: 'swal-content',
-            //         confirmButton: 'swal-confirm-button'
-            //     }
-            // });
+            Swal.fire({
+                title: error.status,
+                text: error.message,
+                icon: 'error',
+                customClass: {
+                    container: 'swal-container',
+                    popup: 'swal-popup',
+                    title: 'swal-title',
+                    content: 'swal-content',
+                    confirmButton: 'swal-confirm-button'
+                }
+            });
+        } finally {
+            setIsSubmitting(false)
         }
-    }
-    const handleLogout = () => {
-        sessionStorage.removeItem("userToken")
-        setToken(null)
     }
     return (
         <div className="quote-container section" id="ticket-upload-section">
@@ -143,7 +137,7 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
                     </div>
                     <button
                         type="button"
-                        onClick={handleLogout}
+                        onClick={logout}
                         className="button"
                         id="logout-button"
                     >

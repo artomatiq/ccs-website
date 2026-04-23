@@ -56,7 +56,7 @@ export default function TicketWorkflow() {
     const { isAdmin } = useAuth()
     // const [isUploading, setIsUploading] = useState(null)
     // const [isUploading, setIsUploading] = useState(true)
-    const [isUploading, setIsUploading] = useState(false)
+    const [isUploading, setIsUploading] = useState(null)
 
     return (
         <Routes>

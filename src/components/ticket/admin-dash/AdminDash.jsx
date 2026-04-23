@@ -46,6 +46,7 @@ const AdminDash = () => {
     }, [])
     useEffect(() => {
         const fetchPopulatedCount = async () => {
+            if (!token) return
             try {
                 const url = process.env.REACT_APP_API_BASE_URL
                 const res = await fetch(`${url}/tickets?status=populated`, {
@@ -61,7 +62,7 @@ const AdminDash = () => {
             }
         }
         fetchPopulatedCount()
-    }, [])
+    }, [token])
 
     return (
         <>
