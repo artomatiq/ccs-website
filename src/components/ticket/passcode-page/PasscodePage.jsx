@@ -33,7 +33,7 @@ const PasscodePage = () => {
             navigate(`/ticket`, { replace: true })
         } catch (error) {
             Swal.fire({
-                title: error.status || "",
+                title: "Login failed",
                 text: error.message,
                 icon: "warning",
                 customClass: {

@@ -28,6 +28,13 @@ export default async function handleFileChange({
             title: "File too large",
             text: "Please upload an image under 8MB",
             icon: "warning",
+            customClass: {
+                container: "swal-container",
+                popup: "swal-popup",
+                title: "swal-title",
+                content: "swal-content",
+                confirmButton: "swal-confirm-button",
+            },
         })
         e.target.value = ""
         resetState()
@@ -57,6 +64,13 @@ export default async function handleFileChange({
                 title: "Unsupported image",
                 text: "Could not process HEIC image. Try taking a new photo or use JPG.",
                 icon: "warning",
+                customClass: {
+                    container: "swal-container",
+                    popup: "swal-popup",
+                    title: "swal-title",
+                    content: "swal-content",
+                    confirmButton: "swal-confirm-button",
+                },
             })
             e.target.value = ""
             resetState()
@@ -88,6 +102,13 @@ export default async function handleFileChange({
                     title: "Processing failed",
                     text: "Unable to detect ticket. Try a clearer photo.",
                     icon: "warning",
+                    customClass: {
+                        container: "swal-container",
+                        popup: "swal-popup",
+                        title: "swal-title",
+                        content: "swal-content",
+                        confirmButton: "swal-confirm-button",
+                    },
                 })
                 e.target.value = ""
                 resetState()
@@ -98,6 +119,13 @@ export default async function handleFileChange({
                 title: "Invalid image",
                 text: "Could not load this image file.",
                 icon: "warning",
+                customClass: {
+                    container: "swal-container",
+                    popup: "swal-popup",
+                    title: "swal-title",
+                    content: "swal-content",
+                    confirmButton: "swal-confirm-button",
+                },
             })
             e.target.value = ""
             resetState()
@@ -105,9 +133,16 @@ export default async function handleFileChange({
     } catch (err) {
         console.log("Unexpected error:", err)
         Swal.fire({
-            title: "Error",
+            title: "Processing error",
             text: "Something went wrong processing the image.",
             icon: "warning",
+            customClass: {
+                container: "swal-container",
+                popup: "swal-popup",
+                title: "swal-title",
+                content: "swal-content",
+                confirmButton: "swal-confirm-button",
+            },
         })
         e.target.value = ""
         resetState()

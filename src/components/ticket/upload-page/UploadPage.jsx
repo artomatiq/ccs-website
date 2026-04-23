@@ -74,7 +74,7 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
         } catch (error) {
             console.log(error, error.stack)
             Swal.fire({
-                title: error.status,
+                title: "Upload failed",
                 text: error.message,
                 icon: 'error',
                 customClass: {

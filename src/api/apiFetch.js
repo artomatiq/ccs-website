@@ -14,8 +14,7 @@ export async function apiFetch(url, options = {}, setToken) {
     if (res.status === 401 || res.status === 403) {
         sessionStorage.removeItem("userToken")
         setToken(null)
-        console.log(res);
-        throw new Error("response status: ", res.status)
+        throw new Error(`response status: ${res.status}`)
     }
     if (!res.ok) {
         const text = await res.text()
