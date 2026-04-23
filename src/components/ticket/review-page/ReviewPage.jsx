@@ -121,6 +121,13 @@ export default function ReviewPage(props) {
             Swal.fire({
                 text: "Failed to confirm ticket. Contact admin.",
                 icon: "warning",
+                customClass: {
+                    container: "swal-container",
+                    popup: "swal-popup",
+                    title: "swal-title",
+                    content: "swal-content",
+                    confirmButton: "swal-confirm-button",
+                },
             })
             return
         }
@@ -129,6 +136,13 @@ export default function ReviewPage(props) {
             text: data.message || "Ticket successfully processed.",
             icon: "success",
             confirmButtonText: "OK",
+            customClass: {
+                container: "swal-container",
+                popup: "swal-popup",
+                title: "swal-title",
+                content: "swal-content",
+                confirmButton: "swal-confirm-button",
+            },
         })
         if (result.isConfirmed) {
             if (!isAdmin) {

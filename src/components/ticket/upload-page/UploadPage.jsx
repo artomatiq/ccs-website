@@ -62,13 +62,10 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
                     confirmButton: 'swal-confirm-button'
                 }
             });
-            console.log("Uploaded ticket key:", key, "ticketId:", ticketId)
             setAttachment(null)
             setImageSrc(null)
             setPortrait(null)
             fileInputRef.current.value = ""
-            console.log("setDbTicket type:", typeof setDbTicket)
-            console.log("setIsUploading type:", typeof setIsUploading)
             setDbTicket({
                 status: "uploading",
                 id: ticketId,
