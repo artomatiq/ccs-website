@@ -86,7 +86,7 @@ const AdminDash = () => {
                             name="dash"
                             onClick={() => navigate("/ticket/admin/invoice")}
                         >
-                            Invoice Tickets
+                            Generate Invoice
                         </button>
                         {populatedCount > 0 && (
                             <span
