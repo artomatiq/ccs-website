@@ -146,7 +146,6 @@ export default function ReviewPage(props) {
         })
         if (result.isConfirmed) {
             if (!isAdmin) {
-                sessionStorage.removeItem("userToken")
                 setToken(null)
             }
             setDbTicket(null)

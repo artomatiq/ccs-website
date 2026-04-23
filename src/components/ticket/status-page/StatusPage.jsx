@@ -1,5 +1,5 @@
 import "./statusPage.css"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useAuth } from "../../../auth/AuthContext"
 import { useNavigate } from "react-router-dom"
 import Swal from "sweetalert2"
@@ -28,6 +28,25 @@ export default function StatusPage({
     const { token } = useAuth()
     const navigate = useNavigate()
     const [visibleSteps, setVisibleSteps] = useState([])
+    const statusBoxRef = useRef(null)
+
+    useEffect(() => {
+        const statusBox = statusBoxRef.current
+        if (!statusBox) return
+        requestAnimationFrame(() => {
+            const rect = statusBox.getBoundingClientRect()
+            const scrollTo =
+                rect.top +
+                window.scrollY -
+                window.innerHeight / 2 +
+                rect.height / 2
+            window.scrollTo({
+                top: scrollTo,
+                behavior: "smooth",
+            })
+        })
+    }, [])
+
     useEffect(() => {
         if (!isUploading) return
         let attempts = 0
@@ -165,7 +184,7 @@ const res = await fetch(url, {
 
     return (
         <div className="status-section" id="status-section">
-            <div className="status-box">
+            <div className="status-box" ref={statusBoxRef}>
                 {visibleSteps.map((step, i) => (
                     <div key={i} className="status-row">
                         <span>{step.label}</span>
