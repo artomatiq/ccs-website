@@ -30,8 +30,30 @@ export default function StatusPage({
     const [visibleSteps, setVisibleSteps] = useState([])
     useEffect(() => {
         if (!isUploading) return
-        // return
+        let attempts = 0
+        const MAX_ATTEMPTS = 60
         const interval = setInterval(async () => {
+            if (++attempts > MAX_ATTEMPTS) {
+                clearInterval(interval)
+                Swal.fire({
+                    title: "Taking Too Long",
+                    text: "Processing timed out. Please try again or contact support.",
+                    icon: "error",
+                    confirmButtonText: "OK",
+                    customClass: {
+                        container: "swal-container",
+                        popup: "swal-popup",
+                        title: "swal-title",
+                        content: "swal-content",
+                        confirmButton: "swal-confirm-button",
+                    },
+                }).then(() => {
+                    setDbTicket({ status: "idle" })
+                    setIsUploading(null)
+                    navigate("../dash", { replace: true })
+                })
+                return
+            }
             const url =
                 process.env.REACT_APP_API_BASE_URL +
                 `/get-ticket/${dbTicket.id}`
