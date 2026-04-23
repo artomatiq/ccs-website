@@ -59,8 +59,8 @@ stateDiagram-v2
     confirmed --> populating: TicketSheetsWriter
     populating --> populated: Sheet write success
     populated --> generating_invoice: InvoiceGenerator
-    generating_invoice --> generated: Apps Script success
-    generated --> [*]
+    generating_invoice --> invoiced: Apps Script success
+    invoiced --> [*]
     rejected --> [*]
     failed --> [*]
 ```
