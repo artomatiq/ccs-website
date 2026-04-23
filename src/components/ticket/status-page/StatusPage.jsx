@@ -27,6 +27,7 @@ export default function StatusPage({
 }) {
     const { token } = useAuth()
     const navigate = useNavigate()
+    const [visibleSteps, setVisibleSteps] = useState([])
     useEffect(() => {
         if (!isUploading) return
         // return
@@ -118,38 +119,27 @@ export default function StatusPage({
         return () => clearInterval(interval)
     }, [isUploading, dbTicket.id, setDbTicket, token, setIsUploading, navigate])
 
-    const [visibleSteps, setVisibleSteps] = useState([])
-
     useEffect(() => {
-        let cancelled = false
-        const run = async () => {
-            const newSteps = []
-            const currentIndex = statusOrder.indexOf(dbTicket.status)
+        const currentIndex = statusOrder.indexOf(dbTicket.status)
 
-            for (let i = 0; i < steps.length; i++) {
-                newSteps.push({ ...steps[i], state: "loading" })
-                setVisibleSteps([...newSteps])
-                // minimum loader time
-                await new Promise((r) => setTimeout(r, 1000))
-                if (cancelled) return
-                const requiredIndex = statusOrder.indexOf(steps[i].doneAt)
-                if (currentIndex >= requiredIndex) {
-                    newSteps[i].state = "done"
-                } else {
-                    newSteps[i].state = "pending"
-                    setVisibleSteps([...newSteps])
-                    return
+        setVisibleSteps((prev) => {
+            return steps.map((step, i) => {
+                const requiredIndex = statusOrder.indexOf(step.doneAt)
+
+                // already completed → keep it done
+                if (currentIndex > requiredIndex) {
+                    return { ...step, state: "done" }
                 }
-                setVisibleSteps([...newSteps])
-                // pause before next step
-                await new Promise((r) => setTimeout(r, 1000))
-                if (cancelled) return
-            }
-        }
-        run()
-        return () => {
-            cancelled = true
-        }
+
+                // current active step
+                if (currentIndex === requiredIndex) {
+                    return { ...step, state: "loading" }
+                }
+
+                // not reached yet
+                return { ...step, state: "pending" }
+            })
+        })
     }, [dbTicket.status])
 
     return (
