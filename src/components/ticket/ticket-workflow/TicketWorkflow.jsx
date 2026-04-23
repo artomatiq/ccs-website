@@ -7,7 +7,7 @@ import UploadPage from "../upload-page/UploadPage"
 import StatusPage from '../status-page/StatusPage'
 import ReviewPage from "../review-page/ReviewPage"
 import AdminInvoice from "../admin-invoice/AdminInvoice"
-import testTicketImg from "../../../assets/60b65df1-392f-401f-91b9-dea5173562df.png"
+// import testTicketImg from "../../../assets/60b65df1-392f-401f-91b9-dea5173562df.png"
 
 export default function TicketWorkflow() {
     // const testTicket = {
