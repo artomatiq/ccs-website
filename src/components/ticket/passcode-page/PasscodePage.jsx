@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom"
 
 const PasscodePage = () => {
     const [passcode, setPasscode] = useState("")
+    const [isSubmitting, setIsSubmitting] = useState(false)
     const { setToken } = useAuth()
     const navigate = useNavigate()
     const handleChange = (e) => {
@@ -24,6 +25,8 @@ const PasscodePage = () => {
     }, [])
     const handleLogin = async (e) => {
         e.preventDefault()
+        if (isSubmitting || passcode.length < 4) return
+        setIsSubmitting(true)
         try {
             const res = await loginUser(passcode)
             const token = res.token
@@ -32,6 +35,7 @@ const PasscodePage = () => {
             setToken(token)
             navigate(`/ticket`, { replace: true })
         } catch (error) {
+            setIsSubmitting(false)
             Swal.fire({
                 title: "Login failed",
                 text: error.message,
@@ -77,9 +81,9 @@ const PasscodePage = () => {
                             value="send"
                             onClick={handleLogin}
                             className="button"
-                            disabled={passcode.length < 4}
+                            disabled={passcode.length < 4 || isSubmitting}
                         >
-                            Sign in
+                            {isSubmitting ? "Signing in..." : "Sign in"}
                         </button>
                     </div>
                 </div>
