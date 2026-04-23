@@ -74,7 +74,6 @@ export default function AdminInvoice() {
         const invoicePage = document.querySelector(".invoice-page")
         if (!invoicePage) return
         requestAnimationFrame(() => {
-            // Step 2: then scroll to dashboard
             const timer = setTimeout(() => {
                 const invoicePageTop =
                     invoicePage.getBoundingClientRect().top + window.scrollY
