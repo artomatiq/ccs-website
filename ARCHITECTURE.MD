@@ -4,6 +4,69 @@ A ticket processing app for a small trucking/construction business. Drivers phot
 
 ---
 
+## Pipeline Overview
+
+```mermaid
+flowchart TD
+    A([Driver]) -->|passcode| B[POST /login]
+    B --> C[TicketDriverLogin Lambda\nreturns JWT]
+
+    C --> D[OpenCV preprocessing\nin browser]
+    D --> E[POST /upload-ticket]
+    E --> F[TicketPresignHandler\nDB: awaiting-upload]
+    F -->|presigned URL| G[Client PUT → S3 /raw]
+
+    G --> H[TicketDbWriter\nDB: uploaded]
+    H --> I{{EventBridge}}
+    I --> J[TicketValidator\nDB: validating]
+    J -->|pass| K[S3 /validated\nDB: validated]
+    J -->|fail| L[S3 /rejected\nDB: rejected]
+    K --> M{{EventBridge}}
+    M --> N[TextractLambda\nDB: extracted]
+
+    G --> O[Client polls /get-ticket]
+    O -->|status: extracted| P[Review + edit fields in UI]
+    P --> Q[POST /confirm-ticket]
+    Q --> R[TicketDbConfirm\nDB: confirmed]
+    R --> S{{EventBridge}}
+    S --> T[TicketSheetsWriter\nDB: populated\nSheet row written]
+
+    T --> U[Client polls /get-ticket]
+    U -->|status: populated| V[Frontend reloads]
+
+    V --> W[Admin: GET /tickets?status=populated]
+    W --> X[POST /invoices/generate]
+    X --> Y[InvoiceGenerator Lambda\nDB: generating invoice]
+    Y --> Z[Google Apps Script\nPDF generated · uploaded to Drive]
+    Z --> AA([DB: generated · PDF URL returned])
+```
+
+---
+
+## Ticket Status Machine
+
+```mermaid
+stateDiagram-v2
+    [*] --> awaiting_upload: TicketPresignHandler
+    awaiting_upload --> uploaded: S3 trigger / TicketDbWriter
+    uploaded --> validating: TicketValidator
+    validating --> validated: passes validation
+    validating --> rejected: fails uniqueness check
+    validated --> extracting: TextractLambda
+    extracting --> extracted: Textract success
+    extracting --> failed: Textract failure
+    extracted --> confirmed: client confirms
+    confirmed --> populating: TicketSheetsWriter
+    populating --> populated: Sheet write success
+    populated --> generating_invoice: InvoiceGenerator
+    generating_invoice --> generated: Apps Script success
+    generated --> [*]
+    rejected --> [*]
+    failed --> [*]
+```
+
+---
+
 ## Auth
 
 - Each driver has their own passcode; admin has a separate one
