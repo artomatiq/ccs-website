@@ -242,7 +242,7 @@
     button:hover {
         cursor: pointer;
         transition-delay: 0.1s;
-        /* color: lightgray; */
+        color: lightgray;
         /* transform: scale(1.2); */
     }
 
