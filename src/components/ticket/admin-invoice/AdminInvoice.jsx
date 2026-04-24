@@ -1,5 +1,6 @@
 // src/ticket/pages/admin-invoice/AdminInvoice.jsx
 import { useEffect, useState, useMemo } from "react"
+import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../../auth/AuthContext"
 import "./adminInvoice.css"
 
@@ -10,6 +11,7 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
 
 export default function AdminInvoice() {
     const { token, logout } = useAuth()
+    const navigate = useNavigate()
     const [tickets, setTickets] = useState([])
     const [selectedDate, setSelectedDate] = useState("")
     const [previewTicket, setPreviewTicket] = useState(null)
@@ -149,6 +151,10 @@ export default function AdminInvoice() {
     }
     return (
         <div className="invoice-page">
+            <button id="back-button" onClick={() => navigate(-1)}>
+                <i className="bx bx-arrow-back" />
+                Back
+            </button>
             <div className="invoice-date-tabs" role="tablist">
                 {availableDates.map((date) => (
                     <button
