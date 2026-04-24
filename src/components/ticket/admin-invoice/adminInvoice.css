@@ -234,18 +234,19 @@
     width: 12rem;
 }
 
-.invoice-generate-button:hover:not(:disabled) {
-    color: rgb(0, 0, 0);
-    background-color: gray;
+.invoice-page .invoice-generate-btn:hover:not(:disabled) {
     animation: none;
     box-shadow: none;
 }
 
-.invoice-generate-button:disabled {
-    background: var(--primary-color);
-    color: #6b7280;
-    cursor: not-allowed;
+.invoice-page .invoice-generate-btn:disabled {
+    color: darkgray;
     box-shadow: none;
+    animation: none;
+    cursor: default;
+    &:hover {
+        color: black;
+    }
 }
 
 .invoice-page:has(.invoice-pdf-view) {

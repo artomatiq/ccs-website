@@ -1,49 +1,71 @@
 :root {
-  --primary-color: #63adf6;
-  --secondary-color: #63acf62c;
+    --primary-color: #63adf6;
+    --secondary-color: #63acf62c;
 
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  margin: 0;
-  overflow-x: hidden;
+    font-family: "Open Sans", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    overflow-x: hidden;
 }
 
 .app-container {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .section .title {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
 .section .title .hide {
-  position: relative;
-  transition: all 0.7s ease;
-  transform: translateY(100%);
+    position: relative;
+    transition: all 0.7s ease;
+    transform: translateY(100%);
 }
 
 .section .title .show {
-  transition: all 0.85s ease;
-  transition-delay: 0.3s;
-  transform: translateY(0%);
+    transition: all 0.85s ease;
+    transition-delay: 0.3s;
+    transform: translateY(0%);
 }
 
 .swal-confirm-button {
-  background-color: var(--primary-color) !important;
+    background-color: var(--primary-color) !important;
 }
 
-@media screen and (max-width: 550px){
+button {
+    background-color: var(--primary-color);
+    color: black;
+    transition: all 0.3s ease;
+}
 
+button:hover {
+    cursor: pointer;
+    transition-delay: 0.1s;
+    color: lightgray;
+}
+
+button:disabled {
+    background-color: var(--secondary-color);
+    color: darkgray;
+    transform: none;
+    cursor: default;
+}
+
+button:disabled:hover {
+    color: black;
+}
+
+@media screen and (max-width: 550px) {
 }
 
 @media screen and (orientation: landscape) and (max-width: 768px) {

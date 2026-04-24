@@ -248,8 +248,9 @@
 
     button:disabled {
         background-color: var(--secondary-color);
-        color: lightgray;
+        color: darkgray;
         transform: none;
+        cursor: default;
     }
 
     button:disabled:hover {
