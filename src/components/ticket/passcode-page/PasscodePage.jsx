@@ -3,7 +3,7 @@ import "./passcodePage.css"
 import { useState, useRef, useEffect } from "react"
 import Swal from "sweetalert2"
 import loginUser from "../../../api/userLogin"
-import { useAuth } from "../../../auth/AuthContext"
+import { useAuth, decodeJWT } from "../../../auth/AuthContext"
 import { useNavigate } from "react-router-dom"
 
 const PasscodePage = () => {
@@ -33,7 +33,9 @@ const PasscodePage = () => {
             if (!token) throw new Error(res.error)
             sessionStorage.setItem("userToken", token)
             setToken(token)
-            navigate(`/ticket`, { replace: true })
+            const decoded = decodeJWT(token)
+            const destination = decoded?.user === "ADMIN" ? "/ticket/admin/dash" : "/ticket/driver/welcome"
+            navigate(destination, { replace: true })
         } catch (error) {
             setIsSubmitting(false)
             Swal.fire({

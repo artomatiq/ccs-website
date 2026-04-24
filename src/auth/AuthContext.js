@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react"
 
 const AuthContext = createContext()
 
-function decodeJWT(token) {
+export function decodeJWT(token) {
   try {
     const payload = token.split('.')[1]
     const base64 = payload.replace(/-/g, '+').replace(/_/g, '/')
