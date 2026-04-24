@@ -1,5 +1,6 @@
 import "../ticket/ticket.css"
 import { useState, useEffect, useRef } from "react"
+import { useNavigate } from "react-router-dom"
 import handleFileChange from "../../../utils/ticket/handleFileChange"
 import Swal from "sweetalert2"
 import ImagePreview from "../image-preview/ImagePreview"
@@ -7,7 +8,8 @@ import uploadToS3 from "../../../api/uploadToS3"
 import { useAuth } from "../../../auth/AuthContext"
 
 const UploadPage = ({ setDbTicket, setIsUploading }) => {
-    const { setToken, logout } = useAuth()
+    const { setToken } = useAuth()
+    const navigate = useNavigate()
     const [attachment, setAttachment] = useState(null)
     const fileInputRef = useRef(null)
     const [imageSrc, setImageSrc] = useState(null)
@@ -91,6 +93,10 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
     }
     return (
         <div className="quote-container section" id="ticket-upload-section">
+            <button id="back-button" onClick={() => navigate(-1)}>
+                <i className="bx bx-arrow-back" />
+                Back
+            </button>
             <form className="ticket__form quote__form">
                 <input
                     type="file"
@@ -132,14 +138,6 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
                             {isSubmitting ? "Uploading..." : "Submit"}
                         </button>
                     </div>
-                    <button
-                        type="button"
-                        onClick={logout}
-                        className="button"
-                        id="logout-button"
-                    >
-                        Logout
-                    </button>
                 </div>
             </form>
         </div>

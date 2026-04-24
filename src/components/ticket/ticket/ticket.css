@@ -94,6 +94,7 @@
 
     #back-button i {
         font-size: 1.275rem;
+        padding-left: 2.2rem;
     }
 
     #back-button:hover {
