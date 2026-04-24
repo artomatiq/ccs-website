@@ -77,7 +77,7 @@ const AdminDash = () => {
                         name="upload"
                         onClick={() => navigate("/ticket/admin/upload")}
                     >
-                        Submit Tickets
+                        Submit Ticket
                     </button>
                 </div>
                 <div className="dash-section">
