@@ -30,7 +30,7 @@ const AdminDash = () => {
                 rect.height / 2
             window.scrollTo({
                 top: scrollTo,
-                behavior: "smooth",
+                behavior: "instant",
             })
             // Step 2: then scroll to dashboard
             const timer = setTimeout(() => {
