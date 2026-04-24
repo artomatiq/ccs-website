@@ -53,12 +53,17 @@ export default function TicketWorkflow() {
         extractedData: null,
     })
     // const [dbTicket, setDbTicket] = useState(testTicket)
-    const { isAdmin } = useAuth()
+    const { isAdmin, logout } = useAuth()
     // const [isUploading, setIsUploading] = useState(null)
     // const [isUploading, setIsUploading] = useState(true)
     const [isUploading, setIsUploading] = useState(null)
 
     return (
+        <>
+        <button id="logout-button" onClick={logout}>
+            <i className="bx bx-log-out" />
+            Sign out
+        </button>
         <Routes>
             <Route
                 index
@@ -192,5 +197,6 @@ export default function TicketWorkflow() {
                 />
             </Route>
         </Routes>
+        </>
     )
 }
