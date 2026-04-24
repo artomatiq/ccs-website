@@ -233,7 +233,7 @@
         width: 8rem;
         align-self: center;
         letter-spacing: 2px;
-        background-color: white;
+        background-color: var(--primary-color);
         color: black;
 
         transition: all 0.3s ease;
@@ -241,19 +241,19 @@
 
     button:hover {
         cursor: pointer;
-        background-color: var(--primary-color);
         transition-delay: 0.1s;
-        transform: scale(1.2);
+        /* color: lightgray; */
+        /* transform: scale(1.2); */
     }
 
     button:disabled {
-        background-color: rgba(153, 153, 153, 0.483);
-        color: white;
+        background-color: var(--secondary-color);
+        color: lightgray;
         transform: none;
     }
 
     button:disabled:hover {
-        background-color: var(--secondary-color);
+        color: black;
     }
 
     .swal-confirm-button {
