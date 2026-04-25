@@ -34,16 +34,24 @@ export default function StatusPage({
         const statusBox = statusBoxRef.current
         if (!statusBox) return
         requestAnimationFrame(() => {
-            const rect = statusBox.getBoundingClientRect()
-            const scrollTo =
-                rect.top +
-                window.scrollY -
-                window.innerHeight / 2 +
-                rect.height / 2
-            window.scrollTo({
-                top: scrollTo,
-                behavior: "smooth",
-            })
+            if (window.innerWidth < 600) {
+                const footer = document.querySelector(".footer-container")
+                if (!footer) return
+                const footerTop = footer.getBoundingClientRect().top + window.scrollY
+                const scrollTo = Math.max(0, footerTop - window.innerHeight)
+                window.scrollTo({ top: scrollTo })
+            } else {
+                const rect = statusBox.getBoundingClientRect()
+                const scrollTo =
+                    rect.top +
+                    window.scrollY -
+                    window.innerHeight / 2 +
+                    rect.height / 2
+                window.scrollTo({
+                    top: scrollTo,
+                    behavior: "smooth",
+                })
+            }
         })
     }, [])
 
