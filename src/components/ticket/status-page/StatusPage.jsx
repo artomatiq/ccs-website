@@ -58,20 +58,20 @@ export default function StatusPage({
     }, [])
 
     useEffect(() => {
-        const interval = setInterval(() => setTick((t) => t + 1), 400)
+        const interval = setInterval(() => setTick((t) => t + 1), 500)
         return () => clearInterval(interval)
     }, [])
 
-    // TEMP: cycle through statuses to visualize UI
-    useEffect(() => {
-        let i = 0
-        const interval = setInterval(() => {
-            setDbTicket((prev) => ({ ...prev, status: statusOrder[i] }))
-            i = (i + 1) % statusOrder.length
-            if (i === 0) stepStartTick.current = [-1, -1, -1]
-        }, 1500)
-        return () => clearInterval(interval)
-    }, [setDbTicket])
+    // // TEMP: cycle through statuses to visualize UI
+    // useEffect(() => {
+    //     let i = 0
+    //     const interval = setInterval(() => {
+    //         setDbTicket((prev) => ({ ...prev, status: statusOrder[i] }))
+    //         i = (i + 1) % statusOrder.length
+    //         if (i === 0) stepStartTick.current = [-1, -1, -1]
+    //     }, 1500)
+    //     return () => clearInterval(interval)
+    // }, [setDbTicket])
 
     useEffect(() => {
         const currentIndex = statusOrder.indexOf(dbTicket.status)
@@ -220,10 +220,11 @@ const res = await fetch(url, {
             <div className="status-box" ref={statusBoxRef}>
                 {visibleSteps.map((step, i) => {
                     const started = stepStartTick.current[i] !== -1
-                    const elapsed = started ? tick - stepStartTick.current[i] : 0
+                    if (!started) return null
+                    const elapsed = tick - stepStartTick.current[i]
                     const cycleComplete = elapsed >= 4
                     const showCheck = cycleComplete && step.state === "done"
-                    const dotsCount = started && !showCheck ? elapsed % 4 : 0
+                    const dotsCount = !showCheck ? elapsed % 4 : 0
 
                     return (
                         <div key={i} className="status-row">
