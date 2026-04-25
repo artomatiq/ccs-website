@@ -10,7 +10,7 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
 })
 
 export default function AdminInvoice() {
-    const { token, logout } = useAuth()
+    const { token } = useAuth()
     const navigate = useNavigate()
     const [tickets, setTickets] = useState([])
     const [selectedDate, setSelectedDate] = useState("")
@@ -23,8 +23,9 @@ export default function AdminInvoice() {
         const embedUrl = url.replace("/view", "/preview")
         return (
             <div className="invoice-pdf-view">
-                <button className="invoice-pdf-back" onClick={logout}>
-                    Logout
+                <button className="invoice-pdf-back" onClick={onBack}>
+                    <i className="bx bx-arrow-back" />
+                    Back
                 </button>
                 <iframe
                     src={embedUrl}
@@ -122,7 +123,6 @@ export default function AdminInvoice() {
     const handleGenerate = async () => {
         setIsGenerating(true)
         try {
-            console.log(tickets[0].ticketDate, selectedDate)
             const url = process.env.REACT_APP_API_BASE_URL
             const res = await fetch(`${url}/invoices/generate`, {
                 method: "POST",
