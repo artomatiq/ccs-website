@@ -8,7 +8,12 @@
     align-items: center;
 }
 
+.status-box {
+    width: 12rem;
+}
+
 .status-row {
+    width: 100%;
     font-size: 1.2rem;
 
     display: flex;

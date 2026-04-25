@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom"
 import Swal from "sweetalert2"
 
 const steps = [
-    { key: "uploading", doneAt: "uploaded", label: "uploading..." },
-    { key: "validating", doneAt: "validated", label: "validating..." },
-    { key: "extracting", doneAt: "extracted", label: "extracting..." },
+    { key: "uploading", activeFrom: "awaiting-upload", doneAt: "uploaded", label: "uploading" },
+    { key: "validating", activeFrom: "validating", doneAt: "validated", label: "validating" },
+    { key: "extracting", activeFrom: "extracting", doneAt: "extracted", label: "extracting" },
 ]
 
 const statusOrder = [
@@ -29,6 +29,8 @@ export default function StatusPage({
     const navigate = useNavigate()
     const [visibleSteps, setVisibleSteps] = useState([])
     const statusBoxRef = useRef(null)
+    const [tick, setTick] = useState(0)
+    const stepStartTick = useRef([-1, -1, -1])
 
     useEffect(() => {
         const statusBox = statusBoxRef.current
@@ -54,6 +56,32 @@ export default function StatusPage({
             }
         })
     }, [])
+
+    useEffect(() => {
+        const interval = setInterval(() => setTick((t) => t + 1), 400)
+        return () => clearInterval(interval)
+    }, [])
+
+    // TEMP: cycle through statuses to visualize UI
+    useEffect(() => {
+        let i = 0
+        const interval = setInterval(() => {
+            setDbTicket((prev) => ({ ...prev, status: statusOrder[i] }))
+            i = (i + 1) % statusOrder.length
+            if (i === 0) stepStartTick.current = [-1, -1, -1]
+        }, 1500)
+        return () => clearInterval(interval)
+    }, [setDbTicket])
+
+    useEffect(() => {
+        const currentIndex = statusOrder.indexOf(dbTicket.status)
+        steps.forEach((step, i) => {
+            if (stepStartTick.current[i] !== -1) return
+            if (currentIndex >= statusOrder.indexOf(step.activeFrom)) {
+                stepStartTick.current[i] = tick
+            }
+        })
+    }, [tick, dbTicket.status])
 
     useEffect(() => {
         if (!isUploading) return
@@ -174,17 +202,14 @@ const res = await fetch(url, {
             return steps.map((step, i) => {
                 const requiredIndex = statusOrder.indexOf(step.doneAt)
 
-                // already completed → keep it done
                 if (currentIndex > requiredIndex) {
                     return { ...step, state: "done" }
                 }
 
-                // current active step
                 if (currentIndex === requiredIndex) {
                     return { ...step, state: "loading" }
                 }
 
-                // not reached yet
                 return { ...step, state: "pending" }
             })
         })
@@ -193,17 +218,23 @@ const res = await fetch(url, {
     return (
         <div className="status-section" id="status-section">
             <div className="status-box" ref={statusBoxRef}>
-                {visibleSteps.map((step, i) => (
-                    <div key={i} className="status-row">
-                        <span>{step.label}</span>
-                        {step.state === "loading" && (
-                            <span className="loader" />
-                        )}
-                        {step.state === "done" && (
-                            <span className="check">✔</span>
-                        )}
-                    </div>
-                ))}
+                {visibleSteps.map((step, i) => {
+                    const started = stepStartTick.current[i] !== -1
+                    const elapsed = started ? tick - stepStartTick.current[i] : 0
+                    const cycleComplete = elapsed >= 4
+                    const showCheck = cycleComplete && step.state === "done"
+                    const dotsCount = started && !showCheck ? elapsed % 4 : 0
+
+                    return (
+                        <div key={i} className="status-row">
+                            <span>
+                                {step.label}
+                                {".".repeat(dotsCount)}
+                            </span>
+                            {showCheck && <span className="check">✔</span>}
+                        </div>
+                    )
+                })}
             </div>
         </div>
     )
