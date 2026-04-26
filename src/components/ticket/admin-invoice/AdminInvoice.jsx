@@ -1,5 +1,5 @@
 // src/ticket/pages/admin-invoice/AdminInvoice.jsx
-import { useEffect, useState, useMemo } from "react"
+import { useEffect, useState, useMemo, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../../auth/AuthContext"
 import "./adminInvoice.css"
@@ -21,21 +21,60 @@ export default function AdminInvoice() {
     const [pdfUrl, setPdfUrl] = useState('https://drive.google.com/file/d/1p9nleDlesiKntKUWpvnE4Gd2Jag_G2un/view?usp=drive_link')
 
     function InvoicePdfView({ url }) {
-        const embedUrl = url.replace("/view", "/preview")
+        const [blobUrl, setBlobUrl] = useState(null)
+        const [error, setError] = useState(null)
+        const iframeRef = useRef(null)
+
+        useEffect(() => {
+            const fileId = url.match(/\/d\/([^/]+)/)?.[1]
+            if (!fileId) {
+                setError("Could not parse Drive file ID from URL")
+                return
+            }
+            const apiKey = process.env.REACT_APP_GOOGLE_DRIVE_API_KEY
+            const apiUrl = `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&key=${apiKey}`
+            let createdUrl
+            fetch(apiUrl)
+                .then((res) => {
+                    if (!res.ok) throw new Error(`Drive fetch failed (${res.status})`)
+                    return res.blob()
+                })
+                .then((blob) => {
+                    createdUrl = URL.createObjectURL(blob)
+                    setBlobUrl(createdUrl)
+                })
+                .catch((err) => setError(err.message))
+            return () => {
+                if (createdUrl) URL.revokeObjectURL(createdUrl)
+            }
+        }, [url])
+
+        const handlePrint = () => {
+            const iframe = iframeRef.current
+            if (!iframe) return
+            iframe.contentWindow.focus()
+            iframe.contentWindow.print()
+        }
+
         return (
             <div className="invoice-pdf-view">
                 <button
                     className="invoice-pdf-print"
-                    onClick={() => window.print()}
+                    onClick={handlePrint}
+                    disabled={!blobUrl}
                 >
                     <i className="bx bx-printer" />
                     Print
                 </button>
-                <iframe
-                    src={embedUrl}
-                    title="Generated Invoice"
-                    className="invoice-pdf-frame"
-                />
+                {error && <div className="invoice-pdf-error">{error}</div>}
+                {blobUrl && (
+                    <iframe
+                        ref={iframeRef}
+                        src={blobUrl}
+                        title="Generated Invoice"
+                        className="invoice-pdf-frame"
+                    />
+                )}
             </div>
         )
     }
