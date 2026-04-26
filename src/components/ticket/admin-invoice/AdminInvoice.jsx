@@ -17,15 +17,19 @@ export default function AdminInvoice() {
     const [previewTicket, setPreviewTicket] = useState(null)
     const [isGenerating, setIsGenerating] = useState(false)
     const [dots, setDots] = useState("")
-    const [pdfUrl, setPdfUrl] = useState(null)
+    // const [pdfUrl, setPdfUrl] = useState(null)
+    const [pdfUrl, setPdfUrl] = useState('https://drive.google.com/file/d/1p9nleDlesiKntKUWpvnE4Gd2Jag_G2un/view?usp=drive_link')
 
-    function InvoicePdfView({ url, onBack }) {
+    function InvoicePdfView({ url }) {
         const embedUrl = url.replace("/view", "/preview")
         return (
             <div className="invoice-pdf-view">
-                <button className="invoice-pdf-back" onClick={onBack}>
-                    <i className="bx bx-arrow-back" />
-                    Back
+                <button
+                    className="invoice-pdf-print"
+                    onClick={() => window.print()}
+                >
+                    <i className="bx bx-printer" />
+                    Print
                 </button>
                 <iframe
                     src={embedUrl}
@@ -145,7 +149,7 @@ export default function AdminInvoice() {
     if (pdfUrl) {
         return (
             <div className="invoice-page">
-                <InvoicePdfView url={pdfUrl} onBack={() => setPdfUrl(null)} />
+                <InvoicePdfView url={pdfUrl} />
             </div>
         )
     }

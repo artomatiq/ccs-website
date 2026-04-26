@@ -274,7 +274,7 @@
     height: 1000px;
 }
 
-.invoice-page .invoice-pdf-back {
+.invoice-page .invoice-pdf-print {
     align-self: center;
     margin-bottom: 5rem;
     background: transparent;
@@ -286,7 +286,7 @@
     cursor: pointer;
 }
 
-.invoice-page .invoice-pdf-back:hover {
+.invoice-page .invoice-pdf-print:hover {
     transform: none;
     background: transparent;
     color: #fff;
@@ -296,7 +296,7 @@
 .invoice-pdf-frame {
     border-radius: 8px;
     border: none;
-    height: 800px;
+    height: 625px;
 }
 
 @media (min-width: 600px) and (max-width: 900px) {
@@ -318,7 +318,7 @@
         width: 87vw;
     }
     .invoice-pdf-view {
-        height: 56vh;
+        height: 630px;
         margin-bottom: 12rem;
         margin-top: 12rem;
     }
