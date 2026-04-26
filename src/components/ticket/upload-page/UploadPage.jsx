@@ -60,7 +60,7 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
         }
         try {
             setIsSubmitting(true)
-            const { key, ticketId } = await uploadToS3(imageSrc, setToken)
+            const { ticketId } = await uploadToS3(imageSrc, setToken)
             setIsSubmitting(false)
             await Swal.fire({
                 title: "Upload Successful!",
