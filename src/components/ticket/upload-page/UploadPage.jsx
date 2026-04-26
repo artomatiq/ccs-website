@@ -61,9 +61,11 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
         try {
             setIsSubmitting(true)
             const { key, ticketId } = await uploadToS3(imageSrc, setToken)
-            Swal.fire({
+            setIsSubmitting(false)
+            await Swal.fire({
                 title: "Upload Successful!",
                 icon: "success",
+                confirmButtonText: "Next",
                 customClass: {
                     container: "swal-container",
                     popup: "swal-popup",
@@ -143,7 +145,14 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
                             disabled={!attachment || isSubmitting}
                             hidden={!attachment}
                         >
-                            {isSubmitting ? "Uploading..." : "Submit"}
+                            {isSubmitting ? (
+                                <>
+                                    Uploading
+                                    <span className="dots-anim"></span>
+                                </>
+                            ) : (
+                                "Submit"
+                            )}
                         </button>
                     </div>
                 </div>

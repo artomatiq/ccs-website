@@ -95,6 +95,23 @@
         }
     }
 
+    .dots-anim {
+        display: inline-block;
+        width: 1.2em;
+        text-align: left;
+    }
+
+    .dots-anim::after {
+        content: ".";
+        animation: dots 1.2s steps(1) infinite;
+    }
+
+    @keyframes dots {
+        0%   { content: "."; }
+        33%  { content: ".."; }
+        66%  { content: "..."; }
+    }
+
     #back-button {
         position: absolute;
         top: 1.2rem;

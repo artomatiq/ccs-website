@@ -216,7 +216,14 @@ export default function ReviewPage(props) {
                 id="finalize-button"
                 disabled={!Object.values(touched).every(Boolean) || isSubmitting}
             >
-                Finalize
+                {isSubmitting ? (
+                    <>
+                        Finalizing
+                        <span className="dots-anim"></span>
+                    </>
+                ) : (
+                    "Finalize"
+                )}
             </button>
         </div>
     )
