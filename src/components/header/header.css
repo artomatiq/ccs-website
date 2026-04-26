@@ -3,12 +3,11 @@
     filter: blur(10px);
 
     transition: all 1.75s ease;
-
 }
 
 .header-container {
     text-align: center;
-    color: white;
+    color: lightgray;
 
     position: fixed;
     top: 0;
@@ -57,11 +56,10 @@ a {
 
 .quote-button {
     margin-left: auto;
-    color: white;
     margin-right: 2rem;
 }
 
-@media screen and (max-width: 550px){
+@media screen and (max-width: 550px) {
     .nav-button {
         font-size: 0.85rem;
         margin: 0;
@@ -77,11 +75,10 @@ a {
 }
 
 @media screen and (orientation: landscape) and (max-width: 768px) {
-    
     .header-container {
         height: 3rem;
     }
-    
+
     .nav-button {
         font-size: 0.9rem;
         margin-right: 1.5vw;
@@ -90,7 +87,7 @@ a {
         height: fit-content;
         padding: 0.3rem;
     }
-    
+
     .quote-button {
         margin-left: auto;
         margin-right: 1.5vw;
