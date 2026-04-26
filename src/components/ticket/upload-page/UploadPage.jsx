@@ -55,15 +55,15 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
             const { key, ticketId } = await uploadToS3(imageSrc, setToken)
             Swal.fire({
                 title: "Upload Successful!",
-                icon: 'success',
+                icon: "success",
                 customClass: {
-                    container: 'swal-container',
-                    popup: 'swal-popup',
-                    title: 'swal-title',
-                    content: 'swal-content',
-                    confirmButton: 'swal-confirm-button'
-                }
-            });
+                    container: "swal-container",
+                    popup: "swal-popup",
+                    title: "swal-title",
+                    content: "swal-content",
+                    confirmButton: "swal-confirm-button",
+                },
+            })
             setAttachment(null)
             setImageSrc(null)
             setPortrait(null)
@@ -78,15 +78,15 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
             Swal.fire({
                 title: "Upload failed",
                 text: error.message,
-                icon: 'error',
+                icon: "error",
                 customClass: {
-                    container: 'swal-container',
-                    popup: 'swal-popup',
-                    title: 'swal-title',
-                    content: 'swal-content',
-                    confirmButton: 'swal-confirm-button'
-                }
-            });
+                    container: "swal-container",
+                    popup: "swal-popup",
+                    title: "swal-title",
+                    content: "swal-content",
+                    confirmButton: "swal-confirm-button",
+                },
+            })
         } finally {
             setIsSubmitting(false)
         }
@@ -118,16 +118,16 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
                     hidden={!imageSrc}
                     setPortrait={setPortrait}
                 />
+                <button
+                    type="button"
+                    onClick={handleCapture}
+                    className="button"
+                    id={attachment? "replace-button" : "attach-button"}
+                >
+                    {attachment ? "Replace" : "Attach Photo"}
+                </button>
                 <div className="upload-button segment">
                     <div className="form-div upload">
-                        <button
-                            type="button"
-                            onClick={handleCapture}
-                            className="button"
-                            id="attach-button"
-                        >
-                            {attachment ? "Replace" : "Attach Photo"}
-                        </button>
                         <button
                             type="button"
                             onClick={handleSubmit}
