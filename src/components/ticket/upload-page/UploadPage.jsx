@@ -18,6 +18,14 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             const scroll = () => {
+                if (attachment) {
+                    const ticket = document.querySelector(".ticket-container")
+                    if (!ticket) return
+                    const ticketTop =
+                        ticket.getBoundingClientRect().top + window.scrollY
+                    window.scrollTo({ top: ticketTop - 70 })
+                    return
+                }
                 const footer = document.querySelector(".footer-container")
                 if (!footer) return
                 const footerTop =
@@ -28,7 +36,7 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
             requestAnimationFrame(scroll)
         }, 800)
         return () => clearTimeout(timer)
-    }, [])
+    }, [attachment])
     const handleCapture = (e) => {
         e.preventDefault()
         fileInputRef.current.value = ""
