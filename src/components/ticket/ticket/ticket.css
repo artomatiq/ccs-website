@@ -20,7 +20,15 @@
             .upload-button.segment {
                 display: flex;
                 flex-direction: column;   
-                margin-top: 4rem;             
+                margin-top: 4rem; 
+                
+                button {
+                    color: lightgray;
+
+                    &:disabled {
+                        color: lightgray;
+                    }
+                }
             }
         }
     }
