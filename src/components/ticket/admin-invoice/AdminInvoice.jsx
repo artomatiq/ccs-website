@@ -18,7 +18,14 @@ export default function AdminInvoice() {
     const [isGenerating, setIsGenerating] = useState(false)
     const [dots, setDots] = useState("")
     // const [pdfUrl, setPdfUrl] = useState(null)
-    const [pdfUrl, setPdfUrl] = useState('https://drive.google.com/file/d/1p9nleDlesiKntKUWpvnE4Gd2Jag_G2un/view?usp=drive_link')
+    const [pdfUrl, setPdfUrl] = useState("https://drive.google.com/file/d/1xzDcU_4SkX8drbnvOi2O6qpw57w49Cuo/view?usp=drive_link"
+)
+    const isDesktop = useMemo(
+        () =>
+            typeof window !== "undefined" &&
+            window.matchMedia("(hover: hover) and (pointer: fine)").matches,
+        [],
+    )
 
     function InvoicePdfView({ url }) {
         const [blobUrl, setBlobUrl] = useState(null)
@@ -31,12 +38,14 @@ export default function AdminInvoice() {
                 setError("Could not parse Drive file ID from URL")
                 return
             }
-            const apiKey = process.env.REACT_APP_GOOGLE_DRIVE_API_KEY
-            const apiUrl = `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&key=${apiKey}`
+            const apiBase = process.env.REACT_APP_API_BASE_URL
             let createdUrl
-            fetch(apiUrl)
+            fetch(`${apiBase}/invoices/${fileId}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
                 .then((res) => {
-                    if (!res.ok) throw new Error(`Drive fetch failed (${res.status})`)
+                    if (!res.ok)
+                        throw new Error(`Invoice fetch failed (${res.status})`)
                     return res.blob()
                 })
                 .then((blob) => {
@@ -64,16 +73,22 @@ export default function AdminInvoice() {
                     disabled={!blobUrl}
                 >
                     <i className="bx bx-printer" />
-                    Print
+                    {' '}Print Invoice
                 </button>
-                {error && <div className="invoice-pdf-error">{error}</div>}
-                {blobUrl && (
-                    <iframe
-                        ref={iframeRef}
-                        src={blobUrl}
-                        title="Generated Invoice"
-                        className="invoice-pdf-frame"
-                    />
+                {isDesktop && (
+                    <div className="invoice-pdf-box">
+                        {error && (
+                            <div className="invoice-pdf-error">{error}</div>
+                        )}
+                        {blobUrl && (
+                            <iframe
+                                ref={iframeRef}
+                                src={blobUrl}
+                                title="Generated Invoice"
+                                className="invoice-pdf-frame"
+                            />
+                        )}
+                    </div>
                 )}
             </div>
         )
@@ -124,7 +139,7 @@ export default function AdminInvoice() {
                 const invoicePageTop =
                     invoicePage.getBoundingClientRect().top + window.scrollY
                 window.scrollTo({
-                    top: invoicePageTop - 30,
+                    top: invoicePageTop - 50,
                     behavior: "smooth",
                 })
             }, 1000)

@@ -267,6 +267,7 @@
 .invoice-pdf-view {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 1rem;
     height: 100vh;
     padding: 1rem 0;
@@ -277,6 +278,7 @@
 .invoice-page .invoice-pdf-print {
     align-self: center;
     margin-bottom: 5rem;
+    width: fit-content;
     background: transparent;
     color: var(--primary-color);
     border: 1px solid var(--primary-color);
@@ -286,11 +288,18 @@
     cursor: pointer;
 }
 
-.invoice-page .invoice-pdf-print:hover {
+.invoice-page .invoice-pdf-print:hover:not(:disabled) {
     transform: none;
     background: transparent;
     color: #fff;
     border-color: white;
+}
+
+.invoice-page .invoice-pdf-print:disabled {
+    color: darkgray;
+    border-color: darkgray;
+    cursor: default;
+    opacity: 0.6;
 }
 
 .invoice-pdf-frame {
