@@ -56,7 +56,7 @@ export default function AdminInvoice() {
             return () => {
                 if (createdUrl) URL.revokeObjectURL(createdUrl)
             }
-        }, [url])
+        }, [url, token])
 
         const handlePrint = () => {
             const iframe = iframeRef.current
