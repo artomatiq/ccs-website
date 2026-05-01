@@ -1,8 +1,13 @@
 // src/ticket/pages/admin-invoice/AdminInvoice.jsx
-import { useEffect, useState, useMemo, useRef } from "react"
+import { useEffect, useState, useMemo } from "react"
 import { useNavigate } from "react-router-dom"
+import { Document, Page, pdfjs } from "react-pdf"
 import { useAuth } from "../../../auth/AuthContext"
 import "./adminInvoice.css"
+import "react-pdf/dist/Page/AnnotationLayer.css"
+import "react-pdf/dist/Page/TextLayer.css"
+
+pdfjs.GlobalWorkerOptions.workerSrc = `${process.env.PUBLIC_URL}/pdf.worker.min.mjs`
 
 const currencyFormatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -17,7 +22,6 @@ export default function AdminInvoice() {
     const [previewTicket, setPreviewTicket] = useState(null)
     const [isGenerating, setIsGenerating] = useState(false)
     const [dots, setDots] = useState("")
-    // const [pdfUrl, setPdfUrl] = useState(null)
     const [pdfUrl, setPdfUrl] = useState("https://drive.google.com/file/d/1xzDcU_4SkX8drbnvOi2O6qpw57w49Cuo/view?usp=drive_link"
 )
     const isDesktop = useMemo(
@@ -30,7 +34,6 @@ export default function AdminInvoice() {
     function InvoicePdfView({ url }) {
         const [blobUrl, setBlobUrl] = useState(null)
         const [error, setError] = useState(null)
-        const iframeRef = useRef(null)
 
         useEffect(() => {
             const fileId = url.match(/\/d\/([^/]+)/)?.[1]
@@ -56,13 +59,10 @@ export default function AdminInvoice() {
             return () => {
                 if (createdUrl) URL.revokeObjectURL(createdUrl)
             }
-        }, [url, token])
+        }, [url])
 
         const handlePrint = () => {
-            const iframe = iframeRef.current
-            if (!iframe) return
-            iframe.contentWindow.focus()
-            iframe.contentWindow.print()
+            window.print()
         }
 
         return (
@@ -76,17 +76,17 @@ export default function AdminInvoice() {
                     {' '}Print Invoice
                 </button>
                 {isDesktop && (
-                    <div className="invoice-pdf-box">
+                    <div className="invoice-pdf-box" ref={containerRef}>
                         {error && (
                             <div className="invoice-pdf-error">{error}</div>
                         )}
                         {blobUrl && (
-                            <iframe
-                                ref={iframeRef}
-                                src={blobUrl}
-                                title="Generated Invoice"
-                                className="invoice-pdf-frame"
-                            />
+                            <Document
+                                file={blobUrl}
+                                onLoadError={(err) => setError(err.message)}
+                            >
+                                <Page pageNumber={1} />
+                            </Document>
                         )}
                     </div>
                 )}
