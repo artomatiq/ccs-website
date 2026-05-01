@@ -76,7 +76,7 @@ export default function AdminInvoice() {
                     {' '}Print Invoice
                 </button>
                 {isDesktop && (
-                    <div className="invoice-pdf-box" ref={containerRef}>
+                    <div className="invoice-pdf-box">
                         {error && (
                             <div className="invoice-pdf-error">{error}</div>
                         )}
