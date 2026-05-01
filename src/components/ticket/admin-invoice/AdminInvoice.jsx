@@ -1,5 +1,5 @@
 // src/ticket/pages/admin-invoice/AdminInvoice.jsx
-import { useEffect, useState, useMemo } from "react"
+import { useEffect, useState, useMemo, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { Document, Page, pdfjs } from "react-pdf"
 import { useAuth } from "../../../auth/AuthContext"
@@ -34,6 +34,7 @@ export default function AdminInvoice() {
     function InvoicePdfView({ url }) {
         const [blobUrl, setBlobUrl] = useState(null)
         const [error, setError] = useState(null)
+        const printIframeRef = useRef(null)
 
         useEffect(() => {
             const fileId = url.match(/\/d\/([^/]+)/)?.[1]
@@ -62,11 +63,19 @@ export default function AdminInvoice() {
         }, [url])
 
         const handlePrint = () => {
-            window.print()
+            if (!printIframeRef.current) return
+            printIframeRef.current.contentWindow.focus()
+            printIframeRef.current.contentWindow.print()
         }
 
         return (
             <div className="invoice-pdf-view">
+                <iframe
+                    ref={printIframeRef}
+                    src={blobUrl}
+                    style={{ display: "none" }}
+                    title="Print Invoice"
+                />
                 <button
                     className="invoice-pdf-print"
                     onClick={handlePrint}
