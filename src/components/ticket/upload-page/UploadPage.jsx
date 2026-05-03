@@ -61,19 +61,6 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
         try {
             setIsSubmitting(true)
             const { ticketId } = await uploadToS3(imageSrc, setToken)
-            setIsSubmitting(false)
-            await Swal.fire({
-                title: "Upload Successful!",
-                icon: "success",
-                confirmButtonText: "Next",
-                customClass: {
-                    container: "swal-container",
-                    popup: "swal-popup",
-                    title: "swal-title",
-                    content: "swal-content",
-                    confirmButton: "swal-confirm-button",
-                },
-            })
             setAttachment(null)
             setImageSrc(null)
             setPortrait(null)
