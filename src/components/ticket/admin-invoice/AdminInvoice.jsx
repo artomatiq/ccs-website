@@ -102,7 +102,7 @@ export default function AdminInvoice() {
                                 file={blobUrl}
                                 onLoadError={(err) => setError(err.message)}
                             >
-                                <Page pageNumber={1} />
+                                <Page pageNumber={1} height={600}/>
                             </Document>
                         )}
                     </div>
