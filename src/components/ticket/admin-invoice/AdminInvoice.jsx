@@ -63,9 +63,17 @@ export default function AdminInvoice() {
         }, [url])
 
         const handlePrint = () => {
-            if (!printIframeRef.current) return
-            printIframeRef.current.contentWindow.focus()
-            printIframeRef.current.contentWindow.print()
+            if (!blobUrl) return
+            if (isDesktop) {
+                if (!printIframeRef.current) return
+                printIframeRef.current.contentWindow.focus()
+                printIframeRef.current.contentWindow.print()
+            } else {
+                const a = document.createElement("a")
+                a.href = blobUrl
+                a.download = "invoice.pdf"
+                a.click()
+            }
         }
 
         return (
