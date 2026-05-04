@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useAuth } from "../../../auth/AuthContext"
+import { useScreenTransition } from "../../../contexts/TransitionContext"
 import { Routes, Route, Navigate } from "react-router-dom"
 import AdminDash from "../admin-dash/AdminDash"
 import DriverWelcome from "../driver-welcome/DriverWelcome"
@@ -54,13 +55,28 @@ export default function TicketWorkflow() {
     })
     // const [dbTicket, setDbTicket] = useState(testTicket)
     const { isAdmin, logout } = useAuth()
+    const { startTransition, finishTransition } = useScreenTransition()
     // const [isUploading, setIsUploading] = useState(null)
     // const [isUploading, setIsUploading] = useState(true)
     const [isUploading, setIsUploading] = useState(null)
 
+    const handleLogout = () => {
+        startTransition("Signing out...", {
+            fadeInDuration: 800,
+            holdDuration: 400,
+            fadeOutDuration: 1200,
+            blurFadeOutDuration: 2000,
+        })
+
+        setTimeout(() => {
+            logout()
+            finishTransition()
+        }, 1200)
+    }
+
     return (
         <>
-        <button id="logout-button" onClick={logout}>
+        <button id="logout-button" onClick={handleLogout}>
             <i className="bx bx-log-out" />
             Sign out
         </button>

@@ -10,10 +10,12 @@ import Contact from "./components/contact/Contact"
 import Quote from "./components/quote/Quote"
 import Ticket from "./components/ticket/ticket/Ticket"
 import Footer from "./components/footer/Footer"
+import TransitionOverlay from "./components/transition-overlay/TransitionOverlay"
 
 import { Routes, Route, useLocation } from "react-router-dom"
 
 import { LoadScript } from "@react-google-maps/api"
+import { TransitionProvider } from "./contexts/TransitionContext"
 
 const libraries = ["places"]
 const googleMapsPublicKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
@@ -81,23 +83,26 @@ function App() {
     }, [location.pathname])
 
     return (
-        <LoadScript
-            googleMapsApiKey={googleMapsPublicKey}
-            libraries={libraries}
-            loadingElement={<></>}
-        >
-            <div className="app-container">
-                <PreLoader isLoading={isLoading} />
-                <Header isLoading={isLoading} />
-                <Hero isLoading={isLoading} setIsLoading={setIsLoading} />
-                <Routes>
-                    <Route path="/ticket/*" element={<Ticket />} />
-                    <Route path="/quote" element={<Quote />} />
-                    <Route path="*" element={<Home />} />
-                </Routes>
-                <Footer />
-            </div>
-        </LoadScript>
+        <TransitionProvider>
+            <LoadScript
+                googleMapsApiKey={googleMapsPublicKey}
+                libraries={libraries}
+                loadingElement={<></>}
+            >
+                <TransitionOverlay />
+                <div className="app-container">
+                    <PreLoader isLoading={isLoading} />
+                    <Header isLoading={isLoading} />
+                    <Hero isLoading={isLoading} setIsLoading={setIsLoading} />
+                    <Routes>
+                        <Route path="/ticket/*" element={<Ticket />} />
+                        <Route path="/quote" element={<Quote />} />
+                        <Route path="*" element={<Home />} />
+                    </Routes>
+                    <Footer />
+                </div>
+            </LoadScript>
+        </TransitionProvider>
     )
 }
 
