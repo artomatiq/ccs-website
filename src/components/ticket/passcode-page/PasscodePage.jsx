@@ -4,13 +4,13 @@ import { useState, useRef, useEffect } from "react"
 import Swal from "sweetalert2"
 import loginUser from "../../../api/userLogin"
 import { useAuth, decodeJWT } from "../../../auth/AuthContext"
-import { useNavigate } from "react-router-dom"
+import { useTransitionNavigate } from "../../../contexts/TransitionContext"
 
 const PasscodePage = () => {
     const [passcode, setPasscode] = useState("")
     const [isSubmitting, setIsSubmitting] = useState(false)
     const { setToken } = useAuth()
-    const navigate = useNavigate()
+    const navigate = useTransitionNavigate()
     const handleChange = (e) => {
         const { value } = e.target
         setPasscode(value)
@@ -35,7 +35,7 @@ const PasscodePage = () => {
             setToken(token)
             const decoded = decodeJWT(token)
             const destination = decoded?.user === "ADMIN" ? "/ticket/admin/dash" : "/ticket/driver/welcome"
-            navigate(destination, { replace: true })
+            navigate(destination, { replace: true }, { fadeOutDuration: 400 })
         } catch (error) {
             setIsSubmitting(false)
             Swal.fire({

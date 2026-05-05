@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useAuth } from "../../../auth/AuthContext"
 import "./reviewPage.css"
 import TicketOverlay from "../ticket-overlay/TicketOverlay"
-import { useNavigate } from "react-router-dom"
+import { useTransitionNavigate } from "../../../contexts/TransitionContext"
 import Swal from "sweetalert2"
 
 export default function ReviewPage(props) {
@@ -23,7 +23,7 @@ export default function ReviewPage(props) {
         stop: false,
     })
     const { dbTicket, setDbTicket } = props
-    const navigate = useNavigate()
+    const navigate = useTransitionNavigate()
 
     const handleFinalize = async () => {
         if (isSubmitting) return

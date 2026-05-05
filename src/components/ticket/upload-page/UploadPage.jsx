@@ -1,15 +1,15 @@
 import "../ticket/ticket.css"
 import { useState, useEffect, useRef } from "react"
-import { useNavigate } from "react-router-dom"
 import handleFileChange from "../../../utils/ticket/handleFileChange"
 import Swal from "sweetalert2"
 import ImagePreview from "../image-preview/ImagePreview"
 import uploadToS3 from "../../../api/uploadToS3"
 import { useAuth } from "../../../auth/AuthContext"
+import { useTransitionNavigate } from "../../../contexts/TransitionContext"
 
 const UploadPage = ({ setDbTicket, setIsUploading }) => {
     const { setToken } = useAuth()
-    const navigate = useNavigate()
+    const navigate = useTransitionNavigate()
     const [attachment, setAttachment] = useState(null)
     const fileInputRef = useRef(null)
     const [imageSrc, setImageSrc] = useState(null)

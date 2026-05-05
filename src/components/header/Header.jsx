@@ -1,9 +1,10 @@
 import "./header.css"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
+import { useTransitionNavigate } from "../../contexts/TransitionContext"
 
 const Header = ({ isLoading }) => {
-    const navigate = useNavigate()
+    const navigate = useTransitionNavigate()
 
     const [showHeader, setShowHeader] = useState(false)
 

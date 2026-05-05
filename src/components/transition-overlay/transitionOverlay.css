@@ -11,7 +11,7 @@
   background: #000;
   opacity: 0;
   animation:
-    transition-black-in calc(var(--fade-in-duration) * 0.4) ease-out forwards 50ms,
+    transition-black-in var(--fade-in-duration) ease-out forwards,
     transition-black-out var(--fade-out-duration) cubic-bezier(0.16, 1, 0.3, 1) forwards var(--fade-out-start);
   z-index: 9998;
 }
@@ -21,7 +21,7 @@
   inset: 0;
   backdrop-filter: blur(0px);
   animation:
-    transition-blur-in var(--fade-in-duration) ease-out forwards,
+    transition-blur-in calc(var(--fade-in-duration) * 0.4) ease-out forwards 50ms,
     transition-blur-out var(--blur-fade-out-duration) cubic-bezier(0.16, 1, 0.3, 1) forwards var(--blur-fade-out-start);
   z-index: 9997;
 }
@@ -66,13 +66,13 @@
     backdrop-filter: blur(0px);
   }
   to {
-    backdrop-filter: blur(150px);
+    backdrop-filter: blur(37.5px);
   }
 }
 
 @keyframes transition-blur-out {
   from {
-    backdrop-filter: blur(150px);
+    backdrop-filter: blur(37.5px);
   }
   to {
     backdrop-filter: blur(0px);

@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react"
-import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../../auth/AuthContext"
+import { useTransitionNavigate } from "../../../contexts/TransitionContext"
 import "./adminDash.css"
 
 const AdminDash = () => {
     const spanRef = useRef(null)
     const [populatedCount, setPopulatedCount] = useState(0)
-    const navigate = useNavigate()
+    const navigate = useTransitionNavigate()
     const { token } = useAuth()
     useEffect(() => {
         const timer = setTimeout(() => {

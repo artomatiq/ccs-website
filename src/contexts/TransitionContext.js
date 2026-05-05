@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, useRef } from "react"
+import { useNavigate } from "react-router-dom"
 
 const TransitionContext = createContext()
 
@@ -69,4 +70,25 @@ export function TransitionProvider({ children }) {
 
 export function useScreenTransition() {
   return useContext(TransitionContext)
+}
+
+const NAV_TRANSITION_CONFIG = {
+  fadeInDuration: 700,
+  holdDuration: 300,
+  fadeOutDuration: 800,
+  blurFadeOutDuration: 1000,
+}
+
+export function useTransitionNavigate() {
+  const navigate = useNavigate()
+  const { startTransition, finishTransition } = useScreenTransition()
+
+  return function transitionNavigate(to, options, transitionConfig) {
+    const config = { ...NAV_TRANSITION_CONFIG, ...transitionConfig }
+    startTransition("", config)
+    setTimeout(() => {
+      navigate(to, options)
+      finishTransition()
+    }, config.fadeInDuration)
+  }
 }

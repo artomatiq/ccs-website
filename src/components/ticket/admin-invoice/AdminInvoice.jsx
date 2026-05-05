@@ -1,7 +1,7 @@
 // src/ticket/pages/admin-invoice/AdminInvoice.jsx
 import { useEffect, useState, useMemo, lazy, Suspense } from "react"
-import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../../auth/AuthContext"
+import { useTransitionNavigate } from "../../../contexts/TransitionContext"
 import "./adminInvoice.css"
 
 const InvoicePdfView = lazy(() => import("./InvoicePdfView"))
@@ -13,7 +13,7 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
 
 export default function AdminInvoice() {
     const { token } = useAuth()
-    const navigate = useNavigate()
+    const navigate = useTransitionNavigate()
     const [tickets, setTickets] = useState([])
     const [selectedDate, setSelectedDate] = useState("")
     const [previewTicket, setPreviewTicket] = useState(null)

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import "./driverWelcome.css"
 import { useAuth } from "../../../auth/AuthContext"
-import { useNavigate } from "react-router-dom"
+import { useTransitionNavigate } from "../../../contexts/TransitionContext"
 
 const DriverWelcome = () => {
     const spanRef = useRef(null)
@@ -29,7 +29,7 @@ const DriverWelcome = () => {
 
     // const { dbTicket, setDbTicket } = props
     const { user } = useAuth()
-    const navigate = useNavigate()
+    const navigate = useTransitionNavigate()
 
     return (
         <>
