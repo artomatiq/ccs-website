@@ -10,7 +10,7 @@ export default function TransitionOverlay() {
   const holdDuration = durationConfig.holdDuration
   const fadeOutDuration = durationConfig.fadeOutDuration
   const blurFadeOutDuration = durationConfig.blurFadeOutDuration
-  const blurFadeOutStart = fadeInDuration + holdDuration + fadeOutDuration
+  const blurFadeOutStart = fadeInDuration + holdDuration
 
   const style = {
     "--fade-in-duration": `${fadeInDuration}ms`,
@@ -25,7 +25,7 @@ export default function TransitionOverlay() {
   return (
     <div className="transition-overlay-container" style={style}>
       <div className="transition-overlay-black" />
-      <div className="transition-overlay-blur" />
+      {/* <div className="transition-overlay-blur" /> */}
       {transitionText && (
         <div className="transition-overlay-text">{transitionText}</div>
       )}

@@ -74,9 +74,9 @@ export function useScreenTransition() {
 
 const NAV_TRANSITION_CONFIG = {
   fadeInDuration: 700,
-  holdDuration: 300,
-  fadeOutDuration: 800,
-  blurFadeOutDuration: 1000,
+  holdDuration: 700,
+  fadeOutDuration: 1000,
+  blurFadeOutDuration: 1200,
 }
 
 export function useTransitionNavigate() {
