@@ -104,7 +104,7 @@ export default function TicketWorkflow() {
                 <Route
                     path="upload"
                     element={
-                        isUploading === null ? (
+                        isUploading !== true ? (
                             <UploadPage
                                 isUploading={isUploading}
                                 setIsUploading={setIsUploading}
@@ -168,7 +168,7 @@ export default function TicketWorkflow() {
                 <Route
                     path="upload"
                     element={
-                        isUploading === null ? (
+                        isUploading !== true ? (
                             <UploadPage
                                 isUploading={isUploading}
                                 setIsUploading={setIsUploading}
