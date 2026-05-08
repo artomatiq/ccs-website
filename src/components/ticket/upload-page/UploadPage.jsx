@@ -66,7 +66,7 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
             setPortrait(null)
             fileInputRef.current.value = ""
             setDbTicket({
-                status: "uploading",
+                status: "awaiting-upload",
                 id: ticketId,
             })
             setIsUploading(true)
