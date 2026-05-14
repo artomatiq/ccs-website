@@ -17,7 +17,7 @@ const ImagePreview = ({ src, setImageSrc, hidden, setPortrait }) => {
             ctx.rotate((angle * Math.PI) / 180)
             ctx.drawImage(img, -img.width / 2, -img.height / 2)
 
-            setImageSrc(canvas.toDataURL("image/png"))
+            setImageSrc(canvas.toDataURL("image/jpeg", 0.9))
             const isPortrait = canvas.height >= canvas.width
             setPortrait(isPortrait)
         }
