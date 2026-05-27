@@ -9,145 +9,97 @@
 
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
     flex-wrap: wrap;
-
-
 
     height: 92vh;
     width: 100%;
     padding-top: 5rem;
 }
 
-.process-section {
-
-    button {
-        font-size: 1rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 2rem;
-    }
-
-}
-
-.upload-section {
-
-    button {
-        font-size: 1rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 2rem;
-    }
-}
-
-.button-wrapper {
-    position: relative;
-    display: inline-block;
-}
-
-.badge {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    min-width: 24px;
-    height: 24px;
-    padding: 0 7px;
-    background: linear-gradient(135deg, #ff4757 0%, #ff1744 50%, #d50000 100%);
-    background-size: 200% 200%;
-    color: #fff;
-    border-radius: 9999px;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    line-height: 1;
+/* --- Tile ---------------------------------------------------- */
+.admin-tile {
+    box-sizing: border-box;
+    flex: 0 0 25vh;
+    width: 24vh;
+    height: 24vh;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.43);
+    border-radius: 10px;
+    padding: 36px 25px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow:
-        0 0 0 2px rgba(255, 255, 255, 0.95),
-        0 4px 12px rgba(255, 23, 68, 0.45),
-        0 0 20px rgba(255, 23, 68, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.25);
-    animation:
-        badgePop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-        badgePulse 2.2s ease-in-out 0.4s infinite,
-        badgeShimmer 3s ease-in-out 0.4s infinite;
-    pointer-events: none;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    gap: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #fff;
+    text-align: center;
 }
 
-/* Outer pulse ring — the attention grabber */
-.badge::before {
-    content: "";
-    position: absolute;
-    inset: 0;
+.admin-tile:hover,
+.admin-tile:focus-visible {
+    border-color: var(--primary-color);
+    transform: translateY(-4px);
+    outline: none;
+}
+
+.admin-tile__icon {
+    font-size: 40px;
+    color: var(--primary-color);
+    line-height: 1;
+}
+
+.admin-tile__label {
+    font-size: 18px;
+    letter-spacing: 1.5px;
+}
+
+.admin-tile__desc {
+    font-size: 11px;
+    color: #999;
+    letter-spacing: 1px;
+    line-height: 1.5;
+}
+
+/* --- Inline "n ready" tag (replaces the floating red badge) -- */
+.admin-tile__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 4px 10px;
+    background: rgba(255, 23, 68, 0.12);
+    color: #ff4757;
+    border: 1px solid rgba(255, 23, 68, 0.4);
     border-radius: 9999px;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+}
+
+.admin-tile__tag .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
     background: #ff1744;
-    z-index: -1;
-    animation: badgeRing 2s ease-out infinite;
+    box-shadow: 0 0 6px #ff1744;
 }
 
-@keyframes badgePop {
-    0%   { transform: scale(0) rotate(-180deg); opacity: 0; }
-    100% { transform: scale(1) rotate(0deg);    opacity: 1; }
-}
-
-@keyframes badgePulse {
-    0%, 100% {
-        /* transform: scale(1); */
-        box-shadow:
-            0 0 0 2px rgba(255, 255, 255, 0.95),
-            0 4px 12px rgba(255, 23, 68, 0.45),
-            0 0 20px rgba(255, 23, 68, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.25);
-    }
-    50% {
-        /* transform: scale(1.08); */
-        box-shadow:
-            0 0 0 2px rgba(255, 255, 255, 0.95),
-            0 6px 16px rgba(255, 23, 68, 0.6),
-            0 0 28px rgba(255, 23, 68, 0.5),
-            inset 0 1px 0 rgba(255, 255, 255, 0.25);
-    }
-}
-
-@keyframes badgeShimmer {
-    0%, 100% { background-position: 0% 50%; }
-    50%      { background-position: 100% 50%; }
-}
-
-@keyframes badgeRing {
-    0% {
-        transform: scale(1);
-        opacity: 0.6;
-    }
-    100% {
-        transform: scale(1.8);
-        opacity: 0;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .badge,
-    .badge::before {
-        animation: none;
-    }
-}
-
-
-
-@media (min-width: 600px) and (max-width: 900px) {
-}
-
-
+/* --- Mobile -------------------------------------------------- */
 @media (max-width: 600px) {
     .admin-dashboard {
-    margin-top: 2rem;
-}
+        flex-direction: column;
+        padding: 4rem 1rem 2rem;
+        margin-top: 2rem;
+        gap: 16px;
+    }
+    .admin-tile {
+        flex: 0 0 25vh;
+        width: 25vh;
+        height: 25vh;
+        padding: 28px 22px;
+    }
 }

@@ -72,31 +72,42 @@ const AdminDash = () => {
                 </span>
             </div>
             <div className="admin-dashboard">
-                <div className="upload-section">
-                    <button
-                        name="upload"
-                        onClick={() => navigate("/ticket/admin/upload")}
-                    >
-                        Submit Ticket
-                    </button>
-                </div>
-                <div className="dash-section">
-                    <div className="button-wrapper">
-                        <button
-                            name="dash"
-                            onClick={() => navigate("/ticket/admin/invoice")}
-                        >
-                            Generate Invoice
-                        </button>
-                        {populatedCount > 0 && (
-                            <span
-                                className="badge"
-                                aria-label={`${populatedCount} unprocessed tickets`}
-                            >
-                                {populatedCount}
-                            </span>
-                        )}
+                <div
+                    className="admin-tile"
+                    onClick={() => navigate("/ticket/admin/upload")}
+                    role="button"
+                    tabIndex={0}
+                >
+                    <div className="admin-tile__icon">
+                        <i className="fa-solid fa-camera"></i>
                     </div>
+                    <div className="admin-tile__label">Submit Ticket</div>
+                    <div className="admin-tile__desc">
+                        Photograph a paper ticket and<br />
+                        review the extracted fields.
+                    </div>
+                </div>
+
+                <div
+                    className="admin-tile"
+                    onClick={() => navigate("/ticket/admin/invoice")}
+                    role="button"
+                    tabIndex={0}
+                >
+                    <div className="admin-tile__icon">
+                        <i className="fa-solid fa-file-invoice-dollar"></i>
+                    </div>
+                    <div className="admin-tile__label">Generate Invoice</div>
+                    <div className="admin-tile__desc">
+                        Roll up populated rows into a<br />
+                        PDF invoice in Drive.
+                    </div>
+                    {populatedCount > 0 && (
+                        <div className="admin-tile__tag" aria-label={`${populatedCount} unprocessed tickets`}>
+                            <span className="dot"></span>
+                            {populatedCount} ready
+                        </div>
+                    )}
                 </div>
             </div>
         </>
