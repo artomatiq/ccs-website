@@ -1,0 +1,105 @@
+#corner-editor {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.corner-editor-stage {
+    position: relative;
+    touch-action: none;
+}
+
+.corner-editor-stage--dragging .corner-editor-img {
+    filter: blur(3px);
+}
+
+.corner-editor-img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+    -webkit-mask-image:
+        linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%),
+        linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+    mask-image:
+        linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%),
+        linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+}
+
+.corner-editor-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.corner-editor-darken {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.corner-editor-handle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 150px;
+    background: transparent;
+    cursor: grab;
+    z-index: 10;
+    touch-action: none;
+}
+
+.corner-editor-handle::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 28px;
+    height: 28px;
+    margin-top: -14px;
+    margin-left: -14px;
+    border-radius: 50%;
+    border: 4px solid #3cabe2;
+    background-color: rgba(60, 171, 226, 0.25);
+    box-sizing: border-box;
+    pointer-events: none;
+}
+
+.corner-editor-handle:active {
+    cursor: grabbing;
+}
+
+.corner-editor-loupe {
+    position: absolute;
+    pointer-events: none;
+    z-index: 20;
+    border-radius: 50%;
+    box-shadow: 0 0 32px 8px rgba(0, 0, 0, 0.75);
+}
+
+@media screen and (max-width: 550px) {
+    /* #corner-editor {} */
+}
+
+@media screen and (orientation: landscape) and (max-width: 768px) {
+    /* #corner-editor {} */
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+    /* #corner-editor {} */
+}

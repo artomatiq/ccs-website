@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react"
 import handleFileChange from "../../../utils/ticket/handleFileChange"
 import Swal from "sweetalert2"
 import ImagePreview from "../image-preview/ImagePreview"
+import TicketCornerEditor from "../ticket-corner-editor/TicketCornerEditor"
 import uploadToS3 from "../../../api/uploadToS3"
 import { useAuth } from "../../../auth/AuthContext"
 import { useTransitionNavigate } from "../../../contexts/TransitionContext"
@@ -12,6 +13,7 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
     const navigate = useTransitionNavigate()
     const [attachment, setAttachment] = useState(null)
     const fileInputRef = useRef(null)
+    const [rawImage, setRawImage] = useState(null)
     const [imageSrc, setImageSrc] = useState(null)
     const [portrait, setPortrait] = useState(null)
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -62,6 +64,7 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
             setIsSubmitting(true)
             const { ticketId } = await uploadToS3(imageSrc, setToken)
             setAttachment(null)
+            setRawImage(null)
             setImageSrc(null)
             setPortrait(null)
             fileInputRef.current.value = ""
@@ -103,12 +106,23 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
                     onChange={(e) =>
                         handleFileChange({
                             e,
+                            setRawImage,
                             setAttachment,
                             setImageSrc,
                             setPortrait,
                         })
                     }
                 />
+                {rawImage && !imageSrc && (
+                    <TicketCornerEditor
+                        rawImage={rawImage}
+                        onConfirm={(dataUrl, isPortrait) => {
+                            setImageSrc(dataUrl)
+                            setPortrait(isPortrait)
+                            setRawImage(null)
+                        }}
+                    />
+                )}
                 <ImagePreview
                     src={imageSrc}
                     setImageSrc={setImageSrc}
@@ -129,8 +143,8 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
                             type="button"
                             onClick={handleSubmit}
                             className="button"
-                            disabled={!attachment || isSubmitting}
-                            hidden={!attachment}
+                            disabled={!imageSrc || isSubmitting}
+                            hidden={!imageSrc}
                         >
                             {isSubmitting ? (
                                 <>

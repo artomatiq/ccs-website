@@ -1,15 +1,15 @@
-/* global cv */
-import cropTicket from "../../utils/ticket/cropTicketWithCanny"
 import Swal from "sweetalert2"
 import { heicTo } from "heic-to"
 
 export default async function handleFileChange({
     e,
+    setRawImage,
     setAttachment,
     setImageSrc,
     setPortrait,
 }) {
     function resetState() {
+        setRawImage(null)
         setAttachment(null)
         setImageSrc(null)
         setPortrait(null)
@@ -21,7 +21,6 @@ export default async function handleFileChange({
         type: file.type,
         size: file.size,
     })
-    // SIZE VALIDATION
     const MAX_SIZE = 8 * 1024 * 1024
     if (file.size > MAX_SIZE) {
         Swal.fire({
@@ -40,7 +39,6 @@ export default async function handleFileChange({
         resetState()
         return
     }
-    // ✅ HANDLE HEIC → JPEG
     if (
         file.type === "image/heic" ||
         file.type === "image/heif" ||
@@ -77,74 +75,8 @@ export default async function handleFileChange({
             return
         }
     }
-    try {
-        // ✅ LOAD IMAGE (now always JPEG/PNG)
-        const img = new Image()
-        img.src = URL.createObjectURL(file)
-        img.onload = async () => {
-            try {
-                // 🔍 CROP WITH OPENCV
-                const dstMat = await cropTicket(img)
-                const canvas = document.createElement("canvas")
-                const { cols: width, rows: height } = dstMat
-                canvas.width = width
-                canvas.height = height
-                cv.imshow(canvas, dstMat)
-                dstMat.delete()
-                const isPortrait = height >= width
-                // ✅ OUTPUT AS JPEG
-                setImageSrc(canvas.toDataURL("image/jpeg", 0.9))
-                setPortrait(isPortrait)
-                setAttachment(file)
-            } catch (err) {
-                console.log("OpenCV error:", err)
-                Swal.fire({
-                    title: "Processing failed",
-                    text: "Unable to detect ticket. Try a clearer photo.",
-                    icon: "warning",
-                    customClass: {
-                        container: "swal-container",
-                        popup: "swal-popup",
-                        title: "swal-title",
-                        content: "swal-content",
-                        confirmButton: "swal-confirm-button",
-                    },
-                })
-                e.target.value = ""
-                resetState()
-            }
-        }
-        img.onerror = () => {
-            Swal.fire({
-                title: "Invalid image",
-                text: "Could not load this image file.",
-                icon: "warning",
-                customClass: {
-                    container: "swal-container",
-                    popup: "swal-popup",
-                    title: "swal-title",
-                    content: "swal-content",
-                    confirmButton: "swal-confirm-button",
-                },
-            })
-            e.target.value = ""
-            resetState()
-        }
-    } catch (err) {
-        console.log("Unexpected error:", err)
-        Swal.fire({
-            title: "Processing error",
-            text: "Something went wrong processing the image.",
-            icon: "warning",
-            customClass: {
-                container: "swal-container",
-                popup: "swal-popup",
-                title: "swal-title",
-                content: "swal-content",
-                confirmButton: "swal-confirm-button",
-            },
-        })
-        e.target.value = ""
-        resetState()
-    }
+    setImageSrc(null)
+    setPortrait(null)
+    setAttachment(file)
+    setRawImage(file)
 }
