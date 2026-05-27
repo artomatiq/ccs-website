@@ -3,7 +3,7 @@
     height: auto;
     width: 100%;
     color: white;
-    overflow-x: hidden;
+    overflow-x: clip;
 
     .segment.title {
         color: white;
