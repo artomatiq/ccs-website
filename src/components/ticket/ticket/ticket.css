@@ -19,9 +19,9 @@
 
             .upload-button.segment {
                 display: flex;
-                flex-direction: column;   
-                margin-top: 4rem; 
-                
+                flex-direction: column;
+                margin-top: 4rem;
+
                 button {
                     color: lightgray;
 
@@ -33,21 +33,111 @@
         }
     }
 
-    #attach-button {
-
+    /* --- Attach Photo: viewfinder treatment --- */
+    .attach-photo-button {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-width: 220px;
+        padding: 40px 28px;
+        border: none;
+        border-radius: 0;
+        /* corners are drawn by the brackets */
+        background: transparent !important;
+        /* beats the global `button { background-color: var(--primary-color) }` */
+        color: var(--primary-color) !important;
+        font-size: 14px;
+        letter-spacing: 2px;
+        cursor: pointer;
+        overflow: visible;
+        animation: attach-breathe 2.6s ease-in-out infinite;
+        transition: color 0.3s ease;
     }
 
-    #replace-button {
-        background-color: black;
-        color: var(--primary-color);
+    .attach-photo-button:hover {
+        color: #fff;
+        transform: none;
+        /* overrides any inherited hover-scale */
+    }
 
-        &:hover {
-            color: lightgray;
+    .attach-photo-button i {
+        font-size: 18px;
+    }
+
+    .attach-photo-button .bracket {
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        border: 2px solid var(--primary-color);
+        transition: all 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+        pointer-events: none;
+    }
+
+    .attach-photo-button .bracket.tl {
+        top: -2px;
+        left: -2px;
+        border-right: none;
+        border-bottom: none;
+    }
+
+    .attach-photo-button .bracket.tr {
+        top: -2px;
+        right: -2px;
+        border-left: none;
+        border-bottom: none;
+    }
+
+    .attach-photo-button .bracket.bl {
+        bottom: -2px;
+        left: -2px;
+        border-right: none;
+        border-top: none;
+    }
+
+    .attach-photo-button .bracket.br {
+        bottom: -2px;
+        right: -2px;
+        border-left: none;
+        border-top: none;
+    }
+
+    .attach-photo-button:hover .bracket {
+        width: 22px;
+        height: 18px;
+    }
+
+    @keyframes attach-breathe {
+
+        0%,
+        100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.025);
         }
     }
 
-    #attach-button:hover {
-        transform: none;
+    @media (prefers-reduced-motion: reduce) {
+        .attach-photo-button {
+            animation: none;
+        }
+    }
+
+    /* --- Replace state: same shape, no brackets, no breathing --- */
+    #replace-button {
+        background: transparent !important;
+        color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+        border-radius: 5px;
+        animation: none;
+    }
+
+    #replace-button:hover {
+        color: #fff;
+        background: rgba(99, 172, 246, 0.1) !important;
     }
 
     #preview-div {
@@ -115,9 +205,17 @@
     }
 
     @keyframes dots {
-        0%   { content: "."; }
-        33%  { content: ".."; }
-        66%  { content: "..."; }
+        0% {
+            content: ".";
+        }
+
+        33% {
+            content: "..";
+        }
+
+        66% {
+            content: "...";
+        }
     }
 
     #back-button {

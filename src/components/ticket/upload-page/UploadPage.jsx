@@ -132,10 +132,19 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
                 <button
                     type="button"
                     onClick={handleCapture}
-                    className="button"
-                    id={attachment? "replace-button" : "attach-button"}
+                    className="button attach-photo-button"
+                    id={attachment ? "replace-button" : "attach-button"}
                 >
-                    {attachment ? "Replace" : "Attach Photo"}
+                    {!attachment && (
+                        <>
+                            <span className="bracket tl" aria-hidden="true"></span>
+                            <span className="bracket tr" aria-hidden="true"></span>
+                            <span className="bracket bl" aria-hidden="true"></span>
+                            <span className="bracket br" aria-hidden="true"></span>
+                        </>
+                    )}
+                    <i className={attachment ? "fa-solid fa-check" : "fa-solid fa-camera"} aria-hidden="true"></i>
+                    <span>{attachment ? "Replace" : "Attach Photo"}</span>
                 </button>
                 <div className="upload-button segment">
                     <div className="form-div upload">
