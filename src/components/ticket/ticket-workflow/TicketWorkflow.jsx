@@ -51,7 +51,7 @@ export default function TicketWorkflow() {
 
     const [dbTicket, setDbTicket] = useState({
         status: "idle",
-        extractedData: null,
+        extraction: null,
     })
     // const [dbTicket, setDbTicket] = useState(testTicket)
     const { isAdmin, logout } = useAuth()

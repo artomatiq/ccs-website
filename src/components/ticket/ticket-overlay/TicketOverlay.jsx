@@ -35,14 +35,13 @@ export default function TicketOverlay(props) {
                 field,
                 {
                     value: dbTicket.text?.[field] ?? null,
-                    confidence: dbTicket.confidence?.[field] ?? null,
                     corner: dbTicket.corners?.[field] ?? null,
                 },
             ]),
         )
 
         setReviewForm(form)
-    }, [dbTicket.text, dbTicket.confidence, dbTicket.corners, setReviewForm])
+    }, [dbTicket.text, dbTicket.corners, setReviewForm])
 
     const handleChange = (e) => {
         const { name, value } = e.target

@@ -180,9 +180,8 @@ const res = await fetch(url, {
                 setDbTicket((prev) => ({
                     ...prev,
                     status: data.status,
-                    text: data.extractedData,
-                    confidence: data.extractionConfidence,
-                    corners: data.extractionApex,
+                    text: data.extraction?.data,
+                    corners: data.extraction?.apex,
                     downloadUrl: data.presignedUrl,
                 }))
             } catch (err) {
