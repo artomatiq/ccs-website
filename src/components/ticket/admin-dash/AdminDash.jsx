@@ -6,6 +6,7 @@ import "./adminDash.css"
 const AdminDash = () => {
     const spanRef = useRef(null)
     const [populatedCount, setPopulatedCount] = useState(0)
+    const [confirmedCount, setConfirmedCount] = useState(0)
     const navigate = useTransitionNavigate()
     const { token } = useAuth()
     useEffect(() => {
@@ -55,8 +56,9 @@ const AdminDash = () => {
                 if (!res.ok)
                     throw new Error("Failed to fetch populated tickets")
                 const data = await res.json()
-                setPopulatedCount(data.tickets?.length ?? 0)
-                console.log('there are ', data.tickets?.length, ' populated tickets')
+                const tickets = data.tickets ?? []
+                setPopulatedCount(tickets.filter((t) => t.status === "populated").length)
+                setConfirmedCount(tickets.filter((t) => t.status === "confirmed").length)
             } catch (err) {
                 console.error(err)
             }
@@ -106,6 +108,12 @@ const AdminDash = () => {
                         <div className="admin-tile__tag" aria-label={`${populatedCount} unprocessed tickets`}>
                             <span className="dot"></span>
                             {populatedCount} ready
+                        </div>
+                    )}
+                    {confirmedCount > 0 && (
+                        <div className="admin-tile__tag admin-tile__tag--warn" aria-label={`${confirmedCount} tickets failed sheet write`}>
+                            <i className="fa-solid fa-triangle-exclamation"></i>
+                            {confirmedCount} tickets failed sheet write
                         </div>
                     )}
                 </div>

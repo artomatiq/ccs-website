@@ -179,6 +179,12 @@ export default function AdminInvoice() {
                             alt={`Ticket ${t.confirmedData?.ticketNumber}`}
                             className="invoice-preview-img"
                         />
+                        {t.status === "confirmed" && (
+                            <div className="invoice-preview-warn">
+                                <i className="fa-solid fa-triangle-exclamation" />
+                                <span>Sheet write failed</span>
+                            </div>
+                        )}
                     </button>
                 ))}
             </div>
