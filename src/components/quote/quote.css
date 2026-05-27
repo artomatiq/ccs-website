@@ -239,11 +239,13 @@
         transition: all 0.3s ease;
     }
 
-    button:hover {
-        cursor: pointer;
-        transition-delay: 0.1s;
-        color: lightgray;
-        /* transform: scale(1.2); */
+    @media (hover: hover) {
+        button:hover {
+            cursor: pointer;
+            transition-delay: 0.1s;
+            color: lightgray;
+            /* transform: scale(1.2); */
+        }
     }
 
     button:disabled {
