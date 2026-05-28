@@ -31,6 +31,54 @@
   z-index: 9997;
 }
 
+.transition-overlay-star {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 200px;
+  height: 200px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation:
+    transition-star-fade-in calc(var(--fade-in-duration) * 1.5) linear forwards,
+    transition-star-fade-out 800ms linear forwards calc(var(--fade-in-duration) * 1.5);
+}
+
+@keyframes transition-star-fade-out {
+  to { opacity: 0; }
+}
+
+.transition-overlay-star svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.transition-overlay-star rect {
+  fill: none;
+  stroke: #d9a55f;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 480;
+  stroke-dashoffset: 480;
+  animation: transition-star-draw calc(var(--fade-in-duration) * 1.5) cubic-bezier(.5, .1, .4, 1) forwards;
+}
+
+.transition-overlay-star rect.b {
+  animation-delay: calc(var(--fade-in-duration) * 0.075);
+}
+
+@keyframes transition-star-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes transition-star-draw {
+  from { stroke-dashoffset: 480; }
+  to   { stroke-dashoffset: 0; }
+}
+
+
 .transition-overlay-text {
   position: fixed;
   top: 50%;
