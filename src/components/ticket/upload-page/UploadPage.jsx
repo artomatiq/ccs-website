@@ -143,7 +143,7 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
                             <span className="bracket br" aria-hidden="true"></span>
                         </>
                     )}
-                    <i className={attachment ? "fa-solid fa-check" : "fa-solid fa-camera"} aria-hidden="true"></i>
+                    <i className={attachment ? "fa-solid fa-arrows-rotate" : "fa-solid fa-camera"} aria-hidden="true"></i>
                     <span>{attachment ? "Replace" : "Attach Photo"}</span>
                 </button>
                 <div className="upload-button segment">

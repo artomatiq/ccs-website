@@ -57,7 +57,7 @@
     }
 
     .attach-photo-button:hover {
-        color: #fff;
+        color: lightgray !important;
         transform: none;
         /* overrides any inherited hover-scale */
     }
@@ -130,15 +130,19 @@
     #replace-button {
         background: transparent !important;
         color: var(--primary-color);
-        border: 1px solid var(--primary-color);
+        border: none;
         border-radius: 5px;
         animation: none;
+        width: 1rem;
     }
 
-    #replace-button:hover {
-        color: #fff;
-        background: rgba(99, 172, 246, 0.1) !important;
+    @media (hover: hover) {
+        #replace-button:hover {
+            color: lightgray !important;
+            transform: none;
+        }
     }
+
 
     #preview-div {
         align-self: center;
