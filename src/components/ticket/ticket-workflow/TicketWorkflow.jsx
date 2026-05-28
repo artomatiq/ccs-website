@@ -61,11 +61,11 @@ export default function TicketWorkflow() {
     const [isUploading, setIsUploading] = useState(null)
 
     const handleLogout = () => {
-        startTransition("Signing out...", {
-            fadeInDuration: 800,
-            holdDuration: 1000,
-            fadeOutDuration: 1200,
-            blurFadeOutDuration: 2000,
+        startTransition("Goodbye", {
+            fadeInDuration: 900,
+            holdDuration: 1125,
+            fadeOutDuration: 1350,
+            blurFadeOutDuration: 2250,
         })
 
         setTimeout(() => {

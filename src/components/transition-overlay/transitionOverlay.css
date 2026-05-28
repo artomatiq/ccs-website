@@ -39,14 +39,9 @@
   height: 200px;
   transform: translate(-50%, -50%);
   pointer-events: none;
-  animation:
-    transition-star-fade-in calc(var(--fade-in-duration) * 1.5) linear forwards,
-    transition-star-fade-out 800ms linear forwards calc(var(--fade-in-duration) * 1.5);
+  animation: transition-star-fade-in calc(var(--fade-in-duration) * 1.5) linear forwards;
 }
 
-@keyframes transition-star-fade-out {
-  to { opacity: 0; }
-}
 
 .transition-overlay-star svg {
   width: 100%;
@@ -61,21 +56,30 @@
   stroke-linecap: round;
   stroke-dasharray: 480;
   stroke-dashoffset: 480;
-  animation: transition-star-draw calc(var(--fade-in-duration) * 1.5) cubic-bezier(.5, .1, .4, 1) forwards;
+  animation:
+    transition-star-draw calc(var(--fade-in-duration) * 1.5) cubic-bezier(.5, .1, .4, 1) forwards,
+    transition-star-erase calc(var(--fade-in-duration) * 1.5) cubic-bezier(.5, .1, .4, 1) forwards calc(var(--fade-in-duration) * 1.5);
 }
 
 .transition-overlay-star rect.b {
-  animation-delay: calc(var(--fade-in-duration) * 0.075);
+  animation-delay:
+    calc(var(--fade-in-duration) * 0.075),
+    calc(var(--fade-in-duration) * 1.575);
 }
 
 @keyframes transition-star-fade-in {
   from { opacity: 0; }
-  to   { opacity: 1; }
+  to   { opacity: 0.5; }
 }
 
 @keyframes transition-star-draw {
   from { stroke-dashoffset: 480; }
   to   { stroke-dashoffset: 0; }
+}
+
+@keyframes transition-star-erase {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -480; }
 }
 
 
@@ -84,15 +88,15 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #fff;
+  color: rgba(217, 165, 95, 0.5);
   font-size: 1.2rem;
   font-weight: 500;
   letter-spacing: 1px;
   text-transform: uppercase;
   z-index: 10000;
   animation:
-    transition-text-fade-in var(--fade-in-duration) ease-out forwards,
-    transition-text-fade-out var(--fade-out-duration) ease-in forwards var(--text-fade-out-start);
+    transition-text-fade-in calc(var(--fade-in-duration) * 0.5) ease-out forwards,
+    transition-text-fade-out calc(var(--fade-out-duration) * 0.5) ease-in forwards var(--fade-in-duration);
   pointer-events: none;
 }
 
