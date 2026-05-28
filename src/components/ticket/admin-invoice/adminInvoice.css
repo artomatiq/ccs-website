@@ -18,11 +18,9 @@
     margin-left: 2rem;
     margin-right: 2rem;
     border-bottom: none;
-    background-image: linear-gradient(
-        to right,
-        rgb(242, 136, 55) 50%,
-        transparent 100%
-    );
+    background-image: linear-gradient(to right,
+            rgb(242, 136, 55) 50%,
+            transparent 100%);
     background-size: 100% 1px;
     background-position: bottom left;
     background-repeat: no-repeat;
@@ -106,9 +104,6 @@
     width: 220px;
     height: fit-content;
     position: relative;
-    transition:
-        transform 0.15s ease,
-        box-shadow 0.15s ease;
 }
 
 .invoice-preview-warn {
@@ -136,11 +131,6 @@
     padding: 0 0.5rem;
 }
 
-.invoice-page .invoice-preview-btn:hover {
-    transform: scale(1.07);
-    background-color: black;
-    transition-delay: 0.05s;
-}
 
 .invoice-page .invoice-modal-backdrop {
     position: fixed;
@@ -149,6 +139,7 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 2rem;
@@ -168,30 +159,21 @@
 }
 
 .invoice-page .invoice-modal-close {
-    position: fixed;
-    top: 1.5rem;
-    right: 1.5rem;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    margin-top: 1.25rem;
+    padding: 0.5rem 2rem;
+    border-radius: 999px;
     background: rgba(255, 255, 255, 0.15);
     color: #fff;
-    font-size: 1.5rem;
-    line-height: 1;
-    padding: 0;
-    padding-left: 1.5px;
-    padding-top: 1.5px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     transition: background 0.15s ease;
     z-index: 1001;
 }
 
 .invoice-page .invoice-modal-close:hover {
     background: rgba(255, 255, 255, 0.25);
-    transform: none;
 }
 
 .invoice-pdf-box {
@@ -202,6 +184,7 @@
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -212,6 +195,7 @@
         transform: scale(0.9);
         opacity: 0;
     }
+
     to {
         transform: scale(1);
         opacity: 1;
@@ -228,11 +212,9 @@
     background: transparent;
     border-radius: 0;
     flex-shrink: 0;
-    background-image: linear-gradient(
-        to left,
-        rgb(242, 136, 55) 50%,
-        transparent 100%
-    );
+    background-image: linear-gradient(to left,
+            rgb(242, 136, 55) 50%,
+            transparent 100%);
     background-size: 100% 1px;
     background-position: bottom right;
     background-repeat: no-repeat;
@@ -256,32 +238,85 @@
 }
 
 .invoice-page .invoice-generate-btn {
-    background-color: var(--primary-color);
-    color: black;
-    font-family: "Courier New", Courier, monospace;
+    background: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 6px;
     font-size: 1rem;
-    font-weight: 550;
-    box-shadow: 0 0 9px rgb(246, 166, 166);
-    animation: pulsate 1.2s ease-in-out infinite;
+    font-weight: 500;
     margin-top: 4rem;
     margin-bottom: 8rem;
     height: 3rem;
     width: 12rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
 }
 
 .invoice-page .invoice-generate-btn:hover:not(:disabled) {
-    animation: none;
-    box-shadow: none;
+    background: transparent;
+    color: #fff;
+    border-color: white;
+    transform: none;
 }
 
-.invoice-page .invoice-generate-btn:disabled {
+.invoice-page .invoice-generate-btn:disabled:not(.is-loading) {
     color: darkgray;
-    box-shadow: none;
-    animation: none;
+    border-color: darkgray;
+    background: transparent;
+    opacity: 0.6;
     cursor: default;
-    &:hover {
-        color: black;
-    }
+}
+
+.invoice-page .invoice-generate-btn.is-loading {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    opacity: 1;
+    cursor: progress;
+}
+
+.generate-inner {
+    position: relative;
+    z-index: 2;
+}
+
+.invoice-generate-btn .scan {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.invoice-generate-btn:not(:disabled) .scan,
+.invoice-generate-btn.is-loading .scan {
+    opacity: 1;
+}
+
+.invoice-generate-btn .scan-fwd {
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(99, 172, 246, 0) 25%,
+        rgba(99, 172, 246, 0.45) 50%,
+        rgba(99, 172, 246, 0) 75%,
+        transparent 100%);
+    transform: translateX(-100%);
+}
+
+.invoice-generate-btn:not(:disabled) .scan-fwd,
+.invoice-generate-btn.is-loading .scan-fwd {
+    animation: invoice-scan-fwd 1.7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.invoice-generate-btn:not(:disabled) .generate-inner,
+.invoice-generate-btn.is-loading .generate-inner {
+    animation: generate-text-sweep 1.7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes generate-text-sweep {
+    0%, 100% { color: var(--primary-color); }
+    50%       { color: lightgray; }
 }
 
 .invoice-page:has(.invoice-pdf-view) {
@@ -326,11 +361,140 @@
     border-color: white;
 }
 
-.invoice-page .invoice-pdf-print:disabled {
+.invoice-page .invoice-pdf-print:disabled:not(.is-loading) {
     color: darkgray;
     border-color: darkgray;
     cursor: default;
     opacity: 0.6;
+}
+
+.invoice-page .invoice-pdf-print {
+    position: relative;
+    overflow: hidden;
+    min-width: 180px;
+    height: 44px;
+    padding: 0 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.invoice-pdf-print__inner {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.invoice-pdf-print .scan {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.invoice-pdf-print .scan-fwd {
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(99, 172, 246, 0) 25%,
+            rgba(99, 172, 246, 0.45) 50%,
+            rgba(99, 172, 246, 0) 75%,
+            transparent 100%);
+    transform: translateX(-100%);
+}
+
+.invoice-pdf-print .scan-back {
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(99, 172, 246, 0) 30%,
+            rgba(99, 172, 246, 0.25) 50%,
+            rgba(99, 172, 246, 0) 70%,
+            transparent 100%);
+    transform: translateX(100%);
+    mix-blend-mode: screen;
+}
+
+.invoice-pdf-print.is-loading .scan {
+    opacity: 1;
+}
+
+.invoice-pdf-print.is-loading .scan-fwd {
+    animation: invoice-scan-fwd 3.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.invoice-pdf-print.is-loading .scan-back {
+    animation: invoice-scan-back 5.1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.dots-anim {
+    display: inline-block;
+    width: 1.2em;
+    text-align: left;
+}
+
+.dots-anim::after {
+    content: "";
+    animation: dots 1.2s steps(1) infinite;
+}
+
+@keyframes dots {
+    0%  { content: ""; }
+    25% { content: "."; }
+    50% { content: ".."; }
+    75% { content: "..."; }
+}
+
+@keyframes invoice-scan-fwd {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes invoice-scan-back {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.invoice-page .invoice-pdf-print.is-loading {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    opacity: 1;
+    cursor: progress;
+}
+
+.invoice-pdf-print.is-ready .scan {
+    opacity: 1;
+}
+
+.invoice-pdf-print.is-ready .scan-fwd {
+    animation: invoice-scan-fwd 1.7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.invoice-pdf-print.is-ready .invoice-pdf-print__inner {
+    animation: print-text-sweep 1.7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes print-text-sweep {
+    0%, 100% { color: var(--primary-color); }
+    50%       { color: lightgray; }
+}
+
+.invoice-page .invoice-pdf-print.is-ready:hover {
+    background: transparent;
+    color: #fff;
+    border-color: #fff;
 }
 
 @media (min-width: 600px) and (max-width: 900px) {
@@ -338,9 +502,11 @@
         height: fit-content;
         width: 500px;
     }
+
     .invoice-pdf-view {
         height: 1000px;
     }
+
     .invoice-pdf-frame {
         height: 625px;
     }
@@ -351,6 +517,7 @@
         height: fit-content;
         width: 87vw;
     }
+
     .invoice-pdf-view {
         height: 630px;
         margin-bottom: 12rem;

@@ -69,11 +69,11 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    margin-top: 8px;
+    margin-top: 0;
     padding: 4px 10px;
-    background: rgba(255, 23, 68, 0.12);
-    color: #ff4757;
-    border: 1px solid rgba(255, 23, 68, 0.4);
+    background: rgba(34, 197, 94, 0.12);
+    color: #22c55e;
+    border: 1px solid rgba(34, 197, 94, 0.4);
     border-radius: 9999px;
     font-size: 11px;
     letter-spacing: 1.5px;
@@ -84,8 +84,28 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #ff1744;
-    box-shadow: 0 0 6px #ff1744;
+    background: #22c55e;
+    box-shadow: 0 0 6px #22c55e;
+    animation: dot-blink 1.4s ease-in-out infinite;
+}
+
+@keyframes dot-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.15; }
+}
+
+.admin-tile__tag + .admin-tile__tag {
+    margin-top: 0;
+}
+
+.admin-tile__tag--warn {
+    background: rgba(255, 23, 68, 0.12);
+    color: #ff4757;
+    border-color: rgba(255, 23, 68, 0.4);
+}
+
+.admin-tile__tag--warn i {
+    color: #facc15;
 }
 
 /* --- Mobile -------------------------------------------------- */

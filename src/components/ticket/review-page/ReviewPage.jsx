@@ -16,6 +16,7 @@ export default function ReviewPage(props) {
     const [imgLoaded, setImgLoaded] = useState(false)
     const [imgError, setImgError] = useState(false)
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [isConfirmed, setIsConfirmed] = useState(false)
     const [reviewForm, setReviewForm] = useState({})
     const [touched, setTouched] = useState({
         date: false,
@@ -170,10 +171,13 @@ export default function ReviewPage(props) {
             return
         }
         const data = await res.json()
+        setIsSubmitting(false)
+        setIsConfirmed(true)
         const result = await Swal.fire({
             text: data.message || "Ticket successfully processed.",
             icon: "success",
             confirmButtonText: "OK",
+            width: "22em",
             customClass: {
                 container: "swal-container",
                 popup: "swal-popup",
@@ -186,8 +190,6 @@ export default function ReviewPage(props) {
             if (!isAdmin) {
                 logout()
             }
-            setDbTicket(null)
-            setReviewForm(null)
             navigate(`/ticket/${user}/dash`)
         }
     }
@@ -251,16 +253,19 @@ export default function ReviewPage(props) {
                 onClick={handleFinalize}
                 className="button"
                 id="finalize-button"
-                disabled={!Object.values(touched).every(Boolean) || isSubmitting}
+                disabled={!Object.values(touched).every(Boolean) || isSubmitting || isConfirmed}
             >
-                {isSubmitting ? (
-                    <>
-                        Finalizing
-                        <span className="dots-anim"></span>
-                    </>
-                ) : (
-                    "Finalize"
-                )}
+                <span className="scan scan-fwd" aria-hidden="true"></span>
+                <span className="finalize-inner">
+                    {isSubmitting ? (
+                        <>
+                            Finalizing
+                            <span className="dots-anim"></span>
+                        </>
+                    ) : (
+                        "Finalize"
+                    )}
+                </span>
             </button>
         </div>
     )

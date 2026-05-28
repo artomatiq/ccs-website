@@ -60,6 +60,8 @@ const AdminDash = () => {
             }
         }
         fetchPopulatedCount()
+        const timer = setTimeout(fetchPopulatedCount, 8000)
+        return () => clearTimeout(timer)
     }, [logout])
 
     return (
@@ -107,9 +109,9 @@ const AdminDash = () => {
                         </div>
                     )}
                     {confirmedCount > 0 && (
-                        <div className="admin-tile__tag admin-tile__tag--warn" aria-label={`${confirmedCount} tickets failed sheet write`}>
+                        <div className="admin-tile__tag admin-tile__tag--warn" aria-label={`${confirmedCount} still not populated`}>
                             <i className="fa-solid fa-triangle-exclamation"></i>
-                            {confirmedCount} tickets failed sheet write
+                            {confirmedCount} still not populated
                         </div>
                     )}
                 </div>

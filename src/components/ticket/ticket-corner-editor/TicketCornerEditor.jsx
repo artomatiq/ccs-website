@@ -321,14 +321,7 @@ const TicketCornerEditor = ({ rawImage, onConfirm }) => {
                 className="button"
                 disabled={isProcessing || !corners}
             >
-                {isProcessing ? (
-                    <>
-                        Cropping
-                        <span className="dots-anim"></span>
-                    </>
-                ) : (
-                    "Confirm"
-                )}
+                {isProcessing ? "Cropping" : "Confirm"}
             </button>
         </div>
     )

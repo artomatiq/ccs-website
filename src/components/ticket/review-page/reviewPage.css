@@ -87,15 +87,79 @@ input.review-input {
 }
 
 #finalize-button {
-    background-color: var(--primary-color);
-    color: white;
-    font-family: 'Courier New', Courier, monospace;
+    background: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 6px;
+    font-weight: 500;
     font-size: 1.2rem;
-    box-shadow: 0 0 9px rgb(246, 166, 166);
-    animation: pulsate 1.2s ease-in-out infinite;
     margin-top: 5rem;
     min-width: 13rem;
     white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#finalize-button:hover:not(:disabled) {
+    background: transparent;
+    color: #fff;
+    border-color: white;
+    transform: none;
+}
+
+.finalize-inner {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25em;
+}
+
+#finalize-button:not(:disabled) .finalize-inner {
+    animation: finalize-text-sweep 1.7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes finalize-text-sweep {
+    0%, 100% { color: var(--primary-color); }
+    50%       { color: lightgray; }
+}
+
+#finalize-button .scan {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+#finalize-button:not(:disabled) .scan {
+    opacity: 1;
+}
+
+#finalize-button .scan-fwd {
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(99, 172, 246, 0) 25%,
+        rgba(99, 172, 246, 0.45) 50%,
+        rgba(99, 172, 246, 0) 75%,
+        transparent 100%);
+    transform: translateX(-100%);
+}
+
+#finalize-button:not(:disabled) .scan-fwd {
+    animation: invoice-scan-fwd 1.7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes invoice-scan-fwd {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+@keyframes invoice-scan-back {
+    0%   { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
 }
 
 .dots-anim {
@@ -105,21 +169,23 @@ input.review-input {
 }
 
 .dots-anim::after {
-    content: ".";
+    content: "";
     animation: dots 1.2s steps(1) infinite;
 }
 
 @keyframes dots {
-    0%   { content: "."; }
-    33%  { content: ".."; }
-    66%  { content: "..."; }
+    0%   { content: ""; }
+    25%  { content: "."; }
+    50%  { content: ".."; }
+    75%  { content: "..."; }
 }
 
 #finalize-button:disabled {
-    color: rgb(0, 0, 0);
-    background-color: gray;
-    animation: none;
-    box-shadow: none;
+    color: darkgray;
+    border-color: darkgray;
+    background: transparent;
+    opacity: 0.6;
+    cursor: default;
 }
 
 @media (min-width: 600px) and (max-width: 900px) {

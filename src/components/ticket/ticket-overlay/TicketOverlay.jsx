@@ -30,11 +30,21 @@ export default function TicketOverlay(props) {
     useEffect(() => {
         if (!dbTicket?.text) return
 
+        const toISO = (raw) => {
+            if (!raw) return null
+            if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) return raw
+            const parts = raw.split("/")
+            if (parts.length !== 3) return raw
+            let [m, d, y] = parts
+            if (y.length === 2) y = "20" + y
+            return `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`
+        }
+
         const form = Object.fromEntries(
             Object.keys(dbTicket.text).map((field) => [
                 field,
                 {
-                    value: dbTicket.text?.[field] ?? null,
+                    value: field === "date" ? toISO(dbTicket.text[field]) : dbTicket.text?.[field] ?? null,
                     corner: dbTicket.corners?.[field] ?? null,
                 },
             ]),
@@ -76,15 +86,6 @@ export default function TicketOverlay(props) {
         setTimeout(() => {
             meta.setAttribute("content", "width=device-width, initial-scale=1")
         }, 50)
-        //SCROLL TICKET INTO MIDDLE OF THE PAGE
-        setTimeout(() => {
-            const ticketBox = document.querySelector(".ticket-box")
-            if (!ticketBox) return
-            ticketBox.scrollIntoView({
-                behavior: "smooth",
-                block: "center",
-            })
-        }, 750)
     }
 
     return (

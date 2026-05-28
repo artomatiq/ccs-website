@@ -63,7 +63,7 @@ export default function TicketWorkflow() {
     const handleLogout = () => {
         startTransition("Signing out...", {
             fadeInDuration: 800,
-            holdDuration: 400,
+            holdDuration: 1000,
             fadeOutDuration: 1200,
             blurFadeOutDuration: 2000,
         })
@@ -71,7 +71,7 @@ export default function TicketWorkflow() {
         setTimeout(() => {
             logout()
             finishTransition()
-        }, 1200)
+        }, 1800)
     }
 
     return (

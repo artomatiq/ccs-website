@@ -2,6 +2,7 @@ import "./statusPage.css"
 import { useEffect, useRef, useState } from "react"
 import { useAuth } from "../../../auth/AuthContext"
 import { useNavigate } from "react-router-dom"
+import { useScreenTransition, NAV_TRANSITION_CONFIG } from "../../../contexts/TransitionContext"
 import Swal from "sweetalert2"
 
 const steps = [
@@ -27,10 +28,13 @@ export default function StatusPage({
 }) {
     const { token, logout } = useAuth()
     const navigate = useNavigate()
+    const { startTransition, finishTransition } = useScreenTransition()
     const [visibleSteps, setVisibleSteps] = useState([])
     const statusBoxRef = useRef(null)
     const [tick, setTick] = useState(0)
     const stepStartTick = useRef([-1, -1, -1])
+    const checkmarkShownAt = useRef(null)
+    const navigationTriggered = useRef(false)
 
     useEffect(() => {
         const statusBox = statusBoxRef.current
@@ -73,15 +77,40 @@ export default function StatusPage({
     //     return () => clearInterval(interval)
     // }, [setDbTicket])
 
+    const lastStepStartTick = useRef(null)
+
     useEffect(() => {
         const currentIndex = statusOrder.indexOf(dbTicket.status)
-        steps.forEach((step, i) => {
-            if (stepStartTick.current[i] !== -1) return
-            if (currentIndex >= statusOrder.indexOf(step.activeFrom)) {
-                stepStartTick.current[i] = tick
-            }
-        })
-    }, [tick, dbTicket.status])
+        for (let i = 0; i < steps.length; i++) {
+            if (stepStartTick.current[i] !== -1) continue
+            if (currentIndex < statusOrder.indexOf(steps[i].activeFrom)) continue
+            if (lastStepStartTick.current !== null && tick - lastStepStartTick.current < 4) break
+            stepStartTick.current[i] = tick
+            lastStepStartTick.current = tick
+            break
+        }
+
+        // Navigate once extracting checkmark has been visible for 1.5s
+        if (navigationTriggered.current) return
+        const extractStartTick = stepStartTick.current[2]
+        if (extractStartTick === -1) return
+        if (dbTicket.status !== "extracted") return
+        const elapsed = tick - extractStartTick
+        if (elapsed < 4) return  // checkmark not shown yet
+
+        if (checkmarkShownAt.current === null) {
+            checkmarkShownAt.current = Date.now()
+        }
+        if (Date.now() - checkmarkShownAt.current < 1500) return
+
+        navigationTriggered.current = true
+        startTransition("", NAV_TRANSITION_CONFIG)
+        setTimeout(() => {
+            setIsUploading(false)
+            navigate("../review", { replace: true })
+            finishTransition()
+        }, NAV_TRANSITION_CONFIG.fadeInDuration)
+    }, [tick, dbTicket.status, startTransition, finishTransition, navigate, setIsUploading])
 
     useEffect(() => {
         if (!isUploading) return
@@ -103,9 +132,13 @@ export default function StatusPage({
                         confirmButton: "swal-confirm-button",
                     },
                 }).then(() => {
-                    setDbTicket({ status: "idle" })
-                    setIsUploading(null)
-                    navigate("../dash", { replace: true })
+                    startTransition("", NAV_TRANSITION_CONFIG)
+                    setTimeout(() => {
+                        setDbTicket({ status: "idle" })
+                        setIsUploading(null)
+                        navigate("../dash", { replace: true })
+                        finishTransition()
+                    }, NAV_TRANSITION_CONFIG.fadeInDuration)
                 })
                 return
             }
@@ -137,6 +170,7 @@ const res = await fetch(url, {
                         text: data.statusMessage || "This ticket could not be processed.",
                         icon: "warning",
                         confirmButtonText: "OK",
+                        width: "22em",
                         customClass: {
                             container: "swal-container",
                             popup: "swal-popup",
@@ -145,11 +179,13 @@ const res = await fetch(url, {
                             confirmButton: "swal-confirm-button",
                         },
                     }).then(() => {
+                        startTransition("", NAV_TRANSITION_CONFIG)
                         setTimeout(() => {
                             setDbTicket({ status: "idle" })
                             setIsUploading(null)
                             navigate("../dash", { replace: true })
-                        }, 2000)
+                            finishTransition()
+                        }, NAV_TRANSITION_CONFIG.fadeInDuration)
                     })
                     return
                 }
@@ -168,19 +204,18 @@ const res = await fetch(url, {
                             confirmButton: "swal-confirm-button",
                         },
                     }).then(() => {
+                        startTransition("", NAV_TRANSITION_CONFIG)
                         setTimeout(() => {
                             setDbTicket({ status: "idle" })
                             setIsUploading(null)
                             navigate("../dash", { replace: true })
-                        }, 2000)
+                            finishTransition()
+                        }, NAV_TRANSITION_CONFIG.fadeInDuration)
                     })
                     return
                 }
                 if (data.status === "extracted") {
                     clearInterval(interval)
-                    setTimeout(() => {
-                        setIsUploading(false)
-                    }, 2000)
                 }
                 setDbTicket((prev) => ({
                     ...prev,
@@ -197,7 +232,7 @@ const res = await fetch(url, {
         }, 2000)
 
         return () => clearInterval(interval)
-    }, [isUploading, dbTicket.id, setDbTicket, token, setIsUploading, navigate, logout])
+    }, [isUploading, dbTicket.id, setDbTicket, token, setIsUploading, navigate, logout, startTransition, finishTransition])
 
     useEffect(() => {
         const currentIndex = statusOrder.indexOf(dbTicket.status)
@@ -206,15 +241,11 @@ const res = await fetch(url, {
             return steps.map((step, i) => {
                 const requiredIndex = statusOrder.indexOf(step.doneAt)
 
-                if (currentIndex > requiredIndex) {
+                if (currentIndex >= requiredIndex) {
                     return { ...step, state: "done" }
                 }
 
-                if (currentIndex === requiredIndex) {
-                    return { ...step, state: "loading" }
-                }
-
-                return { ...step, state: "pending" }
+                return { ...step, state: "loading" }
             })
         })
     }, [dbTicket.status])
@@ -227,7 +258,8 @@ const res = await fetch(url, {
                     if (!started) return null
                     const elapsed = tick - stepStartTick.current[i]
                     const cycleComplete = elapsed >= 4
-                    const showCheck = cycleComplete && step.state === "done"
+                    const nextStarted = i < steps.length - 1 ? stepStartTick.current[i + 1] !== -1 : true
+                    const showCheck = cycleComplete && step.state === "done" && nextStarted
                     const dotsCount = !showCheck ? elapsed % 4 : 0
 
                     return (

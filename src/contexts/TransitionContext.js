@@ -72,7 +72,7 @@ export function useScreenTransition() {
   return useContext(TransitionContext)
 }
 
-const NAV_TRANSITION_CONFIG = {
+export const NAV_TRANSITION_CONFIG = {
   fadeInDuration: 700,
   holdDuration: 1200,
   fadeOutDuration: 1400,

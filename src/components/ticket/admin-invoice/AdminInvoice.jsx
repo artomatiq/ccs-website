@@ -3,6 +3,7 @@ import { useEffect, useState, useMemo, lazy, Suspense } from "react"
 import { useAuth } from "../../../auth/AuthContext"
 import { apiFetch } from "../../../api/apiFetch"
 import { useTransitionNavigate } from "../../../contexts/TransitionContext"
+import Swal from "sweetalert2"
 import "./adminInvoice.css"
 
 const InvoicePdfView = lazy(() => import("./InvoicePdfView"))
@@ -19,7 +20,6 @@ export default function AdminInvoice() {
     const [selectedDate, setSelectedDate] = useState("")
     const [previewTicket, setPreviewTicket] = useState(null)
     const [isGenerating, setIsGenerating] = useState(false)
-    const [dots, setDots] = useState("")
     // const [pdfUrl, setPdfUrl] = useState("https://drive.google.com/file/d/1xzDcU_4SkX8drbnvOi2O6qpw57w49Cuo/view?usp=drive_link")
     const [pdfUrl, setPdfUrl] = useState(null)
 
@@ -95,17 +95,6 @@ export default function AdminInvoice() {
         0,
     )
 
-    useEffect(() => {
-        if (!isGenerating) {
-            setDots("")
-            return
-        }
-        const interval = setInterval(() => {
-            setDots((prev) => (prev.length >= 3 ? "" : prev + "."))
-        }, 400)
-        return () => clearInterval(interval)
-    }, [isGenerating])
-
     const isEarliest = selectedDate === earliestDate
 
     const handleGenerate = async () => {
@@ -122,9 +111,38 @@ export default function AdminInvoice() {
             }, logout)
 
             const data = await res.json()
+            if (!res.ok) {
+                Swal.fire({
+                    text: data.error || "Invoice generation failed.",
+                    icon: "error",
+                    confirmButtonText: "OK",
+                    width: "22em",
+                    customClass: {
+                        container: "swal-container",
+                        popup: "swal-popup",
+                        title: "swal-title",
+                        content: "swal-content",
+                        confirmButton: "swal-confirm-button",
+                    },
+                })
+                return
+            }
             setPdfUrl(data.pdfUrl)
         } catch (err) {
             console.error(err)
+            Swal.fire({
+                text: "Invoice generation failed. Please try again.",
+                icon: "error",
+                confirmButtonText: "OK",
+                width: "22em",
+                customClass: {
+                    container: "swal-container",
+                    popup: "swal-popup",
+                    title: "swal-title",
+                    content: "swal-content",
+                    confirmButton: "swal-confirm-button",
+                },
+            })
         } finally {
             setIsGenerating(false)
         }
@@ -195,12 +213,15 @@ export default function AdminInvoice() {
             </div>
 
             <button
-                className="invoice-generate-btn"
+                className={`invoice-generate-btn${isGenerating ? " is-loading" : ""}`}
                 id="invoice-generate-button"
                 onClick={handleGenerate}
                 disabled={!isEarliest || isGenerating}
             >
-                {isGenerating ? `Generating${dots}` : "Generate Invoice"}
+                <span className="scan scan-fwd" aria-hidden="true"></span>
+                <span className="generate-inner">
+                    {isGenerating ? (<>Generating<span className="dots-anim"></span></>) : "Generate Invoice"}
+                </span>
             </button>
 
             {previewTicket && (
@@ -208,19 +229,18 @@ export default function AdminInvoice() {
                     className="invoice-modal-backdrop"
                     onClick={() => setPreviewTicket(null)}
                 >
-                    <button
-                        className="invoice-modal-close"
-                        onClick={() => setPreviewTicket(null)}
-                        aria-label="Close preview"
-                    >
-                        ×
-                    </button>
                     <img
                         src={previewTicket.imageUrl}
                         alt={`Ticket ${previewTicket.confirmedData?.ticketNumber}`}
                         className="invoice-modal-img"
                         onClick={(e) => e.stopPropagation()}
                     />
+                    <button
+                        className="invoice-modal-close"
+                        onClick={() => setPreviewTicket(null)}
+                    >
+                        Close
+                    </button>
                 </div>
             )}
         </div>

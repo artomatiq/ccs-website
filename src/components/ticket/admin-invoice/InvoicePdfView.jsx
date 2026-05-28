@@ -56,12 +56,18 @@ export default function InvoicePdfView({ url, token, isDesktop }) {
                 title="Print Invoice"
             />
             <button
-                className="invoice-pdf-print"
+                className={`invoice-pdf-print ${!blobUrl ? "is-loading" : "is-ready"}`}
                 onClick={handlePrint}
                 disabled={!blobUrl}
+                aria-busy={!blobUrl}
+                aria-label={!blobUrl ? "Fetching invoice from Drive" : "Print Invoice"}
             >
-                <i className="bx bx-printer" />
-                {' '}Print Invoice
+                <span className="scan scan-fwd" aria-hidden="true"></span>
+                <span className="scan scan-back" aria-hidden="true"></span>
+                <span className="invoice-pdf-print__inner">
+                    <i className="bx bx-printer" aria-hidden="true" />
+                    <span>{!blobUrl ? "Fetching invoice" : "Print Invoice"}</span>
+                </span>
             </button>
             {isDesktop && (
                 <div className="invoice-pdf-box">
