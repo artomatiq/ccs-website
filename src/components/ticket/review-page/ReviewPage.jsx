@@ -6,6 +6,10 @@ import TicketOverlay from "../ticket-overlay/TicketOverlay"
 import { useTransitionNavigate } from "../../../contexts/TransitionContext"
 import Swal from "sweetalert2"
 
+const FLEET = ["VV01", "VV02"]
+const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+const uncapWords = (s) => s.split(/\s+/).filter((w) => /^[a-z]/.test(w))
+
 export default function ReviewPage(props) {
     const { isAdmin, user, logout } = useAuth()
 
@@ -36,26 +40,64 @@ export default function ReviewPage(props) {
             ]),
         )
         const errors = []
+
+        // REQUIRED FIELDS
+        const REQUIRED_FIELDS = ["ticketNumber", "date", "day", "customerName", "jobName", "start", "stop", "truckNo"]
+        const missing = REQUIRED_FIELDS.filter((k) => typeof cleanedForm[k] !== "string" || !cleanedForm[k].trim())
+        if (missing.length) {
+            errors.push(`Missing required fields: ${missing.join(", ")}`)
+        }
+
         // DATE VALIDATION
         if (cleanedForm.date) {
-            const inputDate = new Date(cleanedForm.date)
-            const today = new Date()
-            const pastLimit = new Date()
-            pastLimit.setDate(today.getDate() - 7)
+            const [yyyy, mm, dd] = cleanedForm.date.split("-").map(Number)
+            const dateObj = new Date(Date.UTC(yyyy, mm - 1, dd))
+            const isRealDate =
+                dateObj.getUTCFullYear() === yyyy &&
+                dateObj.getUTCMonth() === mm - 1 &&
+                dateObj.getUTCDate() === dd
 
-            // normalize time
-            inputDate.setHours(0, 0, 0, 0)
-            today.setHours(0, 0, 0, 0)
-            pastLimit.setHours(0, 0, 0, 0)
-
-            if (inputDate > today) {
-                errors.push("Date cannot be in the future.")
+            if (!isRealDate) {
+                errors.push("Date is not a valid calendar date.")
                 cleanedForm.date = null
-            } else if (inputDate < pastLimit) {
-                errors.push("Ticket must be dated within the past week.")
-                cleanedForm.date = null
+            } else {
+                const now = new Date()
+                const todayUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
+                const ticketUTC = dateObj.getTime()
+                const dayMs = 24 * 60 * 60 * 1000
+                if (ticketUTC > todayUTC) {
+                    errors.push("Date cannot be in the future.")
+                    cleanedForm.date = null
+                } else if (ticketUTC < todayUTC - 7 * dayMs) {
+                    errors.push("Ticket must be dated within the past week.")
+                    cleanedForm.date = null
+                } else if (cleanedForm.day) {
+                    const expectedDay = DAY_NAMES[dateObj.getUTCDay()]
+                    if (cleanedForm.day.toLowerCase() !== expectedDay.toLowerCase()) {
+                        errors.push(`'${cleanedForm.day}' doesn't match date (expected ${expectedDay}).`)
+                        cleanedForm.day = null
+                    }
+                }
             }
         }
+
+        // TRUCK VALIDATION
+        if (cleanedForm.truckNo && !FLEET.includes(cleanedForm.truckNo)) {
+            errors.push(`'${cleanedForm.truckNo}' is not a valid truck number.`)
+            cleanedForm.truckNo = null
+        }
+
+        // CAPITALIZATION
+        for (const [key, label] of [["customerName", "Customer name"], ["jobName", "Job name"]]) {
+            if (cleanedForm[key]) {
+                const bad = uncapWords(cleanedForm[key])
+                if (bad.length) {
+                    errors.push(`${label} has uncapitalized words: ${bad.join(", ")}.`)
+                    cleanedForm[key] = null
+                }
+            }
+        }
+
         // TIME VALIDATION
         if (cleanedForm.start && cleanedForm.stop) {
             if (cleanedForm.start >= cleanedForm.stop) {
