@@ -24,7 +24,7 @@ const DriverWelcome = () => {
                 top: dashboardTop,
                 behavior: "smooth",
             })
-        }, 2000)
+        }, 2800)
     }, [])
 
     // const { dbTicket, setDbTicket } = props

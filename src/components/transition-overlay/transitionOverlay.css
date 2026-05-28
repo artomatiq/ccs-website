@@ -16,8 +16,8 @@
   background: #000;
   opacity: 0;
   animation:
-    transition-black-in var(--fade-in-duration) ease-out forwards,
-    transition-black-out var(--fade-out-duration) cubic-bezier(0.16, 1, 0.3, 1) forwards var(--fade-out-start);
+    transition-black-in var(--fade-in-duration) cubic-bezier(0.1, 0.8, 0.4, 1) forwards,
+    transition-black-out var(--fade-out-duration) cubic-bezier(0.4, 0, 0.6, 1) forwards var(--fade-out-start);
   z-index: 9998;
 }
 
