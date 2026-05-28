@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react"
 import { useAuth } from "../../../auth/AuthContext"
+import { apiFetch } from "../../../api/apiFetch"
 import "./reviewPage.css"
 import TicketOverlay from "../ticket-overlay/TicketOverlay"
 import { useTransitionNavigate } from "../../../contexts/TransitionContext"
 import Swal from "sweetalert2"
 
 export default function ReviewPage(props) {
-    const { token, setToken, isAdmin, user } = useAuth()
+    const { isAdmin, user, logout } = useAuth()
 
     const [imgLoaded, setImgLoaded] = useState(false)
     const [imgError, setImgError] = useState(false)
@@ -104,15 +105,14 @@ export default function ReviewPage(props) {
         const confirmUrl =
             process.env.REACT_APP_API_BASE_URL +
             `/confirm-ticket/${dbTicket.id}`
-        const res = await fetch(confirmUrl, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(cleanedForm),
-        })
-        if (!res.ok) {
+        let res
+        try {
+            res = await apiFetch(confirmUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(cleanedForm),
+            }, logout)
+        } catch (err) {
             Swal.fire({
                 text: "Failed to confirm ticket. Contact admin.",
                 icon: "warning",
@@ -142,7 +142,7 @@ export default function ReviewPage(props) {
         })
         if (result.isConfirmed) {
             if (!isAdmin) {
-                setToken(null)
+                logout()
             }
             setDbTicket(null)
             setReviewForm(null)

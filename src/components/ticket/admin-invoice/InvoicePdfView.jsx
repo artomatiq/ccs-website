@@ -1,4 +1,6 @@
 import { useEffect, useState, useRef } from "react"
+import { useAuth } from "../../../auth/AuthContext"
+import { apiFetch } from "../../../api/apiFetch"
 import { Document, Page, pdfjs } from "react-pdf"
 import "react-pdf/dist/Page/AnnotationLayer.css"
 import "react-pdf/dist/Page/TextLayer.css"
@@ -6,6 +8,7 @@ import "react-pdf/dist/Page/TextLayer.css"
 pdfjs.GlobalWorkerOptions.workerSrc = `${process.env.PUBLIC_URL}/pdf.worker.min.mjs`
 
 export default function InvoicePdfView({ url, token, isDesktop }) {
+    const { logout } = useAuth()
     const [blobUrl, setBlobUrl] = useState(null)
     const [error, setError] = useState(null)
     const printIframeRef = useRef(null)
@@ -18,14 +21,8 @@ export default function InvoicePdfView({ url, token, isDesktop }) {
         }
         const apiBase = process.env.REACT_APP_API_BASE_URL
         let createdUrl
-        fetch(`${apiBase}/invoices/${fileId}`, {
-            headers: { Authorization: `Bearer ${token}` },
-        })
-            .then((res) => {
-                if (!res.ok)
-                    throw new Error(`Invoice fetch failed (${res.status})`)
-                return res.blob()
-            })
+        apiFetch(`${apiBase}/invoices/${fileId}`, {}, logout)
+            .then((res) => res.blob())
             .then((blob) => {
                 createdUrl = URL.createObjectURL(blob)
                 setBlobUrl(createdUrl)
@@ -34,7 +31,7 @@ export default function InvoicePdfView({ url, token, isDesktop }) {
         return () => {
             if (createdUrl) URL.revokeObjectURL(createdUrl)
         }
-    }, [url, token])
+    }, [url, logout])
 
     const handlePrint = () => {
         if (!blobUrl) return

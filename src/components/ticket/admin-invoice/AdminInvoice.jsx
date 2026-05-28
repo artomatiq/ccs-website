@@ -1,6 +1,7 @@
 // src/ticket/pages/admin-invoice/AdminInvoice.jsx
 import { useEffect, useState, useMemo, lazy, Suspense } from "react"
 import { useAuth } from "../../../auth/AuthContext"
+import { apiFetch } from "../../../api/apiFetch"
 import { useTransitionNavigate } from "../../../contexts/TransitionContext"
 import "./adminInvoice.css"
 
@@ -12,7 +13,7 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
 })
 
 export default function AdminInvoice() {
-    const { token } = useAuth()
+    const { token, logout } = useAuth()
     const navigate = useTransitionNavigate()
     const [tickets, setTickets] = useState([])
     const [selectedDate, setSelectedDate] = useState("")
@@ -34,10 +35,8 @@ export default function AdminInvoice() {
         const fetchTickets = async () => {
             try {
                 const url = process.env.REACT_APP_API_BASE_URL
-                const res = await fetch(`${url}/tickets?status=populated`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                })
-                if (!res.ok) throw new Error("Failed to fetch tickets")
+                const res = await apiFetch(`${url}/tickets?status=populated`, {}, logout)
+
                 const data = await res.json()
                 setTickets(data.tickets ?? [])
             } catch (err) {
@@ -45,7 +44,7 @@ export default function AdminInvoice() {
             }
         }
         fetchTickets()
-    }, [token])
+    }, [logout])
 
     useEffect(() => {
         if (!previewTicket) return
@@ -118,15 +117,12 @@ export default function AdminInvoice() {
         setIsGenerating(true)
         try {
             const url = process.env.REACT_APP_API_BASE_URL
-            const res = await fetch(`${url}/invoices/generate`, {
+            const res = await apiFetch(`${url}/invoices/generate`, {
                 method: "POST",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ date: selectedDate }),
-            })
-            if (!res.ok) throw new Error("Invoice generation failed")
+            }, logout)
+
             const data = await res.json()
             setPdfUrl(data.pdfUrl)
         } catch (err) {

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { useAuth } from "../../../auth/AuthContext"
+import { apiFetch } from "../../../api/apiFetch"
 import { useTransitionNavigate } from "../../../contexts/TransitionContext"
 import "./adminDash.css"
 
@@ -8,7 +9,7 @@ const AdminDash = () => {
     const [populatedCount, setPopulatedCount] = useState(0)
     const [confirmedCount, setConfirmedCount] = useState(0)
     const navigate = useTransitionNavigate()
-    const { token } = useAuth()
+    const { logout } = useAuth()
     useEffect(() => {
         const timer = setTimeout(() => {
             spanRef.current?.classList.add("show")
@@ -47,14 +48,9 @@ const AdminDash = () => {
     }, [])
     useEffect(() => {
         const fetchPopulatedCount = async () => {
-            if (!token) return
             try {
                 const url = process.env.REACT_APP_API_BASE_URL
-                const res = await fetch(`${url}/tickets?status=populated`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                })
-                if (!res.ok)
-                    throw new Error("Failed to fetch populated tickets")
+                const res = await apiFetch(`${url}/tickets?status=populated`, {}, logout)
                 const data = await res.json()
                 const tickets = data.tickets ?? []
                 setPopulatedCount(tickets.filter((t) => t.status === "populated").length)
@@ -64,7 +60,7 @@ const AdminDash = () => {
             }
         }
         fetchPopulatedCount()
-    }, [token])
+    }, [logout])
 
     return (
         <>

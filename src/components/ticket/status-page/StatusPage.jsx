@@ -25,7 +25,7 @@ export default function StatusPage({
     isUploading,
     setIsUploading,
 }) {
-    const { token } = useAuth()
+    const { token, logout } = useAuth()
     const navigate = useNavigate()
     const [visibleSteps, setVisibleSteps] = useState([])
     const statusBoxRef = useRef(null)
@@ -116,6 +116,11 @@ export default function StatusPage({
 const res = await fetch(url, {
                     headers: { Authorization: `Bearer ${token}` },
                 })
+                if (res.status === 401 || res.status === 403) {
+                    clearInterval(interval)
+                    logout()
+                    return
+                }
                 if (res.status === 404) {
                     console.log("Ticket not in DB yet, continuing polling...")
                     return
@@ -192,7 +197,7 @@ const res = await fetch(url, {
         }, 2000)
 
         return () => clearInterval(interval)
-    }, [isUploading, dbTicket.id, setDbTicket, token, setIsUploading, navigate])
+    }, [isUploading, dbTicket.id, setDbTicket, token, setIsUploading, navigate, logout])
 
     useEffect(() => {
         const currentIndex = statusOrder.indexOf(dbTicket.status)
