@@ -28,7 +28,7 @@ export default function ReviewPage(props) {
         start: false,
         stop: false,
     })
-    const { dbTicket, setDbTicket } = props
+    const { dbTicket } = props
     const navigate = useTransitionNavigate()
 
     const handleFinalize = async () => {
