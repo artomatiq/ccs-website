@@ -2,7 +2,7 @@
 import { useEffect, useState, useMemo, lazy, Suspense } from "react"
 import { useAuth } from "../../../auth/AuthContext"
 import { apiFetch } from "../../../api/apiFetch"
-import { useTransitionNavigate } from "../../../contexts/TransitionContext"
+import { useTransitionNavigate, useScreenTransition } from "../../../contexts/TransitionContext"
 import Swal from "sweetalert2"
 import "./adminInvoice.css"
 
@@ -16,12 +16,14 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
 export default function AdminInvoice() {
     const { token, logout } = useAuth()
     const navigate = useTransitionNavigate()
+    const { startTransition, finishTransition } = useScreenTransition()
     const [tickets, setTickets] = useState([])
     const [selectedDate, setSelectedDate] = useState("")
     const [previewTicket, setPreviewTicket] = useState(null)
     const [isGenerating, setIsGenerating] = useState(false)
     // const [pdfUrl, setPdfUrl] = useState("https://drive.google.com/file/d/1xzDcU_4SkX8drbnvOi2O6qpw57w49Cuo/view?usp=drive_link")
     const [pdfUrl, setPdfUrl] = useState(null)
+    const [showPdf, setShowPdf] = useState(false)
 
     const isDesktop = useMemo(
         () =>
@@ -127,7 +129,13 @@ export default function AdminInvoice() {
                 })
                 return
             }
-            setPdfUrl(data.pdfUrl)
+            const PDF_TRANSITION = { fadeInDuration: 350, holdDuration: 0, fadeOutDuration: 400, blurFadeOutDuration: 400 }
+            startTransition("", PDF_TRANSITION)
+            setTimeout(() => {
+                setPdfUrl(data.pdfUrl)
+                setShowPdf(true)
+                finishTransition()
+            }, PDF_TRANSITION.fadeInDuration)
         } catch (err) {
             console.error(err)
             Swal.fire({
@@ -148,7 +156,7 @@ export default function AdminInvoice() {
         }
     }
 
-    if (pdfUrl) {
+    if (showPdf && pdfUrl) {
         return (
             <div className="invoice-page">
                 <Suspense fallback={<div>Loading PDF...</div>}>
@@ -213,7 +221,7 @@ export default function AdminInvoice() {
             </div>
 
             <button
-                className={`invoice-generate-btn${isGenerating ? " is-loading" : ""}`}
+                className="invoice-generate-btn"
                 id="invoice-generate-button"
                 onClick={handleGenerate}
                 disabled={!isEarliest || isGenerating}

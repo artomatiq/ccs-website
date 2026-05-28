@@ -2,7 +2,7 @@
     max-width: 1000px;
     min-height: 100vh;
     margin: 0 auto;
-    padding-top: 2rem;
+    padding-top: 5rem;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -260,19 +260,12 @@
     transform: none;
 }
 
-.invoice-page .invoice-generate-btn:disabled:not(.is-loading) {
+.invoice-page .invoice-generate-btn:disabled {
     color: darkgray;
     border-color: darkgray;
     background: transparent;
     opacity: 0.6;
     cursor: default;
-}
-
-.invoice-page .invoice-generate-btn.is-loading {
-    color: var(--primary-color);
-    border-color: var(--primary-color);
-    opacity: 1;
-    cursor: progress;
 }
 
 .generate-inner {
@@ -289,8 +282,7 @@
     transition: opacity 0.4s ease;
 }
 
-.invoice-generate-btn:not(:disabled) .scan,
-.invoice-generate-btn.is-loading .scan {
+.invoice-generate-btn:not(:disabled) .scan {
     opacity: 1;
 }
 
@@ -304,13 +296,11 @@
     transform: translateX(-100%);
 }
 
-.invoice-generate-btn:not(:disabled) .scan-fwd,
-.invoice-generate-btn.is-loading .scan-fwd {
+.invoice-generate-btn:not(:disabled) .scan-fwd {
     animation: invoice-scan-fwd 1.7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-.invoice-generate-btn:not(:disabled) .generate-inner,
-.invoice-generate-btn.is-loading .generate-inner {
+.invoice-generate-btn:not(:disabled) .generate-inner {
     animation: generate-text-sweep 1.7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 

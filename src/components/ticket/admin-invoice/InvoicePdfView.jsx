@@ -12,6 +12,15 @@ export default function InvoicePdfView({ url, token, isDesktop }) {
     const [blobUrl, setBlobUrl] = useState(null)
     const [error, setError] = useState(null)
     const printIframeRef = useRef(null)
+    const printBtnRef = useRef(null)
+
+    useEffect(() => {
+        if (!printBtnRef.current) return
+        const btn = printBtnRef.current
+        const rect = btn.getBoundingClientRect()
+        const scrollTo = rect.top + window.scrollY - window.innerHeight / 2 + rect.height / 2
+        window.scrollTo({ top: scrollTo })
+    }, [])
 
     useEffect(() => {
         const fileId = url.match(/\/d\/([^/]+)/)?.[1]
@@ -56,6 +65,7 @@ export default function InvoicePdfView({ url, token, isDesktop }) {
                 title="Print Invoice"
             />
             <button
+                ref={printBtnRef}
                 className={`invoice-pdf-print ${!blobUrl ? "is-loading" : "is-ready"}`}
                 onClick={handlePrint}
                 disabled={!blobUrl}
