@@ -82,10 +82,10 @@ const PasscodePage = () => {
                             type="submit"
                             value="send"
                             onClick={handleLogin}
-                            className="button"
+                            className={`button${isSubmitting ? " is-loading" : ""}`}
                             disabled={passcode.length < 4 || isSubmitting}
                         >
-                            {isSubmitting ? "Signing in..." : "Sign in"}
+                            {isSubmitting ? <>Signing in<span className="dots-anim"></span></> : "Sign in"}
                         </button>
                     </div>
                 </div>

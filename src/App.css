@@ -63,8 +63,18 @@ button:disabled {
     cursor: default;
 }
 
-button:disabled:hover {
-    color: black;
+@media (hover: hover) {
+    button:disabled:hover {
+        color: black;
+    }
+}
+
+button.is-loading,
+button.is-loading:hover {
+    background-color: transparent;
+    color: lightgray;
+    cursor: default;
+    pointer-events: none;
 }
 
 @media screen and (max-width: 550px) {

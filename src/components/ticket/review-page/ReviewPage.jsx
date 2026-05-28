@@ -251,7 +251,7 @@ export default function ReviewPage(props) {
             <button
                 type="button"
                 onClick={handleFinalize}
-                className="button"
+                className={`button${isSubmitting ? " is-loading" : ""}`}
                 id="finalize-button"
                 disabled={!Object.values(touched).every(Boolean) || isSubmitting || isConfirmed}
             >

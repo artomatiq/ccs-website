@@ -140,7 +140,7 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
                         <button
                             type="button"
                             onClick={handleSubmit}
-                            className="button"
+                            className={`button${isSubmitting ? " is-loading" : ""}`}
                             disabled={!imageSrc || isSubmitting}
                             hidden={!imageSrc}
                         >

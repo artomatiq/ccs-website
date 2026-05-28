@@ -103,14 +103,23 @@ export default function AdminInvoice() {
         setIsGenerating(true)
         try {
             const url = process.env.REACT_APP_API_BASE_URL
-            const res = await apiFetch(`${url}/invoices`, {
+            const token = sessionStorage.getItem("userToken")
+            const res = await fetch(`${url}/invoices`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+                },
                 body: JSON.stringify({
                     date: selectedDate,
                     ticketIds: selectedTickets.map((t) => t.ticketId),
                 }),
-            }, logout)
+            })
+
+            if (res.status === 401 || res.status === 403) {
+                logout()
+                return
+            }
 
             const data = await res.json()
             if (!res.ok) {
@@ -139,7 +148,7 @@ export default function AdminInvoice() {
         } catch (err) {
             console.error(err)
             Swal.fire({
-                text: "Invoice generation failed. Please try again.",
+                text: err.message || "Invoice generation failed.",
                 icon: "error",
                 confirmButtonText: "OK",
                 width: "22em",
@@ -221,7 +230,7 @@ export default function AdminInvoice() {
             </div>
 
             <button
-                className="invoice-generate-btn"
+                className={`invoice-generate-btn${isGenerating ? " is-loading" : ""}`}
                 id="invoice-generate-button"
                 onClick={handleGenerate}
                 disabled={!isEarliest || isGenerating}

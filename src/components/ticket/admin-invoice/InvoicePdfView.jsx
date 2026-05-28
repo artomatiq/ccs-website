@@ -76,7 +76,7 @@ export default function InvoicePdfView({ url, token, isDesktop }) {
                 <span className="scan scan-back" aria-hidden="true"></span>
                 <span className="invoice-pdf-print__inner">
                     <i className="bx bx-printer" aria-hidden="true" />
-                    <span>{!blobUrl ? "Fetching invoice" : "Print Invoice"}</span>
+                    <span>{!blobUrl ? <>Fetching invoice<span className="dots-anim"></span></> : "Print Invoice"}</span>
                 </span>
             </button>
             {isDesktop && (
