@@ -200,21 +200,16 @@ export default function ReviewPage(props) {
     }, [dbTicket?.downloadUrl])
     // Scroll
     useEffect(() => {
-        const scroll = () => {
-            setTimeout(() => {
-                const review = document.querySelector(".review-wrapper")
-                const header = document.querySelector(".header-container")
-                if (!review || !header) return
-                const reviewTop =
-                    review.getBoundingClientRect().top + window.scrollY
-                const headerHeight = header.offsetHeight
-                window.scrollTo({
-                    top: reviewTop - headerHeight,
-                    behavior: "smooth",
-                })
-            }, 2000)
-        }
-        scroll()
+        const id = requestAnimationFrame(() => {
+            const review = document.querySelector(".review-wrapper")
+            const header = document.querySelector(".header-container")
+            if (!review || !header) return
+            const reviewTop =
+                review.getBoundingClientRect().top + window.scrollY
+            const headerHeight = header.offsetHeight
+            window.scrollTo({ top: reviewTop - headerHeight })
+        })
+        return () => cancelAnimationFrame(id)
     }, [])
     //GUARDS
     if (!dbTicket?.downloadUrl) {

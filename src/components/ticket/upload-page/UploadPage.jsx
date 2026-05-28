@@ -57,19 +57,12 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
             })
             return
         }
+        setIsSubmitting(true)
         try {
-            setIsSubmitting(true)
             const { ticketId } = await uploadToS3(imageSrc, setToken)
-            setAttachment(null)
-            setRawImage(null)
-            setImageSrc(null)
-            setPortrait(null)
-            fileInputRef.current.value = ""
-            setDbTicket({
-                status: "awaiting-upload",
-                id: ticketId,
-            })
+            setDbTicket({ status: "awaiting-upload", id: ticketId })
             setIsUploading(true)
+            navigate("../status")
         } catch (error) {
             console.log(error, error.stack)
             Swal.fire({
@@ -84,7 +77,6 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
                     confirmButton: "swal-confirm-button",
                 },
             })
-        } finally {
             setIsSubmitting(false)
         }
     }
@@ -154,7 +146,7 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
                         >
                             {isSubmitting ? (
                                 <>
-                                    Uploading
+                                    Submit
                                     <span className="dots-anim"></span>
                                 </>
                             ) : (

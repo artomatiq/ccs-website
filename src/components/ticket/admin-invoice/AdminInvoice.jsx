@@ -67,19 +67,14 @@ export default function AdminInvoice() {
     }, [tickets])
 
     useEffect(() => {
-        const invoicePage = document.querySelector(".invoice-page")
-        if (!invoicePage) return
-        requestAnimationFrame(() => {
-            const timer = setTimeout(() => {
-                const invoicePageTop =
-                    invoicePage.getBoundingClientRect().top + window.scrollY
-                window.scrollTo({
-                    top: invoicePageTop - 50,
-                    behavior: "smooth",
-                })
-            }, 1000)
-            return () => clearTimeout(timer)
+        const id = requestAnimationFrame(() => {
+            const invoicePage = document.querySelector(".invoice-page")
+            if (!invoicePage) return
+            const invoicePageTop =
+                invoicePage.getBoundingClientRect().top + window.scrollY
+            window.scrollTo({ top: invoicePageTop - 50 })
         })
+        return () => cancelAnimationFrame(id)
     }, [])
 
     const availableDates = groups.map(([date]) => date)
@@ -174,7 +169,7 @@ export default function AdminInvoice() {
                         onClick={() => setPreviewTicket(t)}
                     >
                         <img
-                            src={`https://ccs-ticket-app.s3.amazonaws.com/${t.validatedKey}`}
+                            src={t.imageUrl}
                             alt={`Ticket ${t.confirmedData?.ticketNumber}`}
                             className="invoice-preview-img"
                         />
@@ -221,7 +216,7 @@ export default function AdminInvoice() {
                         ×
                     </button>
                     <img
-                        src={`https://ccs-ticket-app.s3.amazonaws.com/${previewTicket.validatedKey}`}
+                        src={previewTicket.imageUrl}
                         alt={`Ticket ${previewTicket.confirmedData?.ticketNumber}`}
                         className="invoice-modal-img"
                         onClick={(e) => e.stopPropagation()}

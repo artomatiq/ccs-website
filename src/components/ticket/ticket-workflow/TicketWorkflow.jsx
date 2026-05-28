@@ -104,15 +104,11 @@ export default function TicketWorkflow() {
                 <Route
                     path="upload"
                     element={
-                        isUploading !== true ? (
-                            <UploadPage
-                                isUploading={isUploading}
-                                setIsUploading={setIsUploading}
-                                setDbTicket={setDbTicket}
-                            />
-                        ) : (
-                            <Navigate to="../status" replace />
-                        )
+                        <UploadPage
+                            isUploading={isUploading}
+                            setIsUploading={setIsUploading}
+                            setDbTicket={setDbTicket}
+                        />
                     }
                 />
                 <Route
@@ -168,15 +164,11 @@ export default function TicketWorkflow() {
                 <Route
                     path="upload"
                     element={
-                        isUploading !== true ? (
-                            <UploadPage
-                                isUploading={isUploading}
-                                setIsUploading={setIsUploading}
-                                setDbTicket={setDbTicket}
-                            />
-                        ) : (
-                            <Navigate to="../status" replace />
-                        )
+                        <UploadPage
+                            isUploading={isUploading}
+                            setIsUploading={setIsUploading}
+                            setDbTicket={setDbTicket}
+                        />
                     }
                 />
                 <Route
