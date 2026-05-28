@@ -18,26 +18,23 @@ const UploadPage = ({ setDbTicket, setIsUploading }) => {
     const [portrait, setPortrait] = useState(null)
     const [isSubmitting, setIsSubmitting] = useState(false)
     useEffect(() => {
-        const timer = setTimeout(() => {
-            const scroll = () => {
-                if (attachment) {
-                    const ticket = document.querySelector(".ticket-container")
-                    if (!ticket) return
-                    const ticketTop =
-                        ticket.getBoundingClientRect().top + window.scrollY
-                    window.scrollTo({ top: ticketTop - 70 })
-                    return
-                }
-                const footer = document.querySelector(".footer-container")
-                if (!footer) return
-                const footerTop =
-                    footer.getBoundingClientRect().top + window.scrollY
-                const scrollTo = Math.max(0, footerTop - window.innerHeight)
-                window.scrollTo({ top: scrollTo })
+        const id = requestAnimationFrame(() => {
+            if (attachment) {
+                const ticket = document.querySelector(".ticket-container")
+                if (!ticket) return
+                const ticketTop =
+                    ticket.getBoundingClientRect().top + window.scrollY
+                window.scrollTo({ top: ticketTop - 70 })
+                return
             }
-            requestAnimationFrame(scroll)
-        }, 800)
-        return () => clearTimeout(timer)
+            const footer = document.querySelector(".footer-container")
+            if (!footer) return
+            const footerTop =
+                footer.getBoundingClientRect().top + window.scrollY
+            const scrollTo = Math.max(0, footerTop - window.innerHeight)
+            window.scrollTo({ top: scrollTo })
+        })
+        return () => cancelAnimationFrame(id)
     }, [attachment])
     const handleCapture = (e) => {
         e.preventDefault()

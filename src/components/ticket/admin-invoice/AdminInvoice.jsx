@@ -117,10 +117,13 @@ export default function AdminInvoice() {
         setIsGenerating(true)
         try {
             const url = process.env.REACT_APP_API_BASE_URL
-            const res = await apiFetch(`${url}/invoices/generate`, {
+            const res = await apiFetch(`${url}/invoices`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ date: selectedDate }),
+                body: JSON.stringify({
+                    date: selectedDate,
+                    ticketIds: selectedTickets.map((t) => t.ticketId),
+                }),
             }, logout)
 
             const data = await res.json()

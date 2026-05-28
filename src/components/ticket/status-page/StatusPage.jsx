@@ -111,7 +111,7 @@ export default function StatusPage({
             }
             const url =
                 process.env.REACT_APP_API_BASE_URL +
-                `/get-ticket/${dbTicket.id}`
+                `/tickets/${dbTicket.id}`
             try {
 const res = await fetch(url, {
                     headers: { Authorization: `Bearer ${token}` },
@@ -187,7 +187,7 @@ const res = await fetch(url, {
                     status: data.status,
                     text: data.extraction?.data,
                     corners: data.extraction?.apex,
-                    downloadUrl: data.presignedUrl,
+                    downloadUrl: data.imageUrl,
                 }))
             } catch (err) {
                 console.error("Polling error:", err)

@@ -146,7 +146,7 @@ export default function ReviewPage(props) {
         // API CALL
         const confirmUrl =
             process.env.REACT_APP_API_BASE_URL +
-            `/confirm-ticket/${dbTicket.id}`
+            `/tickets/${dbTicket.id}/confirm`
         let res
         try {
             res = await apiFetch(confirmUrl, {

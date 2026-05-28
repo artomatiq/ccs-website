@@ -16,7 +16,7 @@ export default async function uploadToS3(imgSrc, setToken) {
         const fileToUpload = dataURLToFile(imgSrc)
         //get presigned url
         const presignRes = await apiFetch(
-            `${process.env.REACT_APP_API_BASE_URL}/upload-ticket`,
+            `${process.env.REACT_APP_API_BASE_URL}/tickets`,
             {
                 method: "POST",
                 body: JSON.stringify({ fileType: fileToUpload.type })
@@ -24,14 +24,14 @@ export default async function uploadToS3(imgSrc, setToken) {
             setToken
         )
         if (!presignRes.ok) throw new Error("Failed to get presigned URL")
-        const { uploadUrl, key, ticketId } = await presignRes.json()
+        const { uploadUrl, ticketId } = await presignRes.json()
         //upload to s3
         const uploadRes = await fetch(uploadUrl, {
             method: "PUT",
             body: fileToUpload
         })
         if (!uploadRes.ok) throw new Error("S3 upload failed")
-        return { key, ticketId }
+        return { ticketId }
     } catch (err) {
         console.error("uploadToS3 error:", err)
         throw err
