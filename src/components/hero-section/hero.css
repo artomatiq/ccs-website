@@ -99,7 +99,7 @@
         font-size: clamp(20px, 35px, 45px);
         transform: translateX(200%);
         opacity: 1;
-        transition: transform 2s ease-out;
+        transition: transform 1.5s ease-out;
         &:hover {
             border: none;
             padding: none;
