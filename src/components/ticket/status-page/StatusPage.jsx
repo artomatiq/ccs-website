@@ -134,7 +134,7 @@ const res = await fetch(url, {
                     clearInterval(interval)
                     Swal.fire({
                         title: "Ticket Rejected",
-                        text: "This ticket may be a duplicate or unreadable.",
+                        text: data.statusMessage || "This ticket could not be processed.",
                         icon: "warning",
                         confirmButtonText: "OK",
                         customClass: {
