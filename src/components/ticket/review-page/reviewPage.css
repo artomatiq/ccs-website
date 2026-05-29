@@ -12,6 +12,7 @@ input[type="time"] {
     height: 100vh;
     width: 100vw;
     overflow: hidden;
+    padding-top: 3.5rem;
 }
 
 .ticket-wrapper {
@@ -86,7 +87,7 @@ input.review-input {
     pointer-events: none;
 }
 
-#finalize-button {
+#confirm-button {
     background: transparent;
     color: var(--primary-color);
     border: 1px solid var(--primary-color);
@@ -101,14 +102,14 @@ input.review-input {
     cursor: pointer;
 }
 
-#finalize-button:hover:not(:disabled) {
+#confirm-button:hover:not(:disabled) {
     background: transparent;
     color: #fff;
     border-color: white;
     transform: none;
 }
 
-.finalize-inner {
+.confirm-inner {
     position: relative;
     z-index: 2;
     display: inline-flex;
@@ -116,16 +117,16 @@ input.review-input {
     gap: 0.25em;
 }
 
-#finalize-button:not(:disabled) .finalize-inner {
-    animation: finalize-text-sweep 1.7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+#confirm-button:not(:disabled) .confirm-inner {
+    animation: confirm-text-sweep 1.7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-@keyframes finalize-text-sweep {
+@keyframes confirm-text-sweep {
     0%, 100% { color: var(--primary-color); }
     50%       { color: lightgray; }
 }
 
-#finalize-button .scan {
+#confirm-button .scan {
     position: absolute;
     inset: 0;
     pointer-events: none;
@@ -134,11 +135,11 @@ input.review-input {
     transition: opacity 0.4s ease;
 }
 
-#finalize-button:not(:disabled) .scan {
+#confirm-button:not(:disabled) .scan {
     opacity: 1;
 }
 
-#finalize-button .scan-fwd {
+#confirm-button .scan-fwd {
     background: linear-gradient(90deg,
         transparent 0%,
         rgba(99, 172, 246, 0) 25%,
@@ -148,7 +149,7 @@ input.review-input {
     transform: translateX(-100%);
 }
 
-#finalize-button:not(:disabled) .scan-fwd {
+#confirm-button:not(:disabled) .scan-fwd {
     animation: invoice-scan-fwd 1.7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
@@ -180,7 +181,7 @@ input.review-input {
     75%  { content: "..."; }
 }
 
-#finalize-button:disabled {
+#confirm-button:disabled {
     color: darkgray;
     border-color: darkgray;
     background: transparent;
@@ -188,8 +189,8 @@ input.review-input {
     cursor: default;
 }
 
-#finalize-button.is-loading,
-#finalize-button.is-loading:hover {
+#confirm-button.is-loading,
+#confirm-button.is-loading:hover {
     color: lightgray;
     border-color: lightgray;
     background: transparent;
@@ -240,7 +241,7 @@ input.review-input {
         max-width: 60%;
     }
 
-    #finalize-button {
+    #confirm-button {
         margin-top: 0;
     }
 }

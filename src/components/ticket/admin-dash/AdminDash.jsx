@@ -4,10 +4,13 @@ import { apiFetch } from "../../../api/apiFetch"
 import { useTransitionNavigate } from "../../../contexts/TransitionContext"
 import "./adminDash.css"
 
-const AdminDash = () => {
+const AdminDash = ({ setDbTicket, setIsUploading }) => {
     const spanRef = useRef(null)
+    const [extractedCount, setExtractedCount] = useState(0)
+    const [firstExtractedId, setFirstExtractedId] = useState(null)
     const [populatedCount, setPopulatedCount] = useState(0)
     const [confirmedCount, setConfirmedCount] = useState(0)
+    const [confirmHover, setConfirmHover] = useState(false)
     const navigate = useTransitionNavigate()
     const { logout } = useAuth()
     useEffect(() => {
@@ -47,22 +50,50 @@ const AdminDash = () => {
         })
     }, [])
     useEffect(() => {
-        const fetchPopulatedCount = async () => {
+        const fetchCounts = async () => {
             try {
                 const url = process.env.REACT_APP_API_BASE_URL
-                const res = await apiFetch(`${url}/tickets?status=populated`, {}, logout)
-                const data = await res.json()
-                const tickets = data.tickets ?? []
-                setPopulatedCount(tickets.filter((t) => t.status === "populated").length)
-                setConfirmedCount(tickets.filter((t) => t.status === "confirmed").length)
+                const [populatedRes, extractedRes] = await Promise.all([
+                    apiFetch(`${url}/tickets?status=populated`, {}, logout),
+                    apiFetch(`${url}/tickets?status=extracted`, {}, logout),
+                ])
+                const populatedData = await populatedRes.json()
+                const extractedData = await extractedRes.json()
+                const populatedTickets = populatedData.tickets ?? []
+                const extractedTickets = extractedData.tickets ?? []
+                setPopulatedCount(populatedTickets.filter((t) => t.status === "populated").length)
+                setConfirmedCount(populatedTickets.filter((t) => t.status === "confirmed").length)
+                setExtractedCount(extractedTickets.length)
+                setFirstExtractedId(extractedTickets[0]?.ticketId ?? null)
             } catch (err) {
                 console.error(err)
             }
         }
-        fetchPopulatedCount()
-        const timer = setTimeout(fetchPopulatedCount, 8000)
+        fetchCounts()
+        const timer = setTimeout(fetchCounts, 8000)
         return () => clearTimeout(timer)
     }, [logout])
+
+    const handleConfirmNow = async (e) => {
+        e.stopPropagation()
+        if (!firstExtractedId) return
+        try {
+            const url = process.env.REACT_APP_API_BASE_URL
+            const res = await apiFetch(`${url}/tickets/${firstExtractedId}`, {}, logout)
+            const data = await res.json()
+            setDbTicket({
+                id: data.ticketId,
+                status: data.status,
+                text: data.extraction?.data,
+                corners: data.extraction?.apex,
+                downloadUrl: data.imageUrl,
+            })
+            setIsUploading(false)
+            navigate("../review")
+        } catch (err) {
+            console.error(err)
+        }
+    }
 
     return (
         <>
@@ -86,6 +117,25 @@ const AdminDash = () => {
                         Photograph a paper ticket and<br />
                         review the extracted fields.
                     </div>
+                    {extractedCount > 0 && (
+                        <div
+                            className="admin-tile__tag admin-tile__tag--warn"
+                            aria-label={`${extractedCount} tickets unconfirmed`}
+                            onClick={handleConfirmNow}
+                            onMouseEnter={() => setConfirmHover(true)}
+                            onMouseLeave={() => setConfirmHover(false)}
+                            style={{ cursor: "pointer" }}
+                        >
+                            {confirmHover ? (
+                                "Confirm Now"
+                            ) : (
+                                <>
+                                    <i className="fa-solid fa-triangle-exclamation"></i>
+                                    {extractedCount} left unconfirmed
+                                </>
+                            )}
+                        </div>
+                    )}
                 </div>
 
                 <div

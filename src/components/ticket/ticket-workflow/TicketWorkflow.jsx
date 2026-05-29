@@ -95,7 +95,7 @@ export default function TicketWorkflow() {
                     path="dash"
                     element={
                         isAdmin ? (
-                            <AdminDash />
+                            <AdminDash setDbTicket={setDbTicket} setIsUploading={setIsUploading} />
                         ) : (
                             <Navigate to="/ticket/login" />
                         )

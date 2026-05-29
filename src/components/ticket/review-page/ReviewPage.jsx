@@ -31,7 +31,7 @@ export default function ReviewPage(props) {
     const { dbTicket } = props
     const navigate = useTransitionNavigate()
 
-    const handleFinalize = async () => {
+    const handleConfirm = async () => {
         if (isSubmitting) return
         setIsSubmitting(true)
         const cleanedForm = Object.fromEntries(
@@ -221,6 +221,11 @@ export default function ReviewPage(props) {
         return <div>Failed to load image.</div>
     }
     return (
+        <>
+        <button id="back-button" onClick={() => navigate("/ticket/admin/dash")}>
+            <i className="bx bx-arrow-back" />
+            Dashboard
+        </button>
         <div className="review-wrapper">
             {!imgLoaded && <div>Loading image...</div>}
 
@@ -250,23 +255,24 @@ export default function ReviewPage(props) {
 
             <button
                 type="button"
-                onClick={handleFinalize}
+                onClick={handleConfirm}
                 className={`button${isSubmitting ? " is-loading" : ""}`}
-                id="finalize-button"
+                id="confirm-button"
                 disabled={!Object.values(touched).every(Boolean) || isSubmitting || isConfirmed}
             >
                 <span className="scan scan-fwd" aria-hidden="true"></span>
-                <span className="finalize-inner">
+                <span className="confirm-inner">
                     {isSubmitting ? (
                         <>
-                            Finalizing
+                            Confirming
                             <span className="dots-anim"></span>
                         </>
                     ) : (
-                        "Finalize"
+                        "Confirm"
                     )}
                 </span>
             </button>
         </div>
+        </>
     )
 }

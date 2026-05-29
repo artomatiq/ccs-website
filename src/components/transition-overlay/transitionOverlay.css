@@ -56,15 +56,11 @@
   stroke-linecap: round;
   stroke-dasharray: 480;
   stroke-dashoffset: 480;
-  animation:
-    transition-star-draw calc(var(--fade-in-duration) * 1.5) cubic-bezier(.5, .1, .4, 1) forwards,
-    transition-star-erase calc(var(--fade-in-duration) * 1.5) cubic-bezier(.5, .1, .4, 1) forwards calc(var(--fade-in-duration) * 1.5);
+  animation: transition-star-cycle calc(var(--fade-in-duration) * 3) forwards;
 }
 
 .transition-overlay-star rect.b {
-  animation-delay:
-    calc(var(--fade-in-duration) * 0.075),
-    calc(var(--fade-in-duration) * 1.575);
+  animation-delay: calc(var(--fade-in-duration) * 0.075);
 }
 
 @keyframes transition-star-fade-in {
@@ -72,14 +68,10 @@
   to   { opacity: 0.5; }
 }
 
-@keyframes transition-star-draw {
-  from { stroke-dashoffset: 480; }
-  to   { stroke-dashoffset: 0; }
-}
-
-@keyframes transition-star-erase {
-  from { stroke-dashoffset: 0; }
-  to   { stroke-dashoffset: -480; }
+@keyframes transition-star-cycle {
+  0%   { stroke-dashoffset: 480; animation-timing-function: cubic-bezier(.5, .1, .4, 1); }
+  50%  { stroke-dashoffset: 0;   animation-timing-function: ease-out; }
+  100% { stroke-dashoffset: 480; }
 }
 
 
@@ -89,7 +81,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   color: rgba(217, 165, 95, 0.5);
-  font-size: 1.2rem;
+  font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: 1px;
   text-transform: uppercase;
