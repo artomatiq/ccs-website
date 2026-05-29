@@ -14,17 +14,24 @@ const DriverWelcome = () => {
     }, [])
 
     useEffect(() => {
-        setTimeout(() => {
-            const dashabord = document.querySelector(".driver-dashboard")
-            // const header = document.querySelector(".header-container")
-            if (!dashabord) return
-            const dashboardTop =
-                dashabord.getBoundingClientRect().top + window.scrollY
-            window.scrollTo({
-                top: dashboardTop,
-                behavior: "smooth",
-            })
-        }, 2800)
+        const welcome = spanRef.current
+        const dashboard = document.querySelector(".driver-dashboard")
+        if (!welcome || !dashboard) return
+        requestAnimationFrame(() => {
+            const rect = welcome.getBoundingClientRect()
+            const scrollTo =
+                rect.top +
+                window.scrollY -
+                window.innerHeight / 2 +
+                rect.height / 2
+            window.scrollTo({ top: scrollTo, behavior: "instant" })
+            const timer = setTimeout(() => {
+                const dashboardTop =
+                    dashboard.getBoundingClientRect().top + window.scrollY
+                window.scrollTo({ top: dashboardTop, behavior: "smooth" })
+            }, 2800)
+            return () => clearTimeout(timer)
+        })
     }, [])
 
     // const { dbTicket, setDbTicket } = props
@@ -39,11 +46,20 @@ const DriverWelcome = () => {
                 </span>
             </div>
             <div className="driver-dashboard">
-                {/* <div className="dash-section">
-                    <button>Process Tickets</button>
-                </div> */}
-                <div className="upload-section">
-                    <button name="upload" onClick={() => navigate("/ticket/driver/upload")}>Upload Ticket</button>
+                <div
+                    className="driver-tile"
+                    onClick={() => navigate("/ticket/driver/upload")}
+                    role="button"
+                    tabIndex={0}
+                >
+                    <div className="driver-tile__icon">
+                        <i className="fa-solid fa-camera"></i>
+                    </div>
+                    <div className="driver-tile__label">Upload Ticket</div>
+                    <div className="driver-tile__desc">
+                        Photograph a paper ticket and<br />
+                        submit it for processing.
+                    </div>
                 </div>
             </div>
         </>

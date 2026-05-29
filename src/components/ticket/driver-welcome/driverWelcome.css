@@ -9,48 +9,73 @@
 
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
     flex-wrap: wrap;
-
-
 
     height: 92vh;
     width: 100%;
     padding-top: 5rem;
 }
 
-.dash-section {
-
-    button {
-        font-size: 1rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 2rem;
-    }
-
+/* --- Tile ---------------------------------------------------- */
+.driver-tile {
+    box-sizing: border-box;
+    flex: 0 0 25vh;
+    width: 24vh;
+    height: 24vh;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.43);
+    border-radius: 10px;
+    padding: 36px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #fff;
+    text-align: center;
 }
 
-.upload-section {
-
-    button {
-        font-size: 1rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 2rem;
-    }
+.driver-tile:hover,
+.driver-tile:focus-visible {
+    border-color: var(--primary-color);
+    transform: translateY(-4px);
+    outline: none;
 }
 
-
-
-
-@media (min-width: 600px) and (max-width: 900px) {
+.driver-tile__icon {
+    font-size: 40px;
+    color: var(--primary-color);
+    line-height: 1;
 }
 
+.driver-tile__label {
+    font-size: 18px;
+    letter-spacing: 1.5px;
+}
 
+.driver-tile__desc {
+    font-size: 11px;
+    color: #999;
+    letter-spacing: 1px;
+    line-height: 1.5;
+}
+
+/* --- Mobile -------------------------------------------------- */
 @media (max-width: 600px) {
+    .driver-dashboard {
+        flex-direction: column;
+        padding: 4rem 1rem 2rem;
+        margin-top: 2rem;
+        gap: 16px;
+    }
+    .driver-tile {
+        flex: 0 0 25vh;
+        width: 25vh;
+        height: 25vh;
+        padding: 28px 22px;
+    }
 }
