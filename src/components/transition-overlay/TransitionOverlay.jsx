@@ -31,6 +31,12 @@ export default function TransitionOverlay() {
             <rect className="b" x="-60" y="-60" width="120" height="120" transform="rotate(45)" />
           </svg>
         </div>
+        <div className="transition-overlay-star transition-overlay-star-black" aria-hidden="true">
+          <svg viewBox="-100 -100 200 200">
+            <rect x="-60" y="-60" width="120" height="120" />
+            <rect className="b" x="-60" y="-60" width="120" height="120" transform="rotate(45)" />
+          </svg>
+        </div>
       </div>
       {/* <div className="transition-overlay-blur" /> */}
       {transitionText && (
