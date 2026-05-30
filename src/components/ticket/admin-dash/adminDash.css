@@ -21,18 +21,16 @@
 /* --- Tile ---------------------------------------------------- */
 .admin-tile {
     box-sizing: border-box;
-    flex: 0 0 25vh;
-    width: 24vh;
-    height: 24vh;
+    flex: 0 0 27.5vh;
+    width: 26.4vh;
+    height: 26.4vh;
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.43);
     border-radius: 10px;
-    padding: 36px 25px;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
+    align-items: stretch;
     cursor: pointer;
     transition: all 0.3s ease;
     color: #fff;
@@ -44,6 +42,18 @@
     border-color: var(--primary-color);
     transform: translateY(-4px);
     outline: none;
+}
+
+/* Top 70% — icon, label, desc */
+.admin-tile__main {
+    box-sizing: border-box;
+    flex: 0 0 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14px;
+    padding: 0 25px 5px;
 }
 
 .admin-tile__icon {
@@ -64,12 +74,28 @@
     line-height: 1.5;
 }
 
-/* --- Inline "n ready" tag (replaces the floating red badge) -- */
+/* Bottom 30% — tag slots */
+.admin-tile__tags {
+    flex: 0 0 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+/* Each slot fills its share and centers the tag inside it */
+.admin-tile__tag-slot {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .admin-tile__tag {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    margin-top: 0;
     padding: 4px 10px;
     background: rgba(34, 197, 94, 0.12);
     color: #22c55e;
@@ -78,6 +104,16 @@
     font-size: 11px;
     letter-spacing: 1.5px;
     font-weight: 600;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.admin-tile__tag--visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }
 
 .admin-tile__tag .dot {
@@ -89,13 +125,14 @@
     animation: dot-blink 1.4s ease-in-out infinite;
 }
 
+.admin-tile__tag .dot--warn {
+    background: #ff4757;
+    box-shadow: 0 0 6px #ff4757;
+}
+
 @keyframes dot-blink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.15; }
-}
-
-.admin-tile__tag + .admin-tile__tag {
-    margin-top: 0;
 }
 
 .admin-tile__tag--warn {
@@ -104,9 +141,6 @@
     border-color: rgba(255, 23, 68, 0.4);
 }
 
-.admin-tile__tag--warn i {
-    color: #facc15;
-}
 
 /* --- Mobile -------------------------------------------------- */
 @media (max-width: 600px) {
@@ -117,9 +151,8 @@
         gap: 16px;
     }
     .admin-tile {
-        flex: 0 0 25vh;
-        width: 25vh;
-        height: 25vh;
-        padding: 28px 22px;
+        flex: 0 0 27.5vh;
+        width: 27.5vh;
+        height: 27.5vh;
     }
 }

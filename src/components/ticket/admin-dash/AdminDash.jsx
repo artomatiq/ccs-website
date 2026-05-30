@@ -109,33 +109,38 @@ const AdminDash = ({ setDbTicket, setIsUploading }) => {
                     role="button"
                     tabIndex={0}
                 >
-                    <div className="admin-tile__icon">
-                        <i className="fa-solid fa-camera"></i>
-                    </div>
-                    <div className="admin-tile__label">Submit Ticket</div>
-                    <div className="admin-tile__desc">
-                        Photograph a paper ticket and<br />
-                        review the extracted fields.
-                    </div>
-                    {extractedCount > 0 && (
-                        <div
-                            className="admin-tile__tag admin-tile__tag--warn"
-                            aria-label={`${extractedCount} tickets unconfirmed`}
-                            onClick={handleConfirmNow}
-                            onMouseEnter={() => setConfirmHover(true)}
-                            onMouseLeave={() => setConfirmHover(false)}
-                            style={{ cursor: "pointer" }}
-                        >
-                            {confirmHover ? (
-                                "Confirm Now"
-                            ) : (
-                                <>
-                                    <i className="fa-solid fa-triangle-exclamation"></i>
-                                    {extractedCount} left unconfirmed
-                                </>
-                            )}
+                    <div className="admin-tile__main">
+                        <div className="admin-tile__icon">
+                            <i className="fa-solid fa-camera"></i>
                         </div>
-                    )}
+                        <div className="admin-tile__label">Submit Ticket</div>
+                        <div className="admin-tile__desc">
+                            Photograph a paper ticket and<br />
+                            review the extracted fields.
+                        </div>
+                    </div>
+                    <div className="admin-tile__tags">
+                        <div className="admin-tile__tag-slot">
+                            <div
+                                className={`admin-tile__tag admin-tile__tag--warn${extractedCount > 0 ? " admin-tile__tag--visible" : ""}`}
+                                aria-label={`${extractedCount} tickets unconfirmed`}
+                                onClick={handleConfirmNow}
+                                onMouseEnter={() => setConfirmHover(true)}
+                                onMouseLeave={() => setConfirmHover(false)}
+                                style={{ cursor: "pointer" }}
+                            >
+                                {confirmHover ? (
+                                    "Confirm Now"
+                                ) : (
+                                    <>
+                                        <span className="dot dot--warn"></span>
+                                        {extractedCount} ticket{extractedCount !== 1 ? "s" : ""} unconfirmed
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                        <div className="admin-tile__tag-slot"></div>
+                    </div>
                 </div>
 
                 <div
@@ -144,26 +149,36 @@ const AdminDash = ({ setDbTicket, setIsUploading }) => {
                     role="button"
                     tabIndex={0}
                 >
-                    <div className="admin-tile__icon">
-                        <i className="fa-solid fa-file-invoice-dollar"></i>
-                    </div>
-                    <div className="admin-tile__label">Generate Invoice</div>
-                    <div className="admin-tile__desc">
-                        Roll up populated rows into a<br />
-                        PDF invoice in Drive.
-                    </div>
-                    {populatedCount > 0 && (
-                        <div className="admin-tile__tag" aria-label={`${populatedCount} unprocessed tickets`}>
-                            <span className="dot"></span>
-                            {populatedCount} ready
+                    <div className="admin-tile__main">
+                        <div className="admin-tile__icon">
+                            <i className="fa-solid fa-file-invoice-dollar"></i>
                         </div>
-                    )}
-                    {confirmedCount > 0 && (
-                        <div className="admin-tile__tag admin-tile__tag--warn" aria-label={`${confirmedCount} still not populated`}>
-                            <i className="fa-solid fa-triangle-exclamation"></i>
-                            {confirmedCount} still not populated
+                        <div className="admin-tile__label">Generate Invoice</div>
+                        <div className="admin-tile__desc">
+                            Roll up populated rows into a<br />
+                            PDF invoice in Drive.
                         </div>
-                    )}
+                    </div>
+                    <div className="admin-tile__tags">
+                        <div className="admin-tile__tag-slot">
+                            <div
+                                className={`admin-tile__tag${populatedCount > 0 ? " admin-tile__tag--visible" : ""}`}
+                                aria-label={`${populatedCount} unprocessed tickets`}
+                            >
+                                <span className="dot"></span>
+                                {populatedCount} ticket{populatedCount !== 1 ? "s" : ""} ready
+                            </div>
+                        </div>
+                        <div className="admin-tile__tag-slot">
+                            <div
+                                className={`admin-tile__tag admin-tile__tag--warn${confirmedCount > 0 ? " admin-tile__tag--visible" : ""}`}
+                                aria-label={`${confirmedCount} still not populated`}
+                            >
+                                <span className="dot dot--warn"></span>
+                                ticket {confirmedCount} not populated
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
