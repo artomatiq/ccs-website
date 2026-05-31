@@ -175,7 +175,7 @@ const AdminDash = ({ setDbTicket, setIsUploading }) => {
                                 aria-label={`${confirmedCount} still not populated`}
                             >
                                 <span className="dot dot--warn"></span>
-                                ticket {confirmedCount} not populated
+                                {confirmedCount} ticket{confirmedCount !== 1 ? "s" : ""} not populated
                             </div>
                         </div>
                     </div>
