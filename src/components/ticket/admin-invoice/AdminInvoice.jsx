@@ -21,7 +21,6 @@ export default function AdminInvoice() {
     const [selectedDate, setSelectedDate] = useState("")
     const [previewTicket, setPreviewTicket] = useState(null)
     const [isGenerating, setIsGenerating] = useState(false)
-    // const [pdfUrl, setPdfUrl] = useState("https://drive.google.com/file/d/1xzDcU_4SkX8drbnvOi2O6qpw57w49Cuo/view?usp=drive_link")
     const [pdfUrl, setPdfUrl] = useState(null)
     const [showPdf, setShowPdf] = useState(false)
 
